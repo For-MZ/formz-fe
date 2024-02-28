@@ -6,7 +6,7 @@ $heading-line-height: 1.2;
 // 반응형 변수
 $mobile-breakpoint: 768px;
 
-// 컬러 변수
+// 색상 팔레트 변수
 $color-green-50: #e9fbf3;
 $color-green-100: #d8f9e9;
 $color-green-200: #b0f2d3;
@@ -60,7 +60,7 @@ $color-gray-900: #111827;
 $color-black: #000000;
 $color-white: #ffffff;
 
-// theme variables: light-mode
+// 테마 색상 변수 - 라이트 모드
 $color-brand-50: #e9fbf3;
 $color-brand-100: #d8f9e9;
 $color-brand-200: #b0f2d3;
@@ -122,7 +122,8 @@ $color-neutral-700: #374151;
 $color-neutral-800: #1f2937;
 $color-neutral-900: #111827;
 
-// text color
+// ! 아래에 있는 시맨틱 컬러만 사용 하기, 위 컬러 팔레트 변수는 사용 X
+// 글자 색상 변수
 $text-primary-color: $color-neutral-900;
 $text-secondary-color: $color-neutral-800;
 $text-info-color: $color-info-600;
@@ -131,7 +132,7 @@ $text-warning-color: $color-warning-600;
 $text-danger-color: $color-danger-600;
 $text-disabled-color: $color-neutral-500;
 
-// text color interactive
+// 글자 색상 - 인터렉티브
 $text-interactive-primary-color: $color-brand-600;
 $text-interactive-primary-hover-color: $color-brand-700;
 $text-interactive-primary-press-color: $color-brand-800;
@@ -141,7 +142,7 @@ $text-interactive-secondary-press-color: $color-neutral-800;
 $text-interactive-selected-color: $color-brand-600;
 $text-interactive-inverse-color: $color-white;
 
-// background
+// 배경 색상
 $background-primary-color: $color-white;
 $background-secondary-color: $color-neutral-100;
 $background-info-subtle-color: $color-info-100;
@@ -154,7 +155,7 @@ $background-danger-subtle-color: $color-danger-100;
 $background-danger-color: $color-danger-600;
 $background-disabled-color: $color-neutral-200;
 
-// background interactive 색상
+// 배경 색상 - 인터렉티브
 $background-interactive-primary-color: $color-brand-600;
 $background-interactive-primary-hover-color: $color-brand-700;
 $background-interactive-primary-press-color: $color-brand-800;
@@ -163,7 +164,7 @@ $background-interactive-secondary-hover-color: $color-neutral-200;
 $background-interactive-secondary-press-color: $color-neutral-300;
 $background-interactive-selected-color: $color-brand-600;
 
-// border 색상
+// 테두리 색상
 $border-primary-color: $color-gray-500;
 $border-secondary-color: $color-neutral-400;
 $border-focus-ring-color: $color-brand-700;
@@ -177,7 +178,7 @@ $border-danger-subtle-color: $color-danger-200;
 $border-danger-color: $color-danger-600;
 $border-disabled-color: $color-neutral-300;
 
-// border-interactive 색상
+// 테두리 색상 - 인터렉티브
 $border-interactive-primary-color: $color-brand-600;
 $border-interactive-primary-hover-color: $color-brand-700;
 $border-interactive-primary-press-color: $color-brand-800;
@@ -186,7 +187,7 @@ $border-interactive-secondary-hover-color: $color-neutral-500;
 $border-interactive-secondary-press-color: $color-neutral-600;
 $border-interactive-selected-color: $color-brand-600;
 
-// icon
+// 아이콘 색상
 $icon-primary-color: $color-neutral-900;
 $icon-secondary-color: $color-neutral-800;
 $icon-info-color: $color-info-600;
@@ -196,7 +197,7 @@ $icon-danger-color: $color-danger-600;
 $icon-disabled-color: $color-neutral-500;
 $icon-brand-color: $color-brand-600;
 
-// icon-interactive
+// 아이콘 색상 - 인터렉티브
 $icon-interactive-primary-color: $color-brand-600;
 $icon-interactive-primary-hover-color: $color-brand-700;
 $icon-interactive-primary-press-color: $color-brand-800;
