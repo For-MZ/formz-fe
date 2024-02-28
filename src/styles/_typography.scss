@@ -1,0 +1,91 @@
+// 데스크탑 타이포그래피
+body {
+  font-size: $body-font-size;
+  line-height: $body-line-height;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: $heading-line-height;
+}
+
+h1,
+h2 {
+  font-weight: 700;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 28px;
+}
+
+h5 {
+  font-size: 24px;
+}
+
+h6 {
+  font-size: 18px;
+}
+
+// 모바일 타이포그래피
+@include mobile {
+  body {
+    font-size: $body-font-size - 4px;
+  }
+
+  h1,
+  h2 {
+    font-weight: 700;
+  }
+
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  h5 {
+    font-size: 16px;
+  }
+
+  h6 {
+    font-size: 16px;
+  }
+}

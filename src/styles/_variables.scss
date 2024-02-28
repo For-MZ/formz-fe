@@ -1,0 +1,207 @@
+// 타이포그래피 변수
+$body-font-size: 16px;
+$body-line-height: 1.2;
+$heading-line-height: 1.2;
+
+// 반응형 변수
+$mobile-breakpoint: 768px;
+
+// 컬러 변수
+$color-green-50: #e9fbf3;
+$color-green-100: #d8f9e9;
+$color-green-200: #b0f2d3;
+$color-green-300: #89ecbd;
+$color-green-400: #61e5a8;
+$color-green-500: #3adf92;
+$color-green-600: #21ca7b;
+$color-green-700: #1aa263;
+$color-green-800: #147b4b;
+$color-green-900: #0e5333;
+$color-blue-50: #eff6ff;
+$color-blue-100: #dbeafe;
+$color-blue-200: #bfdbfe;
+$color-blue-300: #93c5fd;
+$color-blue-400: #60a5fa;
+$color-blue-500: #3b82f6;
+$color-blue-600: #2563eb;
+$color-blue-700: #1d4ed8;
+$color-blue-800: #1e40af;
+$color-blue-900: #1e3a8a;
+$color-yellow-50: ⁠#fefce8;
+$color-yellow-100: ⁠#fef9c3;
+$color-yellow-200: ⁠#fef08a;
+$color-yellow-300: #fde047;
+$color-yellow-400: #facc15;
+$color-yellow-500: #eab308;
+$color-yellow-600: #ca8a04;
+$color-yellow-700: #a16207;
+$color-yellow-800: #854d0e;
+$color-yellow-900: #713f12;
+$color-red-50: ⁠#fef2f2;
+$color-red-100: ⁠#fee2e2;
+$color-red-200: ⁠#fecaca;
+$color-red-300: #fca5a5;
+$color-red-400: #f87171;
+$color-red-500: #ef4444;
+$color-red-600: #dc2626;
+$color-red-700: #b91c1c;
+$color-red-800: #991b1b;
+$color-red-900: #7f1d1d;
+$color-gray-50: #f9fafb;
+$color-gray-100: #f3f4f6;
+$color-gray-200: #e5e7eb;
+$color-gray-300: #d1d5db;
+$color-gray-400: #9ca3af;
+$color-gray-500: #6b7280;
+$color-gray-600: #4b5563;
+$color-gray-700: #374151;
+$color-gray-800: #1f2937;
+$color-gray-900: #111827;
+$color-black: #000000;
+$color-white: #ffffff;
+
+// theme variables: light-mode
+$color-brand-50: #e9fbf3;
+$color-brand-100: #d8f9e9;
+$color-brand-200: #b0f2d3;
+$color-brand-300: #89ecbd;
+$color-brand-400: #61e5a8;
+$color-brand-500: #3adf92;
+$color-brand-600: #21ca7b;
+$color-brand-700: #1aa263;
+$color-brand-800: #147b4b;
+$color-brand-900: #0e5333;
+$color-info-50: #eff6ff;
+$color-info-100: #dbeafe;
+$color-info-200: #bfdbfe;
+$color-info-300: #93c5fd;
+$color-info-400: #60a5fa;
+$color-info-500: #3b82f6;
+$color-info-600: #2563eb;
+$color-info-700: #1d4ed8;
+$color-info-800: #1e40af;
+$color-info-900: #1e3a8a;
+$color-success-50: #e9fbf3;
+$color-success-100: #d8f9e9;
+$color-success-200: #b0f2d3;
+$color-success-300: #89ecbd;
+$color-success-400: #61e5a8;
+$color-success-500: #3adf92;
+$color-success-600: #21ca7b;
+$color-success-700: #1aa263;
+$color-success-800: #147b4b;
+$color-success-900: #0e5333;
+$color-warning-50: #fefce8;
+$color-warning-100: #fef9c3;
+$color-warning-200: #fef08a;
+$color-warning-300: #fde047;
+$color-warning-400: #facc15;
+$color-warning-500: #eab308;
+$color-warning-600: #ca8a04;
+$color-warning-700: #a16207;
+$color-warning-800: #854d0e;
+$color-warning-900: #713f12;
+$color-danger-50: #fef2f2;
+$color-danger-100: #fee2e2;
+$color-danger-200: #fecaca;
+$color-danger-300: #fca5a5;
+$color-danger-400: #f87171;
+$color-danger-500: #ef4444;
+$color-danger-600: #dc2626;
+$color-danger-700: #b91c1c;
+$color-danger-800: #991b1b;
+$color-danger-900: #7f1d1d;
+$color-neutral-50: #f9fafb;
+$color-neutral-100: #f3f4f6;
+$color-neutral-200: #e5e7eb;
+$color-neutral-300: #d1d5db;
+$color-neutral-400: #9ca3af;
+$color-neutral-500: #6b7280;
+$color-neutral-600: #4b5563;
+$color-neutral-700: #374151;
+$color-neutral-800: #1f2937;
+$color-neutral-900: #111827;
+
+// text color
+$text-primary-color: $color-neutral-900;
+$text-secondary-color: $color-neutral-800;
+$text-info-color: $color-info-600;
+$text-success-color: $color-success-600;
+$text-warning-color: $color-warning-600;
+$text-danger-color: $color-danger-600;
+$text-disabled-color: $color-neutral-500;
+
+// text color interactive
+$text-interactive-primary-color: $color-brand-600;
+$text-interactive-primary-hover-color: $color-brand-700;
+$text-interactive-primary-press-color: $color-brand-800;
+$text-interactive-secondary-color: $color-neutral-600;
+$text-interactive-secondary-hover-color: $color-neutral-700;
+$text-interactive-secondary-press-color: $color-neutral-800;
+$text-interactive-selected-color: $color-brand-600;
+$text-interactive-inverse-color: $color-white;
+
+// background
+$background-primary-color: $color-white;
+$background-secondary-color: $color-neutral-100;
+$background-info-subtle-color: $color-info-100;
+$background-info-color: $color-info-600;
+$background-success-subtle-color: $color-success-100;
+$background-success-color: $color-success-600;
+$background-warning-subtle-color: $color-warning-100;
+$background-warning-color: $color-warning-600;
+$background-danger-subtle-color: $color-danger-100;
+$background-danger-color: $color-danger-600;
+$background-disabled-color: $color-neutral-200;
+
+// background interactive 색상
+$background-interactive-primary-color: $color-brand-600;
+$background-interactive-primary-hover-color: $color-brand-700;
+$background-interactive-primary-press-color: $color-brand-800;
+$background-interactive-secondary-color: $color-neutral-100;
+$background-interactive-secondary-hover-color: $color-neutral-200;
+$background-interactive-secondary-press-color: $color-neutral-300;
+$background-interactive-selected-color: $color-brand-600;
+
+// border 색상
+$border-primary-color: $color-gray-500;
+$border-secondary-color: $color-neutral-400;
+$border-focus-ring-color: $color-brand-700;
+$border-info-subtle-color: $color-info-200;
+$border-info-color: $color-info-600;
+$border-success-subtle-color: $color-success-200;
+$border-success-color: $color-success-600;
+$border-warning-subtle-color: $color-warning-200;
+$border-warning-color: $color-warning-600;
+$border-danger-subtle-color: $color-danger-200;
+$border-danger-color: $color-danger-600;
+$border-disabled-color: $color-neutral-300;
+
+// border-interactive 색상
+$border-interactive-primary-color: $color-brand-600;
+$border-interactive-primary-hover-color: $color-brand-700;
+$border-interactive-primary-press-color: $color-brand-800;
+$border-interactive-secondary-color: $color-neutral-400;
+$border-interactive-secondary-hover-color: $color-neutral-500;
+$border-interactive-secondary-press-color: $color-neutral-600;
+$border-interactive-selected-color: $color-brand-600;
+
+// icon
+$icon-primary-color: $color-neutral-900;
+$icon-secondary-color: $color-neutral-800;
+$icon-info-color: $color-info-600;
+$icon-success-color: $color-success-600;
+$icon-warning-color: $color-warning-600;
+$icon-danger-color: $color-danger-600;
+$icon-disabled-color: $color-neutral-500;
+$icon-brand-color: $color-brand-600;
+
+// icon-interactive
+$icon-interactive-primary-color: $color-brand-600;
+$icon-interactive-primary-hover-color: $color-brand-700;
+$icon-interactive-primary-press-color: $color-brand-800;
+$icon-interactive-secondary-color: $color-neutral-600;
+$icon-interactive-secondary-hover-color: $color-neutral-700;
+$icon-interactive-secondary-press-color: $color-neutral-800;
+$icon-interactive-selected-color: $color-brand-600;
+$icon-interactive-inverse-color: $color-white;
