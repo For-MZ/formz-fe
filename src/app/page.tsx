@@ -1,7 +1,3 @@
-import Divider from '@/components/UI/Divider/Divider';
-import Toast from '@/components/UI/Toast/Toast';
-import Input from '@/components/UI/Input/Input';
-
 export default function Home() {
   return (
     <>
@@ -11,9 +7,6 @@ export default function Home() {
       <h4>타이포 그래피 테스트 h4</h4>
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
-      <Input />
-      <Divider />
-      <Toast message="Toast TEST" backgroundColor="#21ca7b" color="#147b4b" />
     </>
   );
 }
