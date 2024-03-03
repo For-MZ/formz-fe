@@ -1,7 +1,11 @@
 .input {
   width: 442px;
   height: 24px;
-  border: 2px;
-  color: black;
-  border-color: black;
+  border: 2px solid $border-secondary-color;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+    border-color: $border-focus-ring-color;
+    border-radius: 8px;
+  }
 }
