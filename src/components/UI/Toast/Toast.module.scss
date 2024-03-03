@@ -5,4 +5,9 @@
   left: 50%;
   padding: 24px 240px;
   border-radius: 5px;
+
+  &.blue {
+    background-color: $background-success-color;
+    color: $text-success-color;
+  }
 }
