@@ -16,6 +16,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="ko" className={pretendard.className}>
       <body>
+        <div id="portal" />
         <Header />
         <main className="main">{children}</main>
       </body>
