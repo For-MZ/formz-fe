@@ -22,7 +22,9 @@ export default function Header() {
             <Link href={'/community'}>커뮤니티</Link>
           </li>
         </ul>
-        <Link href={'/login'}>로그인</Link>
+        <Link href={'/pages/login'}>로그인</Link>
+        <Link href={'/pages/mypage'}>마이페이지</Link>
+        <Link href={'/pages/signup'}>회원가입</Link>
       </nav>
     </header>
   );

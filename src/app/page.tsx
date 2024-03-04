@@ -16,6 +16,7 @@ export default function Home() {
       <Input />
       <CheckBox />
       <Divider style="none" />
+      <Divider text="text" style="text" />
       <Toast message="Description" color="green" />
       <Toast message="Description" color="blue" />
       <Toast message="Description" color="yellow" />
