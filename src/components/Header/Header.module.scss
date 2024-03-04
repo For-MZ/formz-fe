@@ -1,13 +1,5 @@
 .header {
   box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
-
-  a {
-    color: $text-secondary-color;
-  }
-
-  a:hover {
-    color: $text-interactive-primary-color;
-  }
 }
 
 .navigation {
@@ -17,11 +9,14 @@
   justify-content: space-between;
   align-items: center;
   background-color: $background-primary-color;
-  color: $text-secondary-color;
   padding: 1rem;
 
-  ul {
+  .navMenu {
     display: flex;
     gap: 2rem;
   }
+}
+
+.selected {
+  color: $text-interactive-selected-color;
 }
