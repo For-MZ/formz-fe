@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   description: 'MZ세대를 위한 웹 사이트',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type Props = Readonly<{
   children: React.ReactNode;
-}>) {
+}>;
+
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="ko" className={pretendard.className}>
       <body>
         <Header />
-        {children}
+        <main className="main">{children}</main>
       </body>
     </html>
   );
