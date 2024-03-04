@@ -1,13 +1,45 @@
 .toast {
-  position: fixed;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-  left: 50%;
-  padding: 24px 240px;
+  height: 38px;
+  width: 240px;
+  border: 1px solid;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 12px 0px 12px;
 
-  &.blue {
-    background-color: $background-success-color;
+  .logo {
+    width: 12px; /* 로고의 크기를 조정하세요 */
+    height: auto; /* 로고의 크기를 조정하세요 */
+  }
+
+  .button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+
+  &.green {
+    background-color: $background-success-subtle-color;
+    border-color: $border-success-color;
     color: $text-success-color;
+  }
+  &.blue {
+    background-color: $background-info-subtle-color;
+    border-color: $border-info-color;
+    color: $text-info-color;
+  }
+  &.yellow {
+    background-color: $background-warning-subtle-color;
+    border-color: $border-warning-color;
+    color: $text-warning-color;
+  }
+  &.red {
+    background-color: $background-danger-subtle-color;
+    border-color: $border-danger-color;
+    color: $text-danger-color;
   }
 }

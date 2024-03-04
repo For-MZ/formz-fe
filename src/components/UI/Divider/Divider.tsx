@@ -1,6 +1,10 @@
 import React from 'react';
 import styles from './Divider.module.scss';
 
-export default function Divider() {
-  return <hr className={styles.divider} />;
+type DividerProps = {
+  style?: 'none' | 'text';
+};
+
+export default function Divider({ style = 'none', ...props }: DividerProps) {
+  return <hr {...props} className={`${styles.divider} ${styles[style]}`} />;
 }

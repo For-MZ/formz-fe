@@ -12,10 +12,14 @@ export default function Home() {
       <h4>타이포 그래피 테스트 h4</h4>
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
+      <Input placeholder={'placeholder'} />
       <Input />
       <CheckBox />
-      <Divider />
-      <Toast message="Toast TEST" backgroundColor="#21ca7b" color="#147b4b" />
+      <Divider style="none" />
+      <Toast message="Description" color="green" />
+      <Toast message="Description" color="blue" />
+      <Toast message="Description" color="yellow" />
+      <Toast message="Description" color="red" />
     </>
   );
 }

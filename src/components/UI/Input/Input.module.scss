@@ -8,4 +8,11 @@
     border-color: $border-focus-ring-color;
     border-radius: 8px;
   }
+  &:hover {
+    border-color: $border-interactive-secondary-hover-color;
+  }
+  &:disabled {
+    background-color: $background-disabled-color;
+    border-color: $border-disabled-color;
+  }
 }

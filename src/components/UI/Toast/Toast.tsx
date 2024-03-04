@@ -1,37 +1,32 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import styles from './Toast.module.scss';
+import { useState } from 'react';
 
 type ToastProps = {
   message: string;
-  duration?: number;
-  backgroundColor?: string;
-  color?: string;
+  color?: 'blue' | 'green' | 'red' | 'yellow';
+  onClose?: () => void;
 };
 
-export default function Toast({ message, duration = 1000, backgroundColor, color }: ToastProps): JSX.Element {
-  const [visible, setVisible] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, duration);
+export default function Toast({ message, color = 'blue', onClose, ...props }: ToastProps): JSX.Element {
+  const [closed, setClosed] = useState(false);
 
-    return () => clearTimeout(timer);
-  }, [duration]);
-
-  const toastStyle: React.CSSProperties = {
-    backgroundColor: backgroundColor,
-    color: color,
+  const handleClose = () => {
+    setClosed(true);
+    if (onClose) onClose();
   };
 
-  if (visible) {
-    return (
-      <div className={styles.toast} style={toastStyle}>
-        {message}
-      </div>
-    );
-  }
-
-  return <></>; // 빈 Fragment를 반환합니다.
+  return (
+    <>
+      {!closed && (
+        <div {...props} className={`${styles.toast} ${styles[color]}`}>
+          <div>{message}</div>
+          <button className={styles.button} onClick={handleClose}>
+            <img className={styles.logo} src="/icons/x.png" />
+          </button>
+        </div>
+      )}
+    </>
+  );
 }
