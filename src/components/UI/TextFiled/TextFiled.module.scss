@@ -1,0 +1,61 @@
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputContainer {
+  width: 442px;
+  height: 48px;
+  border: 1px solid $border-secondary-color;
+  border-radius: 4px;
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+
+  &:hover {
+    border-color: $border-interactive-secondary-hover-color;
+  }
+
+  // 자식 input 포커스되면 div 포커스
+  &:focus-within {
+    border-color: $border-interactive-secondary-press-color;
+  }
+
+  &.disabled {
+    background-color: $background-disabled-color;
+    border-color: $border-disabled-color;
+  }
+
+  .input {
+    flex-grow: 1;
+    font-size: 14px;
+    border: none;
+
+    &:focus {
+      // 기본 input focus 스타일링 제거
+      outline: none;
+    }
+
+    &:disabled {
+      background-color: $background-disabled-color;
+      border-color: $border-disabled-color;
+    }
+  }
+}
+
+.input::placeholder {
+  color: $text-interactive-secondary-color;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.error {
+  color: $text-danger-color !important;
+  border-color: $border-danger-color !important;
+}
