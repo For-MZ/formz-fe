@@ -9,7 +9,7 @@ type Props = {
 export default function Modal({ children, onClose }: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
-  const handleClose: React.MouseEventHandler<HTMLElement> = (event) => {
+  const handleClose: React.MouseEventHandler = (event) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
