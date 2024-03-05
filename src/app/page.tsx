@@ -13,7 +13,7 @@ export default function Home() {
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
       <Input />
-      <Checkbox />
+      <Checkbox label="123" />
       <Divider style="none" />
       <Divider text="text" style="text" />
       <Toast message="Description" color="green" />
