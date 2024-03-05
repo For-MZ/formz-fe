@@ -17,6 +17,10 @@ a {
   text-decoration: none;
 }
 
+input[type='text'] {
+  padding: 0;
+}
+
 .main {
   max-width: 1200px;
   margin: 0 auto;
