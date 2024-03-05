@@ -3,13 +3,13 @@
 import styles from './Toast.module.scss';
 import { useState } from 'react';
 
-type ToastProps = {
+type Props = {
   message: string;
   color?: 'blue' | 'green' | 'red' | 'yellow';
   onClose?: () => void;
 };
 
-export default function Toast({ message, color = 'blue', onClose, ...props }: ToastProps): JSX.Element {
+export default function Toast({ message, color = 'blue', onClose, ...props }: Props): JSX.Element {
   const [closed, setClosed] = useState(false);
 
   const handleClose = () => {
