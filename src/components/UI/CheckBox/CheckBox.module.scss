@@ -9,7 +9,7 @@
 }
 
 .checkbox {
-  appearance: none;
+  accent-color: rebeccapurple;
   width: 16px;
   height: 16px;
   margin-right: 8px;
@@ -23,9 +23,11 @@
   border-color: $border-interactive-secondary-hover-color;
 }
 
+.checkbox:focus
 /* 체크 상태 */
 .checkbox:checked {
   background-color: $background-interactive-primary-color;
+  outline: 1px solid deeppink;
   border: none; /* 체크 표시 색상을 지정 */
 }
 
@@ -43,5 +45,4 @@
 .checkbox:disabled {
   background-color: $background-disabled-color;
   border-color: $border-interactive-secondary-color;
-  cursor: not-allowed;
 }
