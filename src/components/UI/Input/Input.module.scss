@@ -1,0 +1,30 @@
+.input {
+  width: 442px;
+  height: 48px;
+  border: 2px solid $border-secondary-color;
+  border-radius: 4px;
+  &:hover {
+    outline: none;
+    border-color: $border-interactive-secondary-hover-color;
+  }
+  &:focus {
+    outline: none;
+    border-color: $border-interactive-secondary-press-color;
+  }
+  &:disabled {
+    background-color: $background-disabled-color;
+    border-color: $border-disabled-color;
+  }
+}
+
+.invalid {
+  outline: none;
+  border-color: $border-danger-color;
+}
+
+.warningText {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: $text-danger-color;
+}

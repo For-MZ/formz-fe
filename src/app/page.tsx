@@ -1,6 +1,7 @@
-import Divider from '@/components/UI/Divider/Divider';
-import Toast from '@/components/UI/Toast/Toast';
-import Input from '@/components/UI/Input/Input';
+import Divider from '@/components/UI/Divider';
+import Toast from '@/components/UI/Toast/index';
+import Input from '@/components/UI/Input/index';
+import Checkbox from '@/components/UI/Checkbox/index';
 
 export default function Home() {
   return (
@@ -12,8 +13,13 @@ export default function Home() {
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
       <Input />
-      <Divider />
-      <Toast message="Toast TEST" backgroundColor="#21ca7b" color="#147b4b" />
+      <Checkbox />
+      <Divider style="none" />
+      <Divider text="text" style="text" />
+      <Toast message="Description" color="green" />
+      <Toast message="Description" color="blue" />
+      <Toast message="Description" color="yellow" />
+      <Toast message="Description" color="red" />
     </>
   );
 }

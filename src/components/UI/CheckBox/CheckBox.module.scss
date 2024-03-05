@@ -1,0 +1,48 @@
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .label {
+    color: $text-primary-color;
+  }
+}
+
+.checkbox {
+  accent-color: rebeccapurple;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 2px solid $border-interactive-secondary-color;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* 기본 상태 */
+.checkbox:hover {
+  border-color: $border-interactive-secondary-hover-color;
+}
+
+.checkbox:focus
+/* 체크 상태 */
+.checkbox:checked {
+  background-color: $background-interactive-primary-color;
+  outline: 1px solid deeppink;
+  border: none; /* 체크 표시 색상을 지정 */
+}
+
+/* 체크 상태에서 hover */
+.checkbox:checked:hover {
+  background-color: $background-interactive-primary-hover-color;
+}
+
+/* 에러 상태 */
+.checkbox.error {
+  border-color: $border-danger-color;
+}
+
+/* 비활성 상태 */
+.checkbox:disabled {
+  background-color: $background-disabled-color;
+  border-color: $border-interactive-secondary-color;
+}
