@@ -13,9 +13,18 @@ type Props = {
 
 export default function Checkbox({ label, checked, isNotValid, isDisable = false, onChange }: Props) {
   return (
-    <label className={`${styles.checkboxContainer} ${isNotValid && styles.error} ${isDisable && styles.disabled}`}>
-      <input type="checkbox" checked={checked} disabled={isDisable} onChange={onChange} />
+    <div className={`${styles.checkboxContainer}`}>
+      <input
+        className={`${isNotValid && styles.error} ${isDisable && styles.disable}`}
+        id="checkbox"
+        type="checkbox"
+        checked={checked}
+        disabled={isDisable}
+        onChange={onChange}
+      />
+
+      <label htmlFor="checkbox">동욱님짱</label>
       <span className={styles.label}>{label}</span>
-    </label>
+    </div>
   );
 }
