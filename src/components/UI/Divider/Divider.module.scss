@@ -8,13 +8,19 @@
 .textdivider {
   border: none;
   width: 100%;
-  margin: 0px 10px 0px 10px;
+  margin: 0px 0px 0px 0px;
   border-bottom: 2px solid;
   border-color: $color-neutral-400;
 }
 
-.test {
+.container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.text {
+  color: $text-disabled-color;
+  margin-right: 10px;
+  margin-left: 10px;
 }

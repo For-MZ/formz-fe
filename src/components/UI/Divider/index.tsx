@@ -10,9 +10,9 @@ export default function Divider({ text, style = 'none', ...props }: Props) {
   if (style === 'text') {
     return (
       <>
-        <div className={styles.test}>
+        <div className={styles.container}>
           <hr className={styles.textdivider}></hr>
-          <div>{text}</div>
+          <div className={styles.text}>{text}</div>
 
           <hr className={styles.textdivider}></hr>
         </div>

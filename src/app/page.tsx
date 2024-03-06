@@ -1,6 +1,6 @@
 import Divider from '@/components/UI/Divider';
 import Toast from '@/components/UI/Toast/index';
-import Input from '@/components/UI/Input/index';
+import TextFiled from '@/components/UI/TextFiled/index';
 import Checkbox from '@/components/UI/Checkbox/index';
 
 export default function Home() {
@@ -12,8 +12,8 @@ export default function Home() {
       <h4>타이포 그래피 테스트 h4</h4>
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
-      <Input />
-      <Checkbox label="123" />
+      <TextFiled />
+      <Checkbox isDisable />
       <Divider style="none" />
       <Divider text="text" style="text" />
       <Toast message="Description" color="green" />
