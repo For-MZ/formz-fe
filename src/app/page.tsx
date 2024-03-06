@@ -1,7 +1,7 @@
 import Divider from '@/components/UI/Divider';
-import Toast from '@/components/UI/Toast/index';
-import TextFiled from '@/components/UI/TextFiled/index';
-import Checkbox from '@/components/UI/Checkbox/index';
+import Toast from '@/components/UI/Toast';
+import TextFiled from '@/components/UI/TextFiled';
+import Checkbox from '@/components/UI/Checkbox';
 
 export default function Home() {
   return (
