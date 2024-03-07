@@ -15,6 +15,7 @@ type Props = {
   htmlFor?: string;
   inputId?: string;
   inputName?: string;
+  width?: string; // 너비 조절을 위한 props 추가
 };
 
 /**
@@ -45,11 +46,15 @@ export default function TextFiled({
   htmlFor,
   inputId,
   inputName,
+  width,
 }: Props) {
   return (
     <div className={styles.container}>
       {label && <label htmlFor={htmlFor}>{label}</label>}
-      <div className={`${styles.inputContainer} ${isNotValid && styles.error} ${isDisable && styles.disabled}`}>
+      <div
+        style={{ width }}
+        className={`${styles.inputContainer} ${isNotValid && styles.error} ${isDisable && styles.disabled}`}
+      >
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         <input
           id={inputId}
