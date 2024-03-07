@@ -1,18 +1,35 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import styles from '@/app/login/Login.module.scss';
 import Divider from '@/components/UI/Divider';
 import TextFiled from '@/components/UI/TextFiled';
+import Link from 'next/link';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    console.log('Email:', email);
+    console.log('Password:', password);
+  };
+
   return (
-    <div>
-      <h2>로그인</h2>
+    <div className={styles.container}>
+      <h2 className={styles.h2}>로그인</h2>
+      <div className={styles.inputId}>
+        <div className={styles.idtitle}>아이디(이메일)</div>
+        <TextFiled inputId="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
       <div>
-        <div>아이디(이메일)</div>
-        <TextFiled />
-        <div>비밀번호</div>
-        <TextFiled />
-        <div>비밀번호를 잊으셨나요?</div>
-        <button>로그인</button>
+        <div className={styles.passwordtitle}>비밀번호</div>
+        <TextFiled inputId="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+        <div className={styles.textForget}>비밀번호를 잊으셨나요?</div>
+      </div>
+
+      <div className={styles.buttonContainer}>
+        <button onClick={handleLogin}>로그인</button>
         <Divider style="text" text="또는" />
         <div>
           <button>카카오로 로그인</button>
@@ -20,7 +37,12 @@ export default function Login() {
         <div>
           <button>구글로 로그인</button>
         </div>
-        <div>계정이 없으신가요? 회원가입</div>
+      </div>
+      <div className={styles.signup}>
+        계정이 없으신가요?
+        <Link href="/signup">
+          <div className={styles.underline}>회원가입</div>
+        </Link>
       </div>
     </div>
   );
