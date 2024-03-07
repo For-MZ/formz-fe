@@ -1,19 +1,92 @@
+'use client';
+
 import Divider from '@/components/UI/Divider';
 import Toast from '@/components/UI/Toast';
-import TextFiled from '@/components/UI/TextFiled';
-import Checkbox from '@/components/UI/Checkbox';
+import Checkbox from '@/components/UI/CheckBox';
+import useModal from '@/hooks/useModal';
+import useInput from '@/hooks/useInput';
+import useForm from '@/hooks/useForm';
+import Modal from '@/components/UI/Modal';
+import Confirm from '@/components/UI/Confirm';
+import TextField from '@/components/UI/TextField';
+import icon from '../../public/icons/x.png';
 
 export default function Home() {
+  const { isOpenModal, onOpenModal, onCloseModal } = useModal();
+  const { isOpenModal: isOpenConfirm, onOpenModal: onOpenConfirm, onCloseModal: onCloseConfirm } = useModal();
+  const [inputValue, handleInputChange] = useInput('');
+  const [form, handleFormChange] = useForm({
+    email: '',
+    password: '',
+  });
+
   return (
     <>
+      <button onClick={onOpenModal}>모달 오픈</button>
+      {isOpenModal && (
+        <Modal onClose={onCloseModal}>
+          <p>모달 컨텐츠</p>
+        </Modal>
+      )}
+      <button onClick={onOpenConfirm}>삭제</button>
+      {isOpenConfirm && (
+        <Confirm
+          onConfirm={() => {
+            console.log('삭제 수락');
+            onCloseConfirm();
+          }}
+          onCancel={() => {
+            console.log('삭제 취소');
+            onCloseConfirm();
+          }}
+        >
+          정말 삭제하시겠습니까?
+        </Confirm>
+      )}
+      <TextField label="라벨" value={inputValue} onChange={handleInputChange} helpMessage="기본 헬프메시지" />
+      <TextField
+        success
+        id="email"
+        label="라벨"
+        value={form.email}
+        onChange={handleFormChange}
+        placeholder="Placeholder"
+        helpMessage="성공 헬프 메시지"
+        leftIcon={icon}
+        rightIcon={icon}
+        inputName="email"
+      />
+      <TextField
+        error
+        id="password"
+        label="라벨"
+        value={form.password}
+        onChange={handleFormChange}
+        placeholder="Placeholder"
+        helpMessage="실패 헬프 메시지"
+        leftIcon={icon}
+        rightIcon={icon}
+        inputName="password"
+      />
+      <TextField
+        disabled
+        id="address"
+        label="disabled 인풋"
+        value={form.password}
+        onChange={handleFormChange}
+        placeholder="Placeholder"
+        helpMessage="disabled 헬프 메시지"
+        leftIcon={icon}
+        rightIcon={icon}
+        inputName="address"
+      />
       <h1>타이포 그래피 테스트 h1</h1>
       <h2>타이포 그래피 테스트 h2</h2>
       <h3>타이포 그래피 테스트 h3</h3>
       <h4>타이포 그래피 테스트 h4</h4>
       <h5>타이포 그래피 테스트 h5</h5>
       <h6>타이포 그래피 테스트 h6</h6>
-      <TextFiled />
-      <Checkbox isNotValid />
+      <Checkbox isNotValid onChange={() => {}} />
       <Divider style="none" />
       <Divider text="text" style="text" />
       <Toast message="Description" color="green" />
