@@ -5,25 +5,33 @@ type Props = {
   children: React.ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
+  heading?: string;
+  rightButtonText: string;
 };
 
-export default function Confirm({ children, onConfirm, onCancel }: Props) {
+export default function Confirm({ children, onConfirm, onCancel, heading, rightButtonText }: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
+  const handleClose: React.MouseEventHandler = (event) => {
+    if (event.target === event.currentTarget) {
+      onCancel();
+    }
+  };
+
+  const handleConfirm: React.MouseEventHandler = () => {
+    onConfirm();
+  };
+
   return createPortal(
-    <div
-      className={styles.backdrop}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) {
-          onCancel();
-        }
-      }}
-    >
-      <div className={styles.modal}>
-        <div className={styles.message}>{children}</div>
-        <div className={styles.buttons}>
-          <button onClick={onConfirm}>확인</button>
-          <button onClick={onCancel}>취소</button>
+    <div className={styles.backdrop} onClick={handleClose}>
+      <div className={styles.modalContainer}>
+        <h6>{heading}</h6>
+        <div className={styles.contentContainer}>
+          <p>{children}</p>
+          <div className={styles.buttons}>
+            <button onClick={handleClose}>취소</button>
+            <button onClick={handleConfirm}>{rightButtonText}</button>
+          </div>
         </div>
       </div>
     </div>,

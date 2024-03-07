@@ -6,14 +6,14 @@ import Checkbox from '@/components/UI/CheckBox';
 import useModal from '@/hooks/useModal';
 import useInput from '@/hooks/useInput';
 import useForm from '@/hooks/useForm';
-import Modal from '@/components/UI/Modal';
+import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
 import icon from '../../public/icons/x.png';
 
 export default function Home() {
-  const { isOpenModal, onOpenModal, onCloseModal } = useModal();
-  const { isOpenModal: isOpenConfirm, onOpenModal: onOpenConfirm, onCloseModal: onCloseConfirm } = useModal();
+  const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
+  const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();
   const [inputValue, handleInputChange] = useInput('');
   const [form, handleFormChange] = useForm({
     email: '',
@@ -22,13 +22,15 @@ export default function Home() {
 
   return (
     <>
-      <button onClick={onOpenModal}>모달 오픈</button>
-      {isOpenModal && (
-        <Modal onClose={onCloseModal}>
-          <p>모달 컨텐츠</p>
-        </Modal>
+      <button onClick={onOpenAlert}>Alert 오픈</button>
+      {isOpenAlert && (
+        <Alert onClose={onCloseAlert} heading="alert 헤딩">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus commodi inventore delectus repellendus harum,
+          reprehenderit est ad nesciunt aspernatur eligendi repellat maiores quibusdam pariatur tempora neque quidem.
+          Quidem, ex quibusdam!
+        </Alert>
       )}
-      <button onClick={onOpenConfirm}>삭제</button>
+      <button onClick={onOpenConfirm}>Confirm 오픈</button>
       {isOpenConfirm && (
         <Confirm
           onConfirm={() => {
@@ -39,8 +41,12 @@ export default function Home() {
             console.log('삭제 취소');
             onCloseConfirm();
           }}
+          heading="컨펌 헤딩"
+          rightButtonText="삭제"
         >
-          정말 삭제하시겠습니까?
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores, culpa distinctio tempore aut praesentium
+          possimus provident, ea eveniet alias ullam nobis voluptas quod commodi iusto eligendi consequatur odit
+          voluptatibus. Sequi!
         </Confirm>
       )}
       <TextField label="라벨" value={inputValue} onChange={handleInputChange} helpMessage="기본 헬프메시지" />
