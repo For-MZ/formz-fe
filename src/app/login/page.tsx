@@ -29,13 +29,15 @@ export default function Login() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <button onClick={handleLogin}>로그인</button>
+        <button style={{ width: '442px', height: '48px' }} onClick={handleLogin}>
+          로그인
+        </button>
         <Divider style="text" text="또는" />
         <div>
-          <button>카카오로 로그인</button>
+          <button style={{ width: '442px', height: '48px', marginBottom: '16px' }}>카카오로 로그인</button>
         </div>
         <div>
-          <button>구글로 로그인</button>
+          <button style={{ width: '442px', height: '48px' }}>구글로 로그인</button>
         </div>
       </div>
       <div className={styles.signup}>
