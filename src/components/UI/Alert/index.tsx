@@ -1,12 +1,13 @@
 import { createPortal } from 'react-dom';
-import styles from './modal.module.scss';
+import styles from './Alert.module.scss';
 
 type Props = {
   children: React.ReactNode;
   onClose: () => void;
+  heading?: string;
 };
 
-export default function Modal({ children, onClose }: Props) {
+export default function Alert({ children, onClose, heading }: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
   const handleClose: React.MouseEventHandler = (event) => {
@@ -17,7 +18,13 @@ export default function Modal({ children, onClose }: Props) {
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleClose}>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.modalContainer}>
+        <h6>{heading}</h6>
+        <div className={styles.contentContainer}>
+          <p>{children}</p>
+          <button onClick={handleClose}>확인</button>
+        </div>
+      </div>
     </div>,
     portalElement,
   );
