@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-export default function useModal() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+export default function useModal(): [boolean, React.MouseEventHandler<HTMLElement>, () => void] {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const onOpenModal = () => {
-    setIsOpenModal(true);
+  const onOpen = () => {
+    setIsOpen(true);
   };
 
-  const onCloseModal = () => {
-    setIsOpenModal(false);
+  const onClose = () => {
+    setIsOpen(false);
   };
 
-  return { isOpenModal, onOpenModal, onCloseModal };
+  return [isOpen, onOpen, onClose];
 }
