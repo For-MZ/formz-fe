@@ -44,6 +44,9 @@ export default function Header() {
         <Link href={'/login'} className={`${styles.navMenuLink} ${pathName === '/login' && styles.selected}`}>
           로그인
         </Link>
+        <Link href={'/mypage/'} className={`${styles.navMenuLink} ${pathName === '/login' && styles.selected}`}>
+          마이페이지
+        </Link>
       </nav>
     </header>
   );
