@@ -1,0 +1,32 @@
+.postItem {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category {
+  align-self: flex-start;
+  background-color: green;
+  color: white;
+  padding: 2px;
+}
+
+.postTitle {
+  font-size: 2rem;
+}
+
+.postMetaData {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  gap: 1rem;
+}
+
+.right {
+  display: flex;
+  gap: 1rem;
+}
