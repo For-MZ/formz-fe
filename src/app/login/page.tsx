@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import styles from '@/app/login/Login.module.scss';
+import styles from './Login.module.scss';
 import Divider from '@/components/UI/Divider';
 import TextFiled from '@/components/UI/TextFiled';
 import Link from 'next/link';
@@ -19,12 +19,20 @@ export default function Login() {
     <div className={styles.container}>
       <h2 className={styles.h2}>로그인</h2>
       <div className={styles.inputId}>
-        <div className={styles.idtitle}>아이디(이메일)</div>
-        <TextFiled inputId="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+        <TextFiled
+          label="아이디(이메일)"
+          inputId="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
       </div>
       <div>
-        <div className={styles.passwordtitle}>비밀번호</div>
-        <TextFiled inputId="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+        <TextFiled
+          label="비밀번호"
+          inputId="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <div className={styles.textForget}>비밀번호를 잊으셨나요?</div>
       </div>
 
