@@ -49,7 +49,13 @@ export default function Home() {
           voluptatibus. Sequi!
         </Confirm>
       )}
-      <TextField label="라벨" value={inputValue} onChange={handleInputChange} helpMessage="기본 헬프메시지" />
+      <TextField
+        type="text"
+        label="라벨"
+        value={inputValue}
+        onChange={handleInputChange}
+        helpMessage="기본 헬프메시지"
+      />
       <TextField
         success
         id="email"
@@ -78,7 +84,7 @@ export default function Home() {
         disabled
         id="address"
         label="disabled 인풋"
-        value={form.password}
+        value={form.address}
         onChange={handleFormChange}
         placeholder="Placeholder"
         helpMessage="disabled 헬프 메시지"

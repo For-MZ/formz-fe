@@ -2,10 +2,11 @@ import styles from './TextField.module.scss';
 import Image, { StaticImageData } from 'next/image';
 
 type Props = {
+  type?: React.HTMLInputTypeAttribute | undefined;
   id?: string;
   label?: string;
   value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   helpMessage?: string;
   error?: boolean;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 /**
+ * @param type - input type 프로퍼티
  * @param id - label과 input 연결하는 id
  * @param label - 인풋 위에 있는 텍스트
  * @param value - 인풋 상태 값
@@ -32,6 +34,7 @@ type Props = {
  * @returns
  */
 export default function TextField({
+  type,
   id,
   label,
   value,
@@ -51,7 +54,7 @@ export default function TextField({
       <div className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}>
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         <input
-          type="text"
+          type={type}
           id={id}
           name={inputName}
           className={styles.input}
