@@ -1,10 +1,18 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import TextFiled from '@/components/UI/TextFiled';
 import styles from '@/app/signup/Signup.module.scss';
 import Link from 'next/link';
 import icon from '../../../public/icons/eye.png';
 
 export default function Signup() {
+  const [showEmailInput, setShowEmailInput] = useState(false);
+
+  const handleMailAuthClick = () => {
+    setShowEmailInput(true);
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.h2}>회원가입</h2>
@@ -15,18 +23,34 @@ export default function Signup() {
             <TextFiled width="350px" placeholder="ForMZ@example.com" />
           </div>
           <div>
-            <button className={styles.test}>메일 인증</button>
+            <button style={{ width: '84px', height: '48px' }} onClick={handleMailAuthClick} className={styles.test}>
+              메일 인증
+            </button>
           </div>
         </div>
       </div>
+      {showEmailInput && (
+        <div className={styles.emailcontainer}>
+          <div style={{ marginTop: '24px' }}>
+            <TextFiled width="350px" placeholder="인증 번호를 입력해주세요." />
+          </div>
+          <div>
+            <button style={{ width: '84px', height: '48px', marginTop: '24px' }} className={styles.test}>
+              인증 확인
+            </button>
+          </div>
+        </div>
+      )}
       <div className={styles.name}>
         <div style={{ marginBottom: '8px' }}>닉네임</div>
         <div className={styles.namecontainer}>
           <div>
-            <TextFiled width="350px" />
+            <TextFiled placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요." width="350px" />
           </div>
           <div>
-            <button className={styles.test}>중복 확인</button>
+            <button style={{ width: '84px', height: '48px' }} className={styles.test}>
+              중복 확인
+            </button>
           </div>
         </div>
       </div>
@@ -36,7 +60,7 @@ export default function Signup() {
         <div style={{ marginBottom: '8px' }} className={styles.confirm}>
           비밀번호 확인
         </div>
-        <TextFiled rightIcon={icon} placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요." />
+        <TextFiled rightIcon={icon} />
       </div>
       <div>
         <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>
