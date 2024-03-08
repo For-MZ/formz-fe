@@ -8,14 +8,12 @@ import { useState } from 'react';
  * @param initialValue input value 초깃값
  * @returns
  */
-export default function useInput(
-  initialValue: string = '',
-): [string, (event: React.ChangeEvent<HTMLInputElement>) => void] {
+export default function useInput(initialValue: string) {
   const [inputValue, setInputValue] = useState(initialValue);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.currentTarget.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
-  return [inputValue, handleInputChange];
+  return [inputValue, handleChange, setInputValue] as const;
 }
