@@ -5,12 +5,117 @@ import TextFiled from '@/components/UI/TextFiled';
 import styles from '@/app/signup/Signup.module.scss';
 import Link from 'next/link';
 import icon from '../../../public/icons/eye.png';
+import axios, { AxiosResponse } from 'axios';
+
+type SignupData = {
+  email: string;
+  nickname: string;
+  password: string;
+};
+
+type ApiResponse = {
+  success: boolean;
+  message: string;
+};
 
 export default function Signup() {
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
   const [showEmailInput, setShowEmailInput] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [nicknameAvailable, setNicknameAvailable] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [verificationError, setVerificationError] = useState('');
 
-  const handleMailAuthClick = () => {
+  const requestVerificationCode = async (email: string): Promise<void> => {
+    try {
+      const response = await axios.post('/api/send-verif  cation-code', { email });
+      console.log('Verification code request successful:', response.data);
+    } catch (error) {
+      console.error('Error requesting verification code:', error);
+      // 요청이 실패했을 때 실행할 코드를 작성합니다.
+    }
+  };
+
+  const handleMailAuthClick = async () => {
     setShowEmailInput(true);
+    requestVerificationCode(email); // 인증 번호를 요청
+  };
+  const handleVerifyClick = async () => {
+    console.log('인증번호', verificationCode);
+    try {
+      // 사용자가 입력한 인증번호와 백엔드에서 받은 인증번호를 비교
+      if (verificationCode === receivedVerificationCode) {
+        console.log('Verification successful');
+        // 인증 성공 처리
+      } else {
+        console.error('Verification failed');
+        setVerificationError('인증번호가 일치하지 않습니다.');
+      }
+    } catch (error) {
+      console.error('Error verifying code:', error);
+      setVerificationError('인증 과정에서 오류가 발생했습니다.');
+    }
+  };
+  const handleSubmit = async (): Promise<ApiResponse> => {
+    console.log('Email:', email);
+    console.log('Nickname:', nickname);
+    console.log('Password:', password);
+    console.log('ConfirmPassword:', confirmPassword);
+
+    try {
+      const response: AxiosResponse<ApiResponse> = await axios.post<SignupData, AxiosResponse<ApiResponse>>(
+        '/api/sign-up', // 회원가입을 처리하는 API 엔드포인트의 경로를 지정해주세요
+        { email, nickname, password }, // 회원가입 요청에 필요한 데이터
+      );
+      return response.data; // 서버 응답을 반환합니다.
+    } catch (error) {
+      // 오류 처리
+      console.error('회원가입 요청 중 오류 발생:', error);
+      throw error;
+    }
+  };
+
+  const handleNicknameCheck = async () => {
+    try {
+      const response = await axios.post('/api/check-nickname', { nickname });
+      if (response.data.available) {
+        // 닉네임 사용 가능한 경우
+        setNicknameAvailable(true);
+        console.log('닉네임 사용 가능');
+      } else {
+        // 닉네임이 이미 사용 중인 경우
+        setNicknameAvailable(false);
+        console.log('닉네임이 이미 사용 중입니다.');
+      }
+    } catch (error) {
+      // 오류 처리
+      console.error('닉네임 중복 확인 중 오류 발생:', error);
+    }
+  };
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    console.log('Email:', event.target.value);
+  };
+
+  const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(event.target.value);
+    console.log('Nickname:', event.target.value);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+    console.log('Password:', event.target.value);
+  };
+
+  const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.target.value);
+    console.log('Confirm Password:', event.target.value);
+    setPasswordMatch(password === event.target.value);
   };
 
   return (
@@ -20,7 +125,14 @@ export default function Signup() {
         <div style={{ marginBottom: '8px' }}>이메일</div>
         <div className={styles.emailcontainer}>
           <div>
-            <TextFiled width="350px" placeholder="ForMZ@example.com" />
+            <TextFiled
+              onChange={handleEmailChange}
+              inputId="email"
+              inputName="email"
+              value={email}
+              width="350px"
+              placeholder="ForMZ@example.com"
+            />
           </div>
           <div>
             <button style={{ width: '84px', height: '48px' }} onClick={handleMailAuthClick} className={styles.test}>
@@ -32,23 +144,38 @@ export default function Signup() {
       {showEmailInput && (
         <div className={styles.emailcontainer}>
           <div style={{ marginTop: '24px' }}>
-            <TextFiled width="350px" placeholder="인증 번호를 입력해주세요." />
+            <TextFiled
+              value={verificationCode}
+              width="350px"
+              placeholder="인증 번호를 입력해주세요."
+              onChange={(e) => setVerificationCode(e.target.value)}
+            />
           </div>
           <div>
-            <button style={{ width: '84px', height: '48px', marginTop: '24px' }} className={styles.test}>
+            <button
+              style={{ width: '84px', height: '48px', marginTop: '24px' }}
+              className={styles.test}
+              onClick={handleVerifyClick}
+            >
               인증 확인
             </button>
           </div>
+          {verificationError && <div style={{ color: 'red', marginTop: '8px' }}>{verificationError}</div>}
         </div>
       )}
       <div className={styles.name}>
         <div style={{ marginBottom: '8px' }}>닉네임</div>
         <div className={styles.namecontainer}>
           <div>
-            <TextFiled placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요." width="350px" />
+            <TextFiled
+              value={nickname}
+              onChange={handleNicknameChange}
+              placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요."
+              width="350px"
+            />
           </div>
           <div>
-            <button style={{ width: '84px', height: '48px' }} className={styles.test}>
+            <button style={{ width: '84px', height: '48px' }} className={styles.test} onClick={handleNicknameCheck}>
               중복 확인
             </button>
           </div>
@@ -56,17 +183,24 @@ export default function Signup() {
       </div>
       <div className={styles.password}>
         <div style={{ marginBottom: '8px' }}>비밀번호</div>
-        <TextFiled rightIcon={icon} placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상" />
+        <TextFiled
+          onChange={handlePasswordChange}
+          value={password}
+          rightIcon={icon}
+          placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상"
+        />
         <div style={{ marginBottom: '8px' }} className={styles.confirm}>
           비밀번호 확인
         </div>
-        <TextFiled rightIcon={icon} />
+        <TextFiled value={confirmPassword} onChange={handleConfirmPasswordChange} rightIcon={icon} />
       </div>
       <div>
         <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>
       </div>
       <div>
-        <button style={{ width: '442px', height: '48px' }}>회원가입</button>
+        <button onClick={handleSubmit} style={{ width: '442px', height: '48px' }}>
+          회원가입
+        </button>
       </div>
       <div className={styles.login}>
         이미 계정이 있으신가요?
