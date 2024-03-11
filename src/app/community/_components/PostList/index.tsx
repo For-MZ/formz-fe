@@ -1,45 +1,17 @@
 import styles from './PostList.module.scss';
-
-import { SimplePost } from '@/types/post';
 import PostItem from './PostItem';
+import { SimplePost } from '@/types/post';
 
-const posts: SimplePost[] = [
-  {
-    postId: 1,
-    title: '게시글 제목1',
-    author: '강동욱',
-    createdAt: '1시간전',
-    views: 1000,
-    likes: 5,
-    commentCount: 5,
-    category: '청년 정책',
-  },
-  {
-    postId: 2,
-    title: '게시글 제목2',
-    author: '강동욱',
-    createdAt: '1시간전',
-    views: 1000,
-    likes: 5,
-    commentCount: 5,
-    category: '청년 정책',
-  },
-  {
-    postId: 3,
-    title: '게시글 제목3',
-    author: '강동욱',
-    createdAt: '1시간전',
-    views: 1000,
-    likes: 5,
-    commentCount: 5,
-    category: '청년 정책',
-  },
-];
+type Props = {
+  posts: SimplePost[];
+  selectedCategory: string;
+  selectedSorting: string;
+};
 
-export default function PostList() {
+export default function PostList({ posts, selectedCategory, selectedSorting }: Props) {
   return (
-    <section>
-      <ul className={styles.container}>
+    <section className={styles.container}>
+      <ul className={styles.postList}>
         {posts.map((post) => (
           <li key={post.postId}>
             <PostItem {...post} />
