@@ -1,30 +1,41 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './DropDown.module.scss';
 
 type Props = {
-  id?: string;
-  label?: string;
   options: string[];
+  selected: string;
   onSelect: (selected: string) => void;
 };
 
-export default function DropDown({ id, label, options, onSelect }: Props) {
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOption = options.find((option) => option === event.target.value) as string;
-    onSelect(selectedOption);
+export default function DropDown({ options, selected, onSelect }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
     <div className={styles.container}>
-      <label htmlFor={id}>{label}</label>
-      <select id={id} onChange={handleChange}>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+      <button className={styles.toggle} onClick={handleClick}>
+        {selected}
+      </button>
+      {isOpen && (
+        <ul className={styles.optionList}>
+          {options.map((option) => (
+            <li
+              className={`${styles.optionItem} ${selected === option && styles.selected}`}
+              key={option}
+              onClick={(event) => {
+                onSelect(event.target.textContent);
+              }}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
