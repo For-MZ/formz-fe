@@ -1,6 +1,27 @@
 .container {
+  margin-top: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
+
+  button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border: 1px solid lightgray;
+    padding: 8px 10px;
+    background-color: white;
+    border-radius: 4px;
+  }
+
+  button:disabled {
+    background-color: gray;
+  }
+}
+
+button.activePage {
+  background-color: green;
+  color: white;
+  font-weight: 700;
 }

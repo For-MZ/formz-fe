@@ -1,13 +1,18 @@
 .container {
+  margin: 0 auto;
+  margin-top: 1rem;
+  max-width: 680px;
+}
+
+.postList {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  margin-top: 1rem;
 
   li {
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid lightgray;
   }
 }

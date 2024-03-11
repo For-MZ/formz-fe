@@ -2,6 +2,8 @@ import styles from './TextField.module.scss';
 import Image, { StaticImageData } from 'next/image';
 
 type Props = {
+  width?: string;
+  height?: string;
   type?: React.HTMLInputTypeAttribute | undefined;
   id?: string;
   label?: string;
@@ -34,6 +36,8 @@ type Props = {
  * @returns
  */
 export default function TextField({
+  width,
+  height,
   type,
   id,
   label,
@@ -51,7 +55,10 @@ export default function TextField({
   return (
     <div className={styles.container}>
       {label && <label htmlFor={id}>{label}</label>}
-      <div className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}>
+      <div
+        style={{ width, height }}
+        className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
+      >
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         <input
           type={type}
