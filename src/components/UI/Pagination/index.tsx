@@ -1,19 +1,34 @@
+import Image from 'next/image';
 import styles from './Pagination.module.scss';
 
 type Props = {
-  count: number;
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (pageNumber: number) => void;
 };
 
-export default function Pagination({ count = 10 }: Props) {
-  const array = new Array(count).fill(undefined).map((_, index) => index + 1);
+export default function Pagination({ totalPages = 10, currentPage = 1, onPageChange }: Props) {
+  const pageNumbers = Array(totalPages)
+    .fill(undefined)
+    .map((_, index) => index + 1);
 
   return (
     <div className={styles.container}>
-      <button>이전</button>
-      {array.map((number) => (
-        <button key={number}>{number}</button>
+      <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+        <Image src="/icons/chevron-left.png" alt="이전 페이지 아이콘" width={16} height={16} />
+      </button>
+      {pageNumbers.map((pageNumber) => (
+        <button
+          key={pageNumber}
+          onClick={() => onPageChange(pageNumber)}
+          className={pageNumber === currentPage ? styles.activePage : ''}
+        >
+          {pageNumber}
+        </button>
       ))}
-      <button>다음</button>
+      <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+        <Image src="/icons/chevron-right.png" alt="다음 페이지 아이콘" width={16} height={16} />
+      </button>
     </div>
   );
 }
