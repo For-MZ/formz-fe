@@ -11,8 +11,11 @@ import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
 import icon from '../../public/icons/x.png';
 import LoginButton from '@/components/UI/LoginButton';
+import Loading from '@/components/UI/Loading';
+import { useState } from 'react';
 
 export default function Home() {
+  const [loading] = useState(true);
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
   const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();
   const [inputValue, handleInputChange] = useInput('');
@@ -109,6 +112,7 @@ export default function Home() {
       <LoginButton type="default" />
       <LoginButton type="kakaoTalk" />
       <LoginButton type="google" />
+      <Loading loading={loading} />
     </>
   );
 }
