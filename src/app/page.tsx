@@ -10,6 +10,7 @@ import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
 import icon from '../../public/icons/x.png';
+import LoginButton from '@/components/UI/LoginButton';
 
 export default function Home() {
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
@@ -105,6 +106,9 @@ export default function Home() {
       <Toast message="Description" color="blue" />
       <Toast message="Description" color="yellow" />
       <Toast message="Description" color="red" />
+      <LoginButton type="default" />
+      <LoginButton type="kakaoTalk" />
+      <LoginButton type="google" />
     </>
   );
 }
