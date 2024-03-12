@@ -16,15 +16,15 @@ export default function PostItem({ title, category, createdAt, author, likes, vi
         </div>
         <div className={styles.rightZone}>
           <div className={styles.thumbsUp}>
-            <Image src="/icons/thumbs-up.png" alt="추천 아이콘" width={16} height={16} />
+            <Image src="/icons/thumbs-up.svg" alt="추천 아이콘" width={16} height={16} />
             <span>{likes}</span>
           </div>
           <div className={styles.hits}>
-            <Image src="/icons/eye.png" alt="조회 아이콘" width={16} height={16} />
+            <Image src="/icons/eye.svg" alt="조회 아이콘" width={16} height={16} />
             <span>{views}</span>
           </div>
           <div className={styles.commentCount}>
-            <Image src="/icons/message-square.png" alt="댓글 수 아이콘" width={16} height={16} />
+            <Image src="/icons/message-square.svg" alt="댓글 수 아이콘" width={16} height={16} />
             <span>{commentCount}</span>
           </div>
         </div>
