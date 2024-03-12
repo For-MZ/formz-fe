@@ -15,7 +15,7 @@ export default function Pagination({ totalPages = 10, currentPage = 1, onPageCha
   return (
     <div className={styles.container}>
       <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-        <Image src="/icons/chevron-left.png" alt="이전 페이지 아이콘" width={16} height={16} />
+        <Image src="/icons/chevron-left.svg" alt="이전 페이지 아이콘" width={16} height={16} />
       </button>
       {pageNumbers.map((pageNumber) => (
         <button
@@ -27,7 +27,7 @@ export default function Pagination({ totalPages = 10, currentPage = 1, onPageCha
         </button>
       ))}
       <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-        <Image src="/icons/chevron-right.png" alt="다음 페이지 아이콘" width={16} height={16} />
+        <Image src="/icons/chevron-right.svg" alt="다음 페이지 아이콘" width={16} height={16} />
       </button>
     </div>
   );

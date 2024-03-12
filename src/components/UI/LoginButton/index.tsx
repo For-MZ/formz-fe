@@ -1,9 +1,9 @@
 'use client';
 
 import styles from './LoginButton.module.scss';
-import Image from 'next/image';
-import kakaoIcon from '/public/icons/kakaotalk.png';
-import googleIcon from '/public/icons/google.png';
+import Image, { StaticImageData } from 'next/image';
+import kakaoIcon from '/public/icons/kakaotalk.svg';
+import googleIcon from '/public/icons/google.svg';
 
 type ButtonType = 'default' | 'kakaoTalk' | 'google';
 type ButtonInfo = {

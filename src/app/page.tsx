@@ -9,12 +9,12 @@ import useForm from '@/hooks/useForm';
 import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
-import icon from '../../public/icons/x.png';
+import icon from '../../public/icons/x.svg';
 import LoginButton from '@/components/UI/LoginButton';
 import Loading from '@/components/UI/Loading';
 import { useState } from 'react';
 import Button from '@/components/UI/Button';
-import star from '/public/icons/star.png';
+import star from '/public/icons/star.svg';
 
 export default function Home() {
   const [loading] = useState(true);
