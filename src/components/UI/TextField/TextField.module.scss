@@ -5,7 +5,6 @@
 }
 
 .inputWrapper {
-  width: 442px;
   height: 48px;
   border: 1px solid $border-secondary-color;
   border-radius: 4px;
@@ -57,16 +56,4 @@
 .icon {
   width: 20px;
   height: 20px;
-}
-
-.helpMessage {
-  color: $text-primary-color;
-
-  &.success {
-    color: $text-success-color;
-  }
-
-  &.error {
-    color: $text-danger-color;
-  }
 }

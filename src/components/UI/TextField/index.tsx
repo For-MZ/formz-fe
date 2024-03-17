@@ -2,79 +2,59 @@ import styles from './TextField.module.scss';
 import Image, { StaticImageData } from 'next/image';
 
 type Props = {
-  width?: string;
-  height?: string;
+  labelText?: string;
   type?: React.HTMLInputTypeAttribute | undefined;
+  required?: boolean;
   id?: string;
-  label?: string;
+  name?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  helpMessage?: string;
   error?: boolean;
-  success?: boolean;
   disabled?: boolean;
   leftIcon?: StaticImageData;
   rightIcon?: StaticImageData;
-  inputName?: string;
+  width?: string;
+  height?: string;
 };
 
-/**
- * @param type - input type 프로퍼티
- * @param id - label과 input 연결하는 id
- * @param label - 인풋 위에 있는 텍스트
- * @param value - 인풋 상태 값
- * @param onChange - 인풋 체인지 이벤트 핸들러
- * @param placeholder - 인풋 안에 있는 힌트 텍스트
- * @param helpMessage - 인풋 밑에 있는 텍스트
- * @param error - 유효성 불통과
- * @param success - 유효성 통과
- * @param disabled - 비활성화 상태 값
- * @param leftIcon - 인풋 내부 왼쪽에 있는 아이콘
- * @param rightIcon - 인풋 내부 오른쪽에 있는 아이콘
- * @param inputName - input name 프로퍼티, useForm 사용 시 필요
- * @returns
- */
 export default function TextField({
-  width,
-  height,
-  type,
-  id,
-  label,
   value,
   onChange,
+  labelText,
+  id,
+  name,
+  type,
+  required,
   placeholder,
-  helpMessage,
   error,
-  success,
   disabled,
   leftIcon,
   rightIcon,
-  inputName,
+  width,
+  height,
 }: Props) {
   return (
     <div className={styles.container}>
-      {label && <label htmlFor={id}>{label}</label>}
+      {labelText && <label htmlFor={id}>{labelText}</label>}
       <div
         style={{ width, height }}
         className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
       >
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         <input
-          type={type}
-          id={id}
-          name={inputName}
           className={styles.input}
+          id={id}
+          type={type}
+          name={name}
           placeholder={placeholder}
           disabled={disabled}
+          required={required}
           value={value}
           onChange={onChange}
         />
         {rightIcon && <Image src={rightIcon} alt="아이콘" className={styles.icon} />}
       </div>
-      {helpMessage && (
-        <p className={`${styles.helpMessage} ${error && styles.error} ${success && styles.success}`}>{helpMessage}</p>
-      )}
     </div>
   );
 }
