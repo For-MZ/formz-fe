@@ -3,7 +3,7 @@
 import styles from './FilterablePosts.module.scss';
 import Pagination from '@/components/UI/Pagination';
 import CategoryFilter from './CategoryFilter';
-import PostList from '../PostList';
+import PostList from './PostList';
 import SearchBar from './SearchFilter';
 import SortingFilter from './SortingFilter';
 import { useState } from 'react';

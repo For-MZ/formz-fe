@@ -7,7 +7,7 @@ export default function CommunityPage() {
   // 서버에서 받아온 데이터라고 가정
   const posts: SimplePost[] = [
     {
-      postId: 1,
+      postId: '1',
       title: '게시글 제목1',
       author: '강동욱',
       createdAt: '1시간전',
@@ -17,7 +17,7 @@ export default function CommunityPage() {
       category: '정책',
     },
     {
-      postId: 2,
+      postId: '2',
       title: '게시글 제목2',
       author: '김희진',
       createdAt: '2시간전',
@@ -27,7 +27,7 @@ export default function CommunityPage() {
       category: '공간',
     },
     {
-      postId: 3,
+      postId: '3',
       title: '게시글 제목3',
       author: '강수정',
       createdAt: '3시간전',
@@ -37,7 +37,7 @@ export default function CommunityPage() {
       category: '주택',
     },
     {
-      postId: 4,
+      postId: '4',
       title: '게시글 제목4',
       author: '유성영',
       createdAt: '4시간전',
@@ -47,7 +47,7 @@ export default function CommunityPage() {
       category: '취업',
     },
     {
-      postId: 5,
+      postId: '5',
       title: '게시글 제목5',
       author: '박인서',
       createdAt: '5시간전',
@@ -57,7 +57,7 @@ export default function CommunityPage() {
       category: '창업',
     },
     {
-      postId: 6,
+      postId: '6',
       title: '게시글 제목6',
       author: '이규현',
       createdAt: '6시간전',
@@ -67,7 +67,7 @@ export default function CommunityPage() {
       category: '자유',
     },
     {
-      postId: 7,
+      postId: '7',
       title: '게시글 제목7',
       author: '이은지',
       createdAt: '7시간전',
@@ -77,7 +77,7 @@ export default function CommunityPage() {
       category: '꿀팁',
     },
     {
-      postId: 8,
+      postId: '8',
       title: '게시글 제목8',
       author: '강동욱',
       createdAt: '1시간전',
@@ -87,7 +87,7 @@ export default function CommunityPage() {
       category: '정책',
     },
     {
-      postId: 9,
+      postId: '9',
       title: '게시글 제목9',
       author: '강동욱',
       createdAt: '1시간전',
@@ -97,7 +97,7 @@ export default function CommunityPage() {
       category: '정책',
     },
     {
-      postId: 10,
+      postId: '10',
       title: '게시글 제목10',
       author: '강동욱',
       createdAt: '1시간전',

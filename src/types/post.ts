@@ -1,5 +1,5 @@
 export type SimplePost = {
-  postId: number;
+  postId: string;
   title: string;
   author: string;
   createdAt: string | Date;
