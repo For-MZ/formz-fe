@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './settings.module.scss';
 import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
+import Button from '@/components/UI/Button';
 
 export default function Settings() {
   return (
@@ -9,12 +10,10 @@ export default function Settings() {
       <h2>계정 설정</h2>
       <div className={styles.inputcontainer}>
         <div>
-          <TextField disabled width="350px" label="비밀번호" />
+          <TextField disabled width="357px" labelText="비밀번호" />
         </div>
-        <div>
-          <button className={styles.test} style={{ width: '84px', height: '48px' }}>
-            변경
-          </button>
+        <div style={{ marginTop: '26px' }}>
+          <Button text="변경" type="outline" disabled={false} />
         </div>
       </div>
       <Link href="/mypage/withdraw">

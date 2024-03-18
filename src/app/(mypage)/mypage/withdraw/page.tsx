@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './withdraw.module.scss';
 import Checkbox from '@/components/UI/CheckBox';
 import Link from 'next/link';
+import Button from '@/components/UI/Button';
 
 export default function Withdraw() {
   return (
@@ -15,13 +16,17 @@ export default function Withdraw() {
         <div>
           <Checkbox label="안내 사항을 모두 확인하였으며, 이에 동의합니다." />
         </div>
-        <div>
-          <Link href="/mypage/settings">
-            <button>취소</button>
-          </Link>
-          <Link href="/">
-            <button>회원 탈퇴</button>
-          </Link>
+        <div className={styles.button}>
+          <div style={{ marginRight: '8px' }}>
+            <Link href="/mypage/settings">
+              <Button type="outline" disabled={false} text="취소" />
+            </Link>
+          </div>
+          <div>
+            <Link href="/">
+              <Button type="filled" text="회원 탈퇴" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
