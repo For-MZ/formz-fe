@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import styles from './Login.module.scss';
 import Divider from '@/components/UI/Divider';
-import TextFiled from '@/components/UI/TextFiled';
+import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
+import LoginButton from '@/components/UI/LoginButton';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -19,33 +20,33 @@ export default function Login() {
     <div className={styles.container}>
       <h2 className={styles.h2}>로그인</h2>
       <div className={styles.inputId}>
-        <TextFiled
-          label="아이디(이메일)"
-          inputId="email"
+        <TextField
+          labelText="아이디"
+          id="email"
           value={email}
+          width="442px"
           onChange={(event) => setEmail(event.target.value)}
         />
       </div>
       <div>
-        <TextFiled
-          label="비밀번호"
-          inputId="password"
+        <TextField
+          labelText="비밀번호"
+          id="password"
           value={password}
+          width="442px"
           onChange={(event) => setPassword(event.target.value)}
         />
-        <div className={styles.textForget}>비밀번호를 잊으셨나요?</div>
+        <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
       </div>
 
       <div className={styles.buttonContainer}>
-        <button style={{ width: '442px', height: '48px' }} onClick={handleLogin}>
-          로그인
-        </button>
+        <LoginButton type="default" />
         <Divider style="text" text="또는" />
         <div>
-          <button style={{ width: '442px', height: '48px', marginBottom: '16px' }}>카카오로 로그인</button>
+          <LoginButton type="kakaoTalk" />
         </div>
-        <div>
-          <button style={{ width: '442px', height: '48px' }}>구글로 로그인</button>
+        <div style={{ marginTop: '16px' }}>
+          <LoginButton type="google" />
         </div>
       </div>
       <div className={styles.signup}>
