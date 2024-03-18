@@ -23,8 +23,8 @@ export default function Checkbox({ label, checked, isNotValid, isDisable = false
         onChange={onChange}
       />
 
-      <label htmlFor="checkbox"></label>
-      <span>{label}</span>
+      <label htmlFor="checkbox">동욱님짱</label>
+      <span className={styles.label}>{label}</span>
     </div>
   );
 }

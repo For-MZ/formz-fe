@@ -14,18 +14,30 @@
 .h2 {
   margin-bottom: 48px;
 }
-
-.inputId {
-  margin-bottom: 24px;
+.name {
+  margin-top: 24px;
+}
+.password {
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
 }
 
-.buttonContainer {
+.emailcontainer {
+  display: flex;
+  flex-direction: row;
+}
+.namecontainer {
+  display: flex;
+  flex-direction: row;
+}
+.test {
+  border: 1px solid black;
+  margin-left: 8px;
+}
+.login {
   margin-top: 36px;
-  width: 100%;
-  margin-bottom: 36px;
-}
-
-.signup {
   color: $text-disabled-color;
   font-weight: 200;
   display: flex;
@@ -36,12 +48,4 @@
   font-weight: 400;
   margin-left: 8px;
   color: $text-disabled-color;
-}
-
-.textForget {
-  margin-top: 8px;
-  float: right;
-  text-decoration: underline;
-  color: $text-disabled-color;
-  font-weight: 400;
 }
