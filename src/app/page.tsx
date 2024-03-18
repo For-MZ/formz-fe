@@ -8,7 +8,6 @@ import useInput from '@/hooks/useInput';
 import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
-import icon from '../../public/icons/x.svg';
 import LoginButton from '@/components/UI/LoginButton';
 import Loading from '@/components/UI/Loading';
 import { useState } from 'react';

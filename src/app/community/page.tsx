@@ -109,7 +109,6 @@ export default function CommunityPage() {
   ];
   // TODO 게시글 데이터에서 카테고리 배열 만들기
   const categories: string[] = [...new Set(posts.map((post) => post.category))];
-  console.log(categories);
 
   return (
     <>
