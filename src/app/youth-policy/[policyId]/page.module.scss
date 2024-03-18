@@ -1,0 +1,64 @@
+.pageWrapper {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// 공유, 인쇄 버튼
+.topButtonWrapper {
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+}
+.topButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(127, 178, 255);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+// 조회/추천 수
+.topIconWrapper {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+}
+.countWrapper {
+  display: flex;
+  gap: 5px;
+}
+
+// 핵심 정보
+.keyInfo {
+  margin: 40px auto 0;
+  width: 50%;
+  text-align: center;
+}
+.categories {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 30px;
+  background-color: rgb(184, 248, 232);
+  border-radius: 30px;
+}
+.field {
+  background-color: beige;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+.description {
+  margin-top: 10px;
+  color: #2e2e2e;
+}
