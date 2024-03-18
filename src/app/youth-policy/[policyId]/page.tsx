@@ -1,7 +1,7 @@
 import ActionButtons from './_components/ActionButtons';
+import ActionToolbars from './_components/ActionToolbars';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
-import Image from 'next/image';
 
 type Props = {
   params: { policyId: string };
@@ -20,17 +20,9 @@ const policy = {
 
 export default function PolicyDetailPage({ params }: Props) {
   const { title, description, policyField, progress, viewCount, recommendCount } = policy;
-
   return (
     <section className={styles.pageWrapper}>
-      <div className={styles.topButtonWrapper}>
-        <p className={styles.topButton}>
-          <Image src="/icons/share-2.svg" alt="공유 아이콘" width={30} height={30} />
-        </p>
-        <p className={styles.topButton}>
-          <Image src="/icons/printer.svg" alt="인쇄 아이콘" width={30} height={30} />
-        </p>
-      </div>
+      <ActionToolbars />
       <div className={styles.keyInfo}>
         <div className={styles.topIconWrapper}>
           <div className={styles.countWrapper}>

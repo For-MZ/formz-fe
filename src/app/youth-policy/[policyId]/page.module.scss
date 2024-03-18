@@ -4,21 +4,6 @@
   flex-direction: column;
 }
 
-// 공유, 인쇄 버튼
-.topButtonWrapper {
-  display: flex;
-  justify-content: end;
-  gap: 5px;
-}
-.topButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(127, 178, 255);
-  border-radius: 50%;
-  padding: 5px;
-}
-
 // 조회/추천 수
 .topIconWrapper {
   display: flex;
