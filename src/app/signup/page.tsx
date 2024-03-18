@@ -122,7 +122,6 @@ export default function Signup() {
     <div className={styles.container}>
       <h2 className={styles.h2}>회원가입</h2>
       <div>
-        <div style={{ marginBottom: '8px' }}>이메일</div>
         <div className={styles.emailcontainer}>
           <div>
             <TextFiled
@@ -131,11 +130,16 @@ export default function Signup() {
               inputName="email"
               value={email}
               width="350px"
+              label="이메일"
               placeholder="ForMZ@example.com"
             />
           </div>
           <div>
-            <button style={{ width: '84px', height: '48px' }} onClick={handleMailAuthClick} className={styles.test}>
+            <button
+              style={{ marginTop: '27px', width: '84px', height: '48px' }}
+              onClick={handleMailAuthClick}
+              className={styles.test}
+            >
               메일 인증
             </button>
           </div>
@@ -164,7 +168,6 @@ export default function Signup() {
         </div>
       )}
       <div className={styles.name}>
-        <div style={{ marginBottom: '8px' }}>닉네임</div>
         <div className={styles.namecontainer}>
           <div>
             <TextFiled
@@ -172,27 +175,34 @@ export default function Signup() {
               onChange={handleNicknameChange}
               placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요."
               width="350px"
+              label="닉네임"
             />
           </div>
           <div>
-            <button style={{ width: '84px', height: '48px' }} className={styles.test} onClick={handleNicknameCheck}>
+            <button
+              style={{ marginTop: '27px', width: '84px', height: '48px' }}
+              className={styles.test}
+              onClick={handleNicknameCheck}
+            >
               중복 확인
             </button>
           </div>
         </div>
       </div>
       <div className={styles.password}>
-        <div style={{ marginBottom: '8px' }}>비밀번호</div>
         <TextFiled
           onChange={handlePasswordChange}
           value={password}
           rightIcon={icon}
           placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상"
+          label="비밀번호"
         />
-        <div style={{ marginBottom: '8px' }} className={styles.confirm}>
-          비밀번호 확인
-        </div>
-        <TextFiled value={confirmPassword} onChange={handleConfirmPasswordChange} rightIcon={icon} />
+        <TextFiled
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+          rightIcon={icon}
+          label="비밀번호 확인"
+        />
       </div>
       <div>
         <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>

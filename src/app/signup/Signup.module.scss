@@ -19,10 +19,11 @@
 }
 .password {
   margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
 }
-.confirm {
-  margin-top: 24px;
-}
+
 .emailcontainer {
   display: flex;
   flex-direction: row;
