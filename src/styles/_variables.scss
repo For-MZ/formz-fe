@@ -125,19 +125,19 @@ $color-neutral-900: #111827;
 // ! 아래에 있는 시맨틱 컬러만 사용 하기, 위 컬러 팔레트 변수는 사용 X
 // 글자 색상 변수
 $text-primary-color: $color-neutral-900;
-$text-secondary-color: $color-neutral-800;
+$text-secondary-color: $color-neutral-600;
 $text-info-color: $color-info-600;
 $text-success-color: $color-success-600;
 $text-warning-color: $color-warning-600;
 $text-danger-color: $color-danger-600;
-$text-disabled-color: $color-neutral-500;
+$text-disabled-color: $color-neutral-400;
 
 // 글자 색상 - 인터렉티브
 $text-interactive-primary-color: $color-brand-600;
 $text-interactive-primary-hover-color: $color-brand-700;
 $text-interactive-primary-press-color: $color-brand-800;
-$text-interactive-secondary-color: $color-neutral-600;
-$text-interactive-secondary-hover-color: $color-neutral-700;
+$text-interactive-secondary-color: $color-neutral-400;
+$text-interactive-secondary-hover-color: $color-neutral-600;
 $text-interactive-secondary-press-color: $color-neutral-800;
 $text-interactive-selected-color: $color-brand-600;
 $text-interactive-inverse-color: $color-white;
@@ -158,6 +158,7 @@ $background-disabled-color: $color-neutral-200;
 // 배경 색상 - 인터렉티브
 $background-interactive-primary-color: $color-brand-600;
 $background-interactive-primary-hover-color: $color-brand-700;
+$background-interactive-primary-hover-subtle-color: $color-brand-100;
 $background-interactive-primary-press-color: $color-brand-800;
 $background-interactive-secondary-color: $color-neutral-100;
 $background-interactive-secondary-hover-color: $color-neutral-200;
@@ -167,7 +168,7 @@ $background-interactive-selected-color: $color-brand-600;
 // 테두리 색상
 $border-primary-color: $color-gray-500;
 $border-secondary-color: $color-neutral-400;
-$border-focus-ring-color: $color-brand-700;
+$border-focus-color: $color-brand-700;
 $border-info-subtle-color: $color-info-200;
 $border-info-color: $color-info-600;
 $border-success-subtle-color: $color-success-200;
