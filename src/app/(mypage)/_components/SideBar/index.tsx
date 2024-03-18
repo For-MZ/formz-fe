@@ -8,7 +8,6 @@ export default function SideBar() {
     <div className={styles.container}>
       <div className={styles.width}>
         <h2 className={styles.h2}>로고</h2>
-
         <div className={styles.gap}>
           <Link href="/mypage">
             <div>
