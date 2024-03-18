@@ -4,6 +4,7 @@ import styles from './FilterablePolicies.module.scss';
 import { useState } from 'react';
 import Pagination from '@/components/UI/Pagination';
 import Button from '@/components/UI/Button';
+import PolicyGrid from '../PolicyGrid';
 
 export default function FilterablePolicies() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +37,7 @@ export default function FilterablePolicies() {
           <Button text={'정렬'} type="filled" onClick={() => console.log('정렬!')} disabled={false} />
         </div>
       </div>
+      <PolicyGrid />
       <Pagination totalPages={10} currentPage={currentPage} onPageChange={handlePageChange} />
     </>
   );
