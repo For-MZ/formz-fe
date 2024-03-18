@@ -1,46 +1,27 @@
 .header {
-  @include shadow2;
-  @include body-lg-medium;
-  position: fixed;
-  width: 100%;
-  z-index: 999;
+  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
 
-  .link {
-    display: block;
-    padding: 24px 8px;
-
-    &:hover {
-      // inner border
-      box-shadow: inset 0 -2px 0 $border-interactive-secondary-hover-color;
-    }
-
-    &.selected {
-      // inner border
-      box-shadow: inset 0 -2px 0 $border-interactive-primary-color;
-      color: $text-interactive-selected-color;
-    }
+  a {
+    color: $text-secondary-color;
   }
 
-  .navigation {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: $background-primary-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .menuList {
-      display: flex;
-      gap: 36px;
-    }
-
-    .userMenu {
-      display: flex;
-      gap: 8px;
-    }
+  a:hover {
+    color: $text-interactive-primary-color;
   }
 }
 
-.loginUser {
-  cursor: pointer;
+.navigation {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background-primary-color;
+  color: $text-secondary-color;
+  padding: 1rem;
+
+  ul {
+    display: flex;
+    gap: 2rem;
+  }
 }
