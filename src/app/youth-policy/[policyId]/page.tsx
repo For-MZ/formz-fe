@@ -1,3 +1,4 @@
+import ActionButtons from './_components/ActionButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
 import Image from 'next/image';
@@ -32,14 +33,14 @@ export default function PolicyDetailPage({ params }: Props) {
       </div>
       <div className={styles.keyInfo}>
         <div className={styles.topIconWrapper}>
-          <p className={styles.countWrapper}>
+          <div className={styles.countWrapper}>
             <p>조회수</p>
             <span>{viewCount}</span>
-          </p>
-          <p className={styles.countWrapper}>
+          </div>
+          <div className={styles.countWrapper}>
             <p>추천수</p>
             <span>{recommendCount}</span>
-          </p>
+          </div>
         </div>
         <div className={styles.categories}>
           <p className={styles.field}>{policyField}</p>
@@ -52,6 +53,7 @@ export default function PolicyDetailPage({ params }: Props) {
       <DetailInfo title="신청 자격" />
       <DetailInfo title="신청 방법" />
       <DetailInfo title="기타" />
+      <ActionButtons />
     </section>
   );
 }
