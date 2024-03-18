@@ -59,7 +59,6 @@ export default function Editor() {
       <ReactQuill
         className={styles.editor}
         theme="snow"
-        // style={{}}
         placeholder="게시글을 작성해주세요."
         value={quillValue}
         onChange={handleChangeQuillValue}

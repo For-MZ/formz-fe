@@ -14,8 +14,8 @@ export default function PostForm() {
   const [selectedCategory, setSelectedCategory] = useState('정책');
 
   return (
-    <div className={styles.form}>
-      <div className={styles.categoryDropDown}>
+    <div className={styles.postForm}>
+      <div className={styles.category}>
         <label htmlFor="">카테고리</label>
         <DropDown
           options={CATEGORY_OPTIONS}
@@ -26,7 +26,7 @@ export default function PostForm() {
         />
       </div>
       <div className={styles.title}>
-        <TextField width="100%" label="제목" value={title} onChange={handleChangeTitle} />
+        <TextField width="100%" labelText="제목" value={title} onChange={handleChangeTitle} />
       </div>
       <div className={styles.content}>
         <label>본문</label>
