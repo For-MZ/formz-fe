@@ -127,3 +127,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+button {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
