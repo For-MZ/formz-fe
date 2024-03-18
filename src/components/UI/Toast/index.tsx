@@ -23,7 +23,7 @@ export default function Toast({ message, color = 'blue', onClose, ...props }: Pr
         <div {...props} className={`${styles.toast} ${styles[color]}`}>
           <div>{message}</div>
           <button className={styles.button} onClick={handleClose}>
-            <img className={styles.logo} src="/icons/x.png" />
+            <img className={styles.logo} src="/icons/x.svg" />
           </button>
         </div>
       )}

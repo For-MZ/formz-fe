@@ -1,0 +1,16 @@
+.container {
+  margin: 0 auto;
+  margin-top: 15px;
+  max-width: 920px;
+}
+
+.postList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  li {
+    width: 100%;
+  }
+}
