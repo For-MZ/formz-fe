@@ -1,7 +1,7 @@
 .container {
   margin: 0 auto;
-  margin-top: 1rem;
-  max-width: 680px;
+  margin-top: 15px;
+  max-width: 920px;
 }
 
 .postList {
@@ -9,10 +9,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
 
   li {
     width: 100%;
-    border: 1px solid lightgray;
   }
 }

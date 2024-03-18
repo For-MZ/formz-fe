@@ -5,7 +5,6 @@ import Toast from '@/components/UI/Toast';
 import Checkbox from '@/components/UI/CheckBox';
 import useModal from '@/hooks/useModal';
 import useInput from '@/hooks/useInput';
-import useForm from '@/hooks/useForm';
 import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
@@ -21,10 +20,6 @@ export default function Home() {
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
   const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();
   const [inputValue, handleInputChange] = useInput('');
-  const [form, handleFormChange] = useForm({
-    email: '',
-    password: '',
-  });
 
   return (
     <>
@@ -56,54 +51,17 @@ export default function Home() {
         </Confirm>
       )}
       <TextField
-        type="text"
-        label="라벨"
-        value={inputValue}
-        onChange={handleInputChange}
-        helpMessage="기본 헬프메시지"
-      />
-      <TextField
-        success
+        type="email"
+        labelText="이메일"
         id="email"
-        label="라벨"
-        value={form.email}
-        onChange={handleFormChange}
-        placeholder="Placeholder"
-        helpMessage="성공 헬프 메시지"
-        leftIcon={icon}
-        rightIcon={icon}
-        inputName="email"
+        name="email"
+        value={inputValue}
+        placeholder="이메일을 입력해주세요."
+        onChange={handleInputChange}
+        width="200px"
+        height="200px"
       />
-      <TextField
-        error
-        id="password"
-        label="라벨"
-        value={form.password}
-        onChange={handleFormChange}
-        placeholder="Placeholder"
-        helpMessage="실패 헬프 메시지"
-        leftIcon={icon}
-        rightIcon={icon}
-        inputName="password"
-      />
-      <TextField
-        disabled
-        id="address"
-        label="disabled 인풋"
-        value={form.address}
-        onChange={handleFormChange}
-        placeholder="Placeholder"
-        helpMessage="disabled 헬프 메시지"
-        leftIcon={icon}
-        rightIcon={icon}
-        inputName="address"
-      />
-      <h1>타이포 그래피 테스트 h1</h1>
-      <h2>타이포 그래피 테스트 h2</h2>
-      <h3>타이포 그래피 테스트 h3</h3>
-      <h4>타이포 그래피 테스트 h4</h4>
-      <h5>타이포 그래피 테스트 h5</h5>
-      <h6>타이포 그래피 테스트 h6</h6>
+
       <Checkbox isNotValid onChange={() => {}} />
       <Divider style="none" />
       <Divider text="text" style="text" />
