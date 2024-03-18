@@ -17,7 +17,7 @@ export default function SideBar() {
           <Link href="/mypage/bookmark">
             <div>
               <Image width={14} height={14} src="/icons/heart.png" />
-              저장한 컨텐츠
+              북마크
             </div>
           </Link>
           <Link href="/mypage/write">

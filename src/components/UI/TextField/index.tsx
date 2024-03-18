@@ -14,6 +14,7 @@ type Props = {
   leftIcon?: StaticImageData;
   rightIcon?: StaticImageData;
   inputName?: string;
+  width?: string; // 너비 조절을 위한 props 추가
 };
 
 /**
@@ -44,11 +45,15 @@ export default function TextField({
   leftIcon,
   rightIcon,
   inputName,
+  width,
 }: Props) {
   return (
     <div className={styles.container}>
       {label && <label htmlFor={id}>{label}</label>}
-      <div className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}>
+      <div
+        style={{ width }}
+        className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
+      >
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         <input
           type="text"

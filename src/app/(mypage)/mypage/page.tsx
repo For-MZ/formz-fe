@@ -8,8 +8,15 @@ export default function mypage() {
     <div className={styles.container}>
       <h2>내 프로필</h2>
       <Image className={styles.image} width={128} height={128} src="/image/user.png" />
-      <div className={styles.input}>
-        <TextField label="닉네임" />
+      <div className={styles.inputcontainer}>
+        <div>
+          <TextField width="350px" label="닉네임" />
+        </div>
+        <div>
+          <button className={styles.test} style={{ width: '84px', height: '48px' }}>
+            중복 확인
+          </button>
+        </div>
       </div>
       <div>
         <TextField label="이메일" disabled />
