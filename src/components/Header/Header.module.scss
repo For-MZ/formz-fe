@@ -1,23 +1,13 @@
 .header {
-  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
-}
+  @include shadow2;
+  @include body-lg-medium;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
 
-.navigation {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $background-primary-color;
-
-  .navMenu {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .navMenuLink {
+  .link {
     display: block;
-    padding: 1.5rem 0.5rem;
+    padding: 24px 8px;
 
     &:hover {
       // inner border
@@ -30,4 +20,27 @@
       color: $text-interactive-selected-color;
     }
   }
+
+  .navigation {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: $background-primary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .menuList {
+      display: flex;
+      gap: 36px;
+    }
+
+    .userMenu {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+.loginUser {
+  cursor: pointer;
 }
