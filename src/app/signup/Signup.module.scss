@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  margin: 124px auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 442px;
+  //   border: 2px solid;
+  //   border-color: aqua;
+  @media (max-width: 768px) {
+  }
+}
+
+.h2 {
+  margin-bottom: 48px;
+}
+.name {
+  margin-top: 24px;
+}
+.password {
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.emailcontainer {
+  display: flex;
+  flex-direction: row;
+}
+.namecontainer {
+  display: flex;
+  flex-direction: row;
+}
+.test {
+  border: 1px solid black;
+  margin-left: 8px;
+}
+.login {
+  margin-top: 36px;
+  color: $text-disabled-color;
+  font-weight: 200;
+  display: flex;
+}
+
+.underline {
+  text-decoration: underline;
+  font-weight: 400;
+  margin-left: 8px;
+  color: $text-disabled-color;
+}
