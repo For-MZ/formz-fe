@@ -2,16 +2,15 @@
 
 import styles from './Toast.module.scss';
 import { useState, useEffect } from 'react';
-import Image, { StaticImageData } from 'next/image';
 
 type Props = {
   text: string;
   type?: 'default' | 'error';
-  leftIcon?: StaticImageData;
+  LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   onClose?: () => void;
 };
 
-export default function Toast({ text, type = 'default', leftIcon, ...props }: Props): JSX.Element {
+export default function Toast({ text, type = 'default', LeftIcon, ...props }: Props): JSX.Element {
   const [closed, setClosed] = useState(false);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function Toast({ text, type = 'default', leftIcon, ...props }: Pr
     <>
       {!closed && (
         <div {...props} className={`${styles.toast} ${styles[type]}`}>
-          {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
+          {LeftIcon && <LeftIcon className={styles.icon} />}
           <div>{text}</div>
           <button className={styles.button}></button>
         </div>

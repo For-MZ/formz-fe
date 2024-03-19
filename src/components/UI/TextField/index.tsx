@@ -1,5 +1,4 @@
 import styles from './TextField.module.scss';
-import Image, { StaticImageData } from 'next/image';
 
 type Props = {
   labelText?: string;
@@ -12,8 +11,8 @@ type Props = {
   placeholder?: string;
   error?: boolean;
   disabled?: boolean;
-  leftIcon?: StaticImageData;
-  rightIcon?: StaticImageData;
+  LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  RightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   width?: string;
   height?: string;
 };
@@ -29,8 +28,8 @@ export default function TextField({
   placeholder,
   error,
   disabled,
-  leftIcon,
-  rightIcon,
+  LeftIcon,
+  RightIcon,
   width,
   height,
 }: Props) {
@@ -44,7 +43,7 @@ export default function TextField({
         className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
       >
         {/* input처럼 보이는 div 내부 좌측 아이콘 */}
-        {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
+        {LeftIcon && <LeftIcon className={styles.icon} />}
         {/* 실제 input */}
         <input
           className={styles.input}
@@ -58,7 +57,7 @@ export default function TextField({
           onChange={onChange}
         />
         {/* input처럼 보이는 div 내부 우측 아이콘 */}
-        {rightIcon && <Image src={rightIcon} alt="아이콘" className={styles.icon} />}
+        {RightIcon && <RightIcon className={styles.icon} />}
       </div>
     </div>
   );

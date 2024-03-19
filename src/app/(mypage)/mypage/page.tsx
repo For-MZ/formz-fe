@@ -14,14 +14,14 @@ export default function mypage() {
           <TextField width="334px" labelText="닉네임" />
         </div>
         <div style={{ marginTop: '26px' }}>
-          <Button type="outline" text="중복 확인" />
+          <Button design="outline" text="중복 확인" />
         </div>
       </div>
       <div>
         <TextField width="442px" labelText="이메일" disabled />
       </div>
       <div style={{ marginTop: '36px' }}>
-        <Button type="filled" disabled text="변경 사항 저장" />
+        <Button design="filled" disabled text="변경 사항 저장" />
       </div>
     </div>
   );

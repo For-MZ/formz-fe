@@ -9,7 +9,10 @@ import axios from 'axios';
 
 export default function Withdraw() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [token, setToken] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [withdrawn, setWithdrawn] = useState<boolean>(false);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setIsChecked(event.target.checked);
@@ -17,11 +20,21 @@ export default function Withdraw() {
 
   const handleWithdraw = async (): Promise<void> => {
     try {
-      // 회원 탈퇴 API 엔드포인트에 요청을 보냅니다.
-      const response = await axios.post('/api/withdraw');
-      console.log(response.data); // 성공적인 응답 처리
+      const response = await axios.post('/api/withdraw', {
+        email: email, // 이메일 데이터 추가
+        token: token, // 인증 토큰 데이터 추가
+      });
+      console.log(response.data);
+      setWithdrawn(true);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
     } catch (error) {
       setError(error.response?.data?.message || '회원 탈퇴에 실패했습니다.');
+      setWithdrawn(true);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);
     }
   };
 
@@ -39,11 +52,11 @@ export default function Withdraw() {
         <div className={styles.button}>
           <div style={{ marginRight: '8px' }}>
             <Link href="/mypage/settings">
-              <Button type="outline" disabled={false} text="취소" />
+              <Button design="outline" disabled={false} text="취소" />
             </Link>
           </div>
           <div>
-            <Button type="filled" disabled={!isChecked} text="회원 탈퇴" onClick={handleWithdraw} />
+            <Button design="filled" disabled={!isChecked} text="회원 탈퇴" onClick={handleWithdraw} />
           </div>
         </div>
         {error && <div>{error}</div>}
