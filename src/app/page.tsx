@@ -12,7 +12,8 @@ import LoginButton from '@/components/UI/LoginButton';
 import Loading from '@/components/UI/Loading';
 import { useState } from 'react';
 import Button from '@/components/UI/Button';
-import star from '/public/icons/star.svg';
+import Star from '/public/icons/star.svg';
+import Printer from '/public/icons/printer.svg';
 
 export default function Home() {
   const [loading] = useState(true);
@@ -77,27 +78,35 @@ export default function Home() {
         text="버튼임!"
         disabled={false}
         onClick={() => console.log('클릭')}
-        leftIcon={star}
-        rightIcon={star}
+        LeftIcon={Printer}
+        RightIcon={Star}
       />
       <Button type="filled" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} />
-      <Button type="outline" text="버튼임!" disabled={false} onClick={() => console.log('클릭')} leftIcon={star} />
-      <Button type="outline" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} leftIcon={star} />
+      <Button type="outline" text="버튼임!" disabled={false} onClick={() => console.log('클릭')} LeftIcon={Printer} />
+      <Button type="outline" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} RightIcon={Star} />
       <Button
         type="transparent"
         text="버튼임!"
         disabled={false}
         onClick={() => console.log('클릭')}
-        leftIcon={star}
-        rightIcon={star}
+        LeftIcon={Printer}
+        RightIcon={Star}
       />
       <Button
         type="transparent"
         text="버튼임!"
         disabled={true}
         onClick={() => console.log('클릭')}
-        leftIcon={star}
-        rightIcon={star}
+        LeftIcon={Printer}
+        RightIcon={Star}
+      />
+      <Button
+        type="transparent"
+        text="test button"
+        disabled={false}
+        onClick={() => console.log('클릭')}
+        LeftIcon={Printer}
+        RightIcon={Star}
       />
     </>
   );
