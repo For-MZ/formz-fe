@@ -4,7 +4,7 @@ import styles from './FilterablePosts.module.scss';
 import Pagination from '@/components/UI/Pagination';
 import CategoryFilter from './CategoryFilter';
 import PostList from './PostList';
-import SearchBar from './SearchFilter';
+import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
 import { useState } from 'react';
 import { SimplePost } from '@/types/post';
@@ -19,30 +19,34 @@ export default function FilterablePosts({ categories, posts }: Props) {
   const [selectedSorting, setSelectedSorting] = useState('최신순');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handleSelectCategory = (selectedCategory: string) => {
-    alert('카테고리를 선택하였습니다.');
-    setSelectedCategory(selectedCategory);
+  const handleSelectCategory = (selected: string) => {
+    setSelectedCategory(selected);
+    // TODO 게시글 리스트 동기화
   };
 
   const handleSelectSorting = (selected: string) => {
-    alert('댓글을 정렬 했습니다.');
     setSelectedSorting(selected);
-    console.log(selected);
+    // TODO 게시글 리스트 동기화
   };
 
-  const handlePageChange = (pageNumber: number) => {
+  const handleChangePage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    // TODO 게시글 리스트 동기화
   };
 
   return (
-    <>
+    <section className={styles.filterablePosts}>
+      <SearchFilter />
       <div className={styles.filters}>
         <CategoryFilter categories={categories} selectedCategory={selectedCategory} onSelect={handleSelectCategory} />
-        <SearchBar />
-        <SortingFilter selectedSorting={selectedSorting} onSelect={handleSelectSorting} />
+        {posts?.length > 0 && <SortingFilter selectedSorting={selectedSorting} onSelect={handleSelectSorting} />}
       </div>
       <PostList posts={posts} selectedCategory={selectedCategory} selectedSorting={selectedSorting} />
-      <Pagination totalPages={10} currentPage={currentPage} onPageChange={handlePageChange} />
-    </>
+      {posts?.length > 0 && (
+        <div className={styles.pagination}>
+          <Pagination totalPages={10} currentPage={currentPage} onChangePage={handleChangePage} />
+        </div>
+      )}
+    </section>
   );
 }

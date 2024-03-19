@@ -1,8 +1,19 @@
+.filterablePosts {
+  max-width: 920px;
+  margin: 0 auto;
+  gap: 15px;
+}
+
 .filters {
   max-width: 920px;
   margin: 0 auto;
-  margin-top: 36px;
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.pagination {
+  max-width: 920px;
+  margin: 36px auto;
 }

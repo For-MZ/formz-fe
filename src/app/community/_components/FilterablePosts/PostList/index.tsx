@@ -11,16 +11,22 @@ type Props = {
 
 export default function PostList({ posts, selectedCategory, selectedSorting }: Props) {
   return (
-    <section className={styles.container}>
-      <ul className={styles.postList}>
-        {posts.map((post) => (
-          <li key={post.postId}>
-            <Link href={`/community/posts/${post.postId}`}>
-              <PostItem {...post} />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <>
+      {posts?.length === 0 ? (
+        <p className={styles.noPostMessage}>커뮤니티 게시글이 없습니다.</p>
+      ) : (
+        <section className={styles.container}>
+          <ul className={styles.postList}>
+            {posts.map((post) => (
+              <li key={post.postId}>
+                <Link href={`/community/posts/${post.postId}`}>
+                  <PostItem {...post} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }

@@ -3,15 +3,27 @@
   flex-direction: column;
   gap: 1rem;
 
-  .author {
-    border: 1px solid gray;
+  .metaData {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .title {
-    border: 1px solid gray;
+  .titleBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .title {
+      @include heading-h4;
+    }
   }
 
   .content {
-    border: 1px solid gray;
+  }
+
+  .utilButtons {
+    display: flex;
+    justify-content: flex-end;
   }
 }

@@ -23,7 +23,8 @@
 }
 
 .postTitle {
-  font-size: 18px;
+  @include heading-h6;
+  color: $text-primary-color;
 }
 
 .postMetaData {
@@ -41,6 +42,7 @@
 .rightZone {
   display: flex;
   gap: 16px;
+  color: $text-primary-color;
   @include body-md-semibold;
 
   .thumbsUp {
