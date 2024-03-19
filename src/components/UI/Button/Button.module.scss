@@ -5,12 +5,10 @@
   gap: 4px;
   padding: 16px 24px;
   border-radius: 12px;
-  min-width: 125px;
-}
-
-.icon {
-  width: 1rem;
-  height: 1rem;
+  font-size: inherit;
+  .icon {
+    font-size: inherit;
+  }
 }
 
 .filled {
@@ -18,8 +16,9 @@
   color: $text-interactive-inverse-color;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
   .icon {
-    // filter: drop-shadow(0 0 0 $icon-interactive-inverse-color);
-    color: $icon-interactive-inverse-color;
+    path {
+      stroke: $icon-interactive-inverse-color;
+    }
   }
   &:hover {
     background-color: $background-interactive-primary-hover-color;
@@ -38,7 +37,9 @@
     color: $text-disabled-color;
     box-shadow: none;
     .icon {
-      color: $icon-disabled-color;
+      path {
+        stroke: $icon-disabled-color;
+      }
     }
   }
 }
@@ -48,14 +49,18 @@
   background-color: $background-primary-color;
   color: $text-success-color;
   .icon {
-    color: $icon-success-color;
+    path {
+      stroke: $icon-success-color;
+    }
   }
   &:hover {
     border-color: $border-interactive-primary-hover-color;
     background-color: $background-interactive-secondary-hover-color;
     color: $text-interactive-primary-hover-color;
     .icon {
-      color: $icon-interactive-primary-hover-color;
+      path {
+        stroke: $icon-interactive-primary-hover-color;
+      }
     }
   }
   &:active {
@@ -63,7 +68,9 @@
     background-color: $background-interactive-secondary-press-color;
     color: $text-interactive-primary-press-color;
     .icon {
-      color: $icon-interactive-primary-press-color;
+      path {
+        stroke: $icon-interactive-primary-press-color;
+      }
     }
   }
   &:focus {
@@ -75,7 +82,9 @@
     background-color: $background-primary-color;
     color: $text-disabled-color;
     .icon {
-      color: $icon-disabled-color;
+      path {
+        stroke: $icon-disabled-color;
+      }
     }
   }
 }
@@ -84,34 +93,44 @@
   background-color: $background-primary-color;
   color: $text-success-color;
   .icon {
-    color: $icon-success-color;
+    path {
+      stroke: $icon-success-color;
+    }
   }
   &:hover {
     background-color: $background-primary-color;
     color: $text-interactive-primary-hover-color;
     .icon {
-      color: $icon-interactive-primary-hover-color;
+      path {
+        stroke: $icon-interactive-primary-hover-color;
+      }
     }
   }
   &:active {
     background-color: $background-primary-color;
     color: $text-interactive-primary-press-color;
     .icon {
-      color: $icon-interactive-primary-press-color;
+      path {
+        stroke: $icon-interactive-primary-press-color;
+      }
     }
   }
   &:focus {
     outline: 1px solid $border-focus-color;
     outline-offset: 2px;
     .icon {
-      color: $icon-interactive-primary-press-color;
+      path {
+        stroke: $icon-interactive-primary-press-color;
+      }
     }
   }
   &:disabled {
     background-color: $background-primary-color;
     color: $text-disabled-color;
     .icon {
-      color: $icon-disabled-color;
+      path {
+        stroke: $icon-disabled-color;
+      }
     }
   }
 }
