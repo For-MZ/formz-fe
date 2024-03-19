@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import styles from './PostItem.module.scss';
 import { SimplePost } from '@/types/post';
+import Category from '../../../Category';
 
 type Props = SimplePost;
 
 export default function PostItem({ title, category, createdAt, author, likes, views, commentCount }: Props) {
   return (
     <article className={styles.postItem}>
-      <span className={styles.category}>{category}</span>
+      <Category category={category} />
       <p className={styles.postTitle}>{title}</p>
       <div className={styles.postMetaData}>
         <div className={styles.leftZone}>

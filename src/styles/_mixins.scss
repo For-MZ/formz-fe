@@ -24,6 +24,58 @@
 }
 
 // 타이포그래피 믹스인
+@mixin heading-h1 {
+  font-size: 48px;
+  line-height: 120%;
+  font-weight: 700;
+
+  @include mobile {
+    font-size: 40px;
+  }
+}
+
+@mixin heading-h2 {
+  font-size: 40px;
+  line-height: 120%;
+  font-weight: 700;
+
+  @include mobile {
+    font-size: 32px;
+  }
+}
+
+@mixin heading-h3 {
+  font-size: 32px;
+  line-height: 120%;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 24px;
+  }
+}
+
+@mixin heading-h4 {
+  font-size: 28px;
+  line-height: 120%;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 20px;
+  }
+}
+
+@mixin heading-h5 {
+  font-size: 24px;
+  line-height: 120%;
+  font-weight: 600;
+}
+
+@mixin heading-h6 {
+  font-size: 18px;
+  line-height: 120%;
+  font-weight: 600;
+}
+
 @mixin body-sm-regular {
   font-size: 12px;
   line-height: 120%;

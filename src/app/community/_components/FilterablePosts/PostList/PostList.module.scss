@@ -10,7 +10,18 @@
   justify-content: center;
   align-items: center;
 
+  li:first-child {
+    border-top: 1px solid $border-secondary-color;
+  }
+
   li {
     width: 100%;
   }
+}
+
+.noPostMessage {
+  @include heading-h5;
+  color: $text-disabled-color;
+  text-align: center;
+  margin: 128px 0;
 }

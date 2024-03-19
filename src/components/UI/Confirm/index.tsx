@@ -12,13 +12,14 @@ type Props = {
 export default function Confirm({ children, onConfirm, onCancel, heading, rightButtonText }: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
-  const handleClose: React.MouseEventHandler = (event) => {
+  const handleClose = (event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    // 이벤트 버블링 막기
     if (event.target === event.currentTarget) {
       onCancel();
     }
   };
 
-  const handleConfirm: React.MouseEventHandler = () => {
+  const handleConfirm = () => {
     onConfirm();
   };
 

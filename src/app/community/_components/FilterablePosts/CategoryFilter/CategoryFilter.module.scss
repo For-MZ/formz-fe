@@ -1,0 +1,27 @@
+.categoriesBox {
+  display: flex;
+  gap: 8px;
+
+  @include mobile {
+    display: none;
+  }
+
+  .categoryTag {
+    @include body-sm-regular;
+    padding: 8px 16px;
+    color: $text-interactive-primary-color;
+    background-color: $background-primary-color;
+    border: 1px solid $border-interactive-primary-color;
+    border-radius: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $background-interactive-primary-hover-subtle-color;
+    }
+
+    &.selected {
+      background-color: $background-interactive-selected-color;
+      color: $text-interactive-inverse-color;
+    }
+  }
+}

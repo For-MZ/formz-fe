@@ -10,7 +10,8 @@ type Props = {
 export default function Alert({ children, onClose, heading }: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
-  const handleClose: React.MouseEventHandler = (event) => {
+  const handleClose = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    // 이벤트 버블링 막기
     if (event.target === event.currentTarget) {
       onClose();
     }
