@@ -74,26 +74,30 @@ export default function Home() {
       <LoginButton type="google" />
       <Loading loading={loading} />
       <Button
-        type="filled"
+        design="filled"
         text="버튼임!"
         disabled={false}
         onClick={() => console.log('클릭')}
         LeftIcon={Printer}
         RightIcon={Star}
+        type="submit"
+        width="200px"
+        height="20px"
       />
-      <Button type="filled" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} />
-      <Button type="outline" text="버튼임!" disabled={false} onClick={() => console.log('클릭')} LeftIcon={Printer} />
-      <Button type="outline" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} RightIcon={Star} />
+      <Button design="filled" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} />
+      <Button design="outline" text="버튼임!" disabled={false} onClick={() => console.log('클릭')} LeftIcon={Printer} />
+      <Button design="outline" text="버튼임!" disabled={true} onClick={() => console.log('클릭')} RightIcon={Star} />
       <Button
-        type="transparent"
+        design="transparent"
         text="버튼임!"
         disabled={false}
+        fontSize="30px"
         onClick={() => console.log('클릭')}
         LeftIcon={Printer}
         RightIcon={Star}
       />
       <Button
-        type="transparent"
+        design="transparent"
         text="버튼임!"
         disabled={true}
         onClick={() => console.log('클릭')}
@@ -101,7 +105,7 @@ export default function Home() {
         RightIcon={Star}
       />
       <Button
-        type="transparent"
+        design="transparent"
         text="test button"
         disabled={false}
         onClick={() => console.log('클릭')}

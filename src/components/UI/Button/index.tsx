@@ -1,22 +1,33 @@
 'use client';
 
+import { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.scss';
 
-type Props = {
-  type: 'filled' | 'outline' | 'transparent';
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  design: 'filled' | 'outline' | 'transparent';
   LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   RightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  text: string;
-  disabled?: boolean;
-  onClick: () => void;
-};
+  text?: string;
+}
 
-export default function Button({ type, LeftIcon, RightIcon, text, disabled = true, onClick }: Props) {
+export default function Button({
+  width = '125px',
+  height,
+  fontSize,
+  design,
+  LeftIcon,
+  RightIcon,
+  text,
+  ...props
+}: Props) {
   return (
     <button
-      className={`${styles.button} ${type === 'filled' ? styles.filled : type === 'outline' ? styles.outline : styles.transparent}`}
-      onClick={onClick}
-      disabled={disabled}
+      style={{ minWidth: width, height, fontSize }}
+      className={`${styles.button} ${design === 'filled' ? styles.filled : design === 'outline' ? styles.outline : styles.transparent}`}
+      {...props}
     >
       {LeftIcon && <LeftIcon className={styles.icon} />}
       <span className={styles.text}>{text}</span>

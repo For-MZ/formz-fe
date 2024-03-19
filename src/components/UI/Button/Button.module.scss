@@ -5,7 +5,10 @@
   gap: 4px;
   padding: 16px 24px;
   border-radius: 12px;
-  min-width: 125px;
+  font-size: inherit;
+  .icon {
+    font-size: inherit;
+  }
 }
 
 .filled {
@@ -66,7 +69,7 @@
     color: $text-interactive-primary-press-color;
     .icon {
       path {
-        color: $icon-interactive-primary-press-color;
+        stroke: $icon-interactive-primary-press-color;
       }
     }
   }
@@ -80,7 +83,7 @@
     color: $text-disabled-color;
     .icon {
       path {
-        color: $icon-disabled-color;
+        stroke: $icon-disabled-color;
       }
     }
   }
