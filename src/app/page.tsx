@@ -14,6 +14,8 @@ import { useState } from 'react';
 import Button from '@/components/UI/Button';
 import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';
+import checkcircle from '/public/icons/checkcircle.svg';
+import alertcircle from '/public/icons/alertcircle.svg';
 
 export default function Home() {
   const [loading] = useState(true);
@@ -65,10 +67,9 @@ export default function Home() {
       <Checkbox isNotValid onChange={() => {}} />
       <Divider style="none" />
       <Divider text="text" style="text" />
-      <Toast message="Description" color="green" />
-      <Toast message="Description" color="blue" />
-      <Toast message="Description" color="yellow" />
-      <Toast message="Description" color="red" />
+      <Toast leftIcon={checkcircle} text="Message" type="default" />
+      <Toast leftIcon={alertcircle} text="Message" type="error" />
+
       <LoginButton type="default" />
       <LoginButton type="kakaoTalk" />
       <LoginButton type="google" />

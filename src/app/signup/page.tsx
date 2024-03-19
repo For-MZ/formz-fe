@@ -196,6 +196,7 @@ export default function Signup() {
         <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>
       </div>
       <div>
+        <Button type="filled" disabled={false} text="회원가입" />
         <button onClick={handleSubmit} style={{ width: '442px', height: '48px' }}>
           회원가입
         </button>
