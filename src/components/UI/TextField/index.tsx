@@ -1,65 +1,55 @@
+import { InputHTMLAttributes, useState } from 'react';
 import styles from './TextField.module.scss';
 import Image, { StaticImageData } from 'next/image';
 
-type Props = {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   labelText?: string;
-  type?: React.HTMLInputTypeAttribute | undefined;
-  required?: boolean;
-  id?: string;
-  name?: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  error?: boolean;
-  disabled?: boolean;
+  valueProp?: string;
+  onChangeProp?: (value: string) => void;
+  hasError?: boolean;
   leftIcon?: StaticImageData;
   rightIcon?: StaticImageData;
-  width?: string;
-  height?: string;
+  helpMessage?: string;
 };
 
 export default function TextField({
-  value,
-  onChange,
   labelText,
-  id,
-  name,
-  type,
-  required,
-  placeholder,
-  error,
-  disabled,
+  valueProp,
+  onChangeProp,
+  hasError,
   leftIcon,
   rightIcon,
-  width,
-  height,
+  helpMessage,
+  ...inputProps
 }: Props) {
+  const [inputValue, setInputValue] = useState(valueProp || '');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    onChangeProp?.(event.target.value);
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.textField}>
       {/* input과 연결되는 label */}
-      {labelText && <label htmlFor={id}>{labelText}</label>}
+      {labelText && (
+        <label className={styles.label} htmlFor={inputProps.id}>
+          {labelText}
+        </label>
+      )}
+
       {/* input처럼 보이는 div */}
-      <div
-        style={{ width, height }}
-        className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
-      >
+      <div className={`${styles.inputWrapper} ${hasError && styles.error} ${inputProps.disabled && styles.disabled}`}>
         {/* input처럼 보이는 div 내부 좌측 아이콘 */}
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
         {/* 실제 input */}
-        <input
-          className={styles.input}
-          id={id}
-          type={type}
-          name={name}
-          placeholder={placeholder}
-          disabled={disabled}
-          required={required}
-          value={value}
-          onChange={onChange}
-        />
+        <input {...inputProps} className={styles.input} value={inputValue} onChange={handleChange} />
         {/* input처럼 보이는 div 내부 우측 아이콘 */}
         {rightIcon && <Image src={rightIcon} alt="아이콘" className={styles.icon} />}
       </div>
+
+      {/* input처럼 보이는 div 밑 헬프 메시지 */}
+      {helpMessage && <p className={`${styles.helpMessage} ${hasError && styles.errorHelpMessage}`}>{helpMessage}</p>}
     </div>
   );
 }

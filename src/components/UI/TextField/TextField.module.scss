@@ -1,8 +1,13 @@
-.container {
+.textField {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  .label {
+    @include body-md-medium;
+    color: $text-primary-color;
+  }
 }
 
 .inputWrapper {
@@ -51,10 +56,20 @@
 
   &::placeholder {
     color: $text-interactive-secondary-color;
+    @include body-md-regular;
   }
 }
 
 .icon {
   width: 20px;
   height: 20px;
+}
+
+.helpMessage {
+  color: $text-primary-color;
+  @include body-sm-regular;
+
+  &.errorHelpMessage {
+    color: $text-danger-color;
+  }
 }
