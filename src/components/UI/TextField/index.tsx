@@ -36,12 +36,16 @@ export default function TextField({
 }: Props) {
   return (
     <div className={styles.container}>
+      {/* input과 연결되는 label */}
       {labelText && <label htmlFor={id}>{labelText}</label>}
+      {/* input처럼 보이는 div */}
       <div
         style={{ width, height }}
         className={`${styles.inputWrapper} ${error && styles.error} ${disabled && styles.disabled}`}
       >
+        {/* input처럼 보이는 div 내부 좌측 아이콘 */}
         {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
+        {/* 실제 input */}
         <input
           className={styles.input}
           id={id}
@@ -53,6 +57,7 @@ export default function TextField({
           value={value}
           onChange={onChange}
         />
+        {/* input처럼 보이는 div 내부 우측 아이콘 */}
         {rightIcon && <Image src={rightIcon} alt="아이콘" className={styles.icon} />}
       </div>
     </div>
