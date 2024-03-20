@@ -1,3 +1,5 @@
+'use client';
+
 import { InputHTMLAttributes, useState } from 'react';
 import styles from './TextField.module.scss';
 import Image, { StaticImageData } from 'next/image';
