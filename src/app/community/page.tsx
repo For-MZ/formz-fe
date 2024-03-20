@@ -1,11 +1,10 @@
-import { SimplePost } from '@/types/post';
+import { PostItem } from '@/types/post';
 import Banner from './_components/Banner';
 import FilterablePosts from './_components/FilterablePosts';
 
 export default function CommunityPage() {
   // TODO 전체 게시글 데이터 요청
-  // 서버에서 받아온 데이터라고 가정
-  const posts: SimplePost[] = [
+  const posts: PostItem[] = [
     {
       postId: '1',
       title: '게시글 제목1',
@@ -107,13 +106,11 @@ export default function CommunityPage() {
       category: '정책',
     },
   ];
-  // TODO 게시글 데이터에서 카테고리 배열 만들기
-  const categories: string[] = [...new Set(posts.map((post) => post.category))];
 
   return (
     <>
       <Banner />
-      <FilterablePosts categories={categories} posts={posts} />
+      <FilterablePosts posts={posts} />
     </>
   );
 }

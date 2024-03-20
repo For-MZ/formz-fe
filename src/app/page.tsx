@@ -4,7 +4,6 @@ import Divider from '@/components/UI/Divider';
 import Toast from '@/components/UI/Toast';
 import Checkbox from '@/components/UI/CheckBox';
 import useModal from '@/hooks/useModal';
-import useInput from '@/hooks/useInput';
 import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
@@ -12,6 +11,8 @@ import LoginButton from '@/components/UI/LoginButton';
 import Loading from '@/components/UI/Loading';
 import { useState } from 'react';
 import Button from '@/components/UI/Button';
+import star from '/public/icons/star.svg';
+import DropDown from '@/components/UI/DropDown';
 import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';
 import Checkcircle from '/public/icons/checkcircle.svg';
@@ -21,10 +22,19 @@ export default function Home() {
   const [loading] = useState(true);
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
   const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();
-  const [inputValue, handleInputChange] = useInput('');
+  const [category, setCategory] = useState<string | null>(null);
 
   return (
     <>
+      <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
+      <TextField labelText="본문" placeholder="본문을 입력해주세요." />
+      <TextField labelText="에러 테스트" hasError helpMessage="헬프 에러 미시지" />
+      <DropDown
+        options={['전체', '정책', '공간', '주택', '커뮤니티']}
+        onSelectProp={(category: string) => setCategory(category)}
+        placeholder="카테고리를 선택해주세요."
+      />
+      <p>선택된 카테고리: {category}</p>
       <button onClick={onOpenAlert}>Alert 오픈</button>
       {isOpenAlert && (
         <Alert onClose={onCloseAlert} heading="alert 헤딩">
@@ -52,18 +62,6 @@ export default function Home() {
           voluptatibus. Sequi!
         </Confirm>
       )}
-      <TextField
-        type="email"
-        labelText="이메일"
-        id="email"
-        name="email"
-        value={inputValue}
-        placeholder="이메일을 입력해주세요."
-        onChange={handleInputChange}
-        width="200px"
-        height="200px"
-      />
-
       <Checkbox isNotValid onChange={() => {}} />
       <Divider style="none" />
       <Divider text="text" style="text" />

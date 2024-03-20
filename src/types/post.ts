@@ -1,4 +1,4 @@
-export type SimplePost = {
+export type PostItem = {
   postId: string;
   title: string;
   author: string;
@@ -6,5 +6,7 @@ export type SimplePost = {
   views: number;
   likes: number;
   commentCount: number;
-  category: string;
+  category: PostCategory;
 };
+
+export type PostCategory = '전체' | '정책' | '공간' | '주택' | '취업' | '창업' | '자유' | '꿀팁';
