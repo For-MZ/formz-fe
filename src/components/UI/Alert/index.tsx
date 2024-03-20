@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import styles from './Alert.module.scss';
+import Button from '../Button';
 
 type Props = {
   children: React.ReactNode;
@@ -19,12 +20,10 @@ export default function Alert({ children, onClose, heading }: Props) {
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleClose}>
-      <div className={styles.modalContainer}>
-        <h6>{heading}</h6>
-        <div className={styles.contentContainer}>
-          <p>{children}</p>
-          <button onClick={handleClose}>확인</button>
-        </div>
+      <div className={styles.modal}>
+        <p className={styles.title}>{heading}</p>
+        <p className={styles.content}>{children}</p>
+        <Button className={styles.button} design="filled" text="확인" onClick={handleClose} />
       </div>
     </div>,
     portalElement,

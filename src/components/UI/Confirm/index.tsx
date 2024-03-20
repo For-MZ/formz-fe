@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import styles from './confirm.module.scss';
+import Button from '../Button';
 
 type Props = {
   children: React.ReactNode;
@@ -25,14 +26,12 @@ export default function Confirm({ children, onConfirm, onCancel, heading, rightB
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleClose}>
-      <div className={styles.modalContainer}>
-        <h6>{heading}</h6>
-        <div className={styles.contentContainer}>
-          <p>{children}</p>
-          <div className={styles.buttons}>
-            <button onClick={handleClose}>취소</button>
-            <button onClick={handleConfirm}>{rightButtonText}</button>
-          </div>
+      <div className={styles.modal}>
+        <p className={styles.title}>{heading}</p>
+        <p className={styles.content}>{children}</p>
+        <div className={styles.buttons}>
+          <Button design="outline" text="취소" className={styles.button} onClick={handleClose} />
+          <Button design="filled" text={rightButtonText} className={styles.button} onClick={handleConfirm} />
         </div>
       </div>
     </div>,
