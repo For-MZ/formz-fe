@@ -1,9 +1,12 @@
-import Image from 'next/image';
 import styles from './PostItem.module.scss';
-import { SimplePost } from '@/types/post';
+import { PostItem as PostItemType } from '@/types/post';
 import Category from '../../../Category';
+import ImageIcon from '/public/icons/image.svg';
+import ThumbsUpIcon from '/public/icons/thumbs-up.svg';
+import HitsIcon from '/public/icons/eye.svg';
+import CommentCountIcon from '/public/icons/message-square.svg';
 
-type Props = SimplePost;
+type Props = PostItemType;
 
 export default function PostItem({ title, category, createdAt, author, likes, views, commentCount }: Props) {
   return (
@@ -16,16 +19,18 @@ export default function PostItem({ title, category, createdAt, author, likes, vi
           <span>{createdAt.toString()}</span>
         </div>
         <div className={styles.rightZone}>
+          {/* image 여부  */}
+          {true && <ImageIcon />}
           <div className={styles.thumbsUp}>
-            <Image src="/icons/thumbs-up.svg" alt="추천 아이콘" width={16} height={16} />
+            <ThumbsUpIcon />
             <span>{likes}</span>
           </div>
           <div className={styles.hits}>
-            <Image src="/icons/eye.svg" alt="조회 아이콘" width={16} height={16} />
+            <HitsIcon />
             <span>{views}</span>
           </div>
           <div className={styles.commentCount}>
-            <Image src="/icons/message-square.svg" alt="댓글 수 아이콘" width={16} height={16} />
+            <CommentCountIcon />
             <span>{commentCount}</span>
           </div>
         </div>

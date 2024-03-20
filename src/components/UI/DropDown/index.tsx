@@ -2,9 +2,8 @@
 
 import { ButtonHTMLAttributes, useState } from 'react';
 import styles from './DropDown.module.scss';
-import Image from 'next/image';
-import upIcon from '/public/icons/chevron-up.svg';
-import downIcon from '/public/icons/chevron-down.svg';
+import UpIcon from '/public/icons/chevron-up.svg';
+import DownIcon from '/public/icons/chevron-down.svg';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   options: string[];
@@ -38,8 +37,8 @@ export default function DropDown({ options, onSelectProp, placeholder, hasError,
       >
         {selectedOption || <span className={styles.placeholder}>{placeholder}</span>}
         <div className={styles.icons}>
-          <Image src={upIcon} alt="up 아이콘" width={12} height={12} />
-          <Image src={downIcon} alt="down 아이콘" width={12} height={12} />
+          <UpIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
+          <DownIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
         </div>
       </button>
 

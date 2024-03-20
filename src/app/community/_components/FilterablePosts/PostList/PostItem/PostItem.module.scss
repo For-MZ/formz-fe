@@ -14,7 +14,6 @@
 
 .category {
   align-self: flex-start;
-  // TODO 변수 네이밍 디자이너분 변경 요청
   background-color: $background-interactive-primary-hover-subtle-color;
   color: $text-interactive-primary-color;
   padding: 8px 12px;
@@ -30,39 +29,39 @@
 .postMetaData {
   display: flex;
   justify-content: space-between;
-}
 
-.leftZone {
-  display: flex;
-  gap: 8px;
-  color: $text-interactive-secondary-color;
-  @include body-sm-regular;
-}
-
-.rightZone {
-  display: flex;
-  gap: 16px;
-  color: $text-primary-color;
-  @include body-md-semibold;
-
-  .thumbsUp {
+  .leftZone {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
+    gap: 8px;
+    color: $text-interactive-secondary-color;
+    @include body-sm-regular;
   }
 
-  .hits {
+  .rightZone {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-  }
+    gap: 16px;
+    color: $text-primary-color;
+    @include body-md-semibold;
 
-  .commentCount {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
+    .thumbsUp {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hits {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .commentCount {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
   }
 }
