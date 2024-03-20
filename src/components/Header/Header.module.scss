@@ -3,7 +3,7 @@
   @include body-lg-medium;
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: $z-index-fixed;
 
   .link {
     display: block;
