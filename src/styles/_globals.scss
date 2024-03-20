@@ -9,7 +9,6 @@ html {
 }
 
 body {
-  margin: 0 auto;
   width: 100vw;
   height: 100vh;
 }
@@ -23,16 +22,15 @@ input[type='text'] {
   padding: 0;
 }
 
-.main {
-  padding-top: 67px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 strong {
   font-weight: 700;
 }
 
 em {
   font-style: italic;
+}
+
+.errorMessage {
+  color: $text-danger-color;
+  @include body-sm-regular;
 }
