@@ -40,7 +40,7 @@ export default function Login() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <LoginButton type="default" />
+        <LoginButton onClick={handleLogin} type="default" />
         <Divider style="text" text="또는" />
         <div>
           <LoginButton type="kakaoTalk" />

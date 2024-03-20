@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import TextField from '@/components/UI/TextField';
 import styles from '@/app/signup/Signup.module.scss';
 import Link from 'next/link';
-import icon from '../../../public/icons/eye.svg';
+import eye from '../../../public/icons/eye.svg';
 import axios, { AxiosResponse } from 'axios';
 import Button from '@/components/UI/Button';
 
@@ -136,7 +136,7 @@ export default function Signup() {
             />
           </div>
           <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-            <Button type="outline" onClick={handleMailAuthClick} text="메일 인증" disabled={false} />
+            <Button design="outline" onClick={handleMailAuthClick} text="메일 인증" disabled={false} />
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function Signup() {
           </div>
           <div>
             <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-              <Button type="outline" text="인증 확인" disabled={false} onClick={() => console.log('클릭')} />
+              <Button design="outline" text="인증 확인" disabled={false} onClick={() => console.log('클릭')} />
             </div>
           </div>
           {verificationError && <div style={{ color: 'red', marginTop: '8px' }}>{verificationError}</div>}
@@ -171,7 +171,7 @@ export default function Signup() {
           </div>
 
           <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-            <Button type="outline" text="인증 확인" disabled={false} onClick={handleNicknameCheck} />
+            <Button design="outline" text="인증 확인" disabled={false} onClick={handleNicknameCheck} />
           </div>
         </div>
       </div>
@@ -180,7 +180,7 @@ export default function Signup() {
           width="442px"
           onChange={handlePasswordChange}
           value={password}
-          rightIcon={icon}
+          RightIcon={eye}
           placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상"
           labelText="비밀번호"
         />
@@ -188,7 +188,7 @@ export default function Signup() {
           width="442px"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
-          rightIcon={icon}
+          RightIcon={eye}
           labelText="비밀번호 확인"
         />
       </div>
@@ -196,6 +196,7 @@ export default function Signup() {
         <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>
       </div>
       <div>
+        <Button design="filled" disabled={false} text="회원가입" />
         <button onClick={handleSubmit} style={{ width: '442px', height: '48px' }}>
           회원가입
         </button>

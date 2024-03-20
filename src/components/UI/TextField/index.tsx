@@ -2,7 +2,6 @@
 
 import { InputHTMLAttributes, useState } from 'react';
 import styles from './TextField.module.scss';
-import Image, { StaticImageData } from 'next/image';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   labelText?: string;
@@ -43,11 +42,11 @@ export default function TextField({
       {/* input처럼 보이는 div */}
       <div className={`${styles.inputWrapper} ${hasError && styles.error} ${inputProps.disabled && styles.disabled}`}>
         {/* input처럼 보이는 div 내부 좌측 아이콘 */}
-        {leftIcon && <Image src={leftIcon} alt="아이콘" className={styles.icon} />}
+        {LeftIcon && <LeftIcon className={styles.icon} />}
         {/* 실제 input */}
         <input {...inputProps} className={styles.input} value={inputValue} onChange={handleChange} />
         {/* input처럼 보이는 div 내부 우측 아이콘 */}
-        {rightIcon && <Image src={rightIcon} alt="아이콘" className={styles.icon} />}
+        {RightIcon && <RightIcon className={styles.icon} />}
       </div>
 
       {/* input처럼 보이는 div 밑 헬프 메시지 */}

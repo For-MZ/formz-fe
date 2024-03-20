@@ -13,7 +13,7 @@ export default function Settings() {
           <TextField disabled width="357px" labelText="비밀번호" />
         </div>
         <div style={{ marginTop: '26px' }}>
-          <Button text="변경" type="outline" disabled={false} />
+          <Button text="변경" design="outline" disabled={false} />
         </div>
       </div>
       <Link href="/mypage/withdraw">
