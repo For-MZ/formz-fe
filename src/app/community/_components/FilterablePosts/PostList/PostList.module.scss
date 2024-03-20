@@ -1,20 +1,18 @@
-.container {
+.postListContainer {
   margin: 0 auto;
-  margin-top: 15px;
+  margin-top: 36px;
   max-width: 920px;
-}
-
-.postList {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  li:first-child {
+  .postItem:first-child {
     border-top: 1px solid $border-secondary-color;
   }
 
-  li {
+  .postItem {
+    display: block;
     width: 100%;
   }
 }
