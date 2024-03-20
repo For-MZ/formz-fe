@@ -1,9 +1,9 @@
 import styles from './SearchFilter.module.scss';
 import TextField from '@/components/UI/TextField';
-import useInput from '@/hooks/useInput';
+import { useState } from 'react';
 
 export default function SearchFilter() {
-  const [searchValue, handleChangeSearchValue] = useInput('');
+  const [searchValue, setSearchValue] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,8 +16,8 @@ export default function SearchFilter() {
     <form onSubmit={handleSubmit} className={styles.searchFilter}>
       <TextField
         type="text"
-        value={searchValue}
-        onChange={handleChangeSearchValue}
+        valueProp={searchValue}
+        onChangeProp={setSearchValue}
         placeholder="검색어를 입력해주세요."
       />
     </form>
