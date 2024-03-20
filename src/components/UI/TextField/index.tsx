@@ -8,8 +8,8 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   valueProp?: string;
   onChangeProp?: (value: string) => void;
   hasError?: boolean;
-  leftIcon?: StaticImageData;
-  rightIcon?: StaticImageData;
+  LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  RightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   helpMessage?: string;
 };
 
@@ -18,8 +18,8 @@ export default function TextField({
   valueProp,
   onChangeProp,
   hasError,
-  leftIcon,
-  rightIcon,
+  LeftIcon,
+  RightIcon,
   helpMessage,
   ...inputProps
 }: Props) {

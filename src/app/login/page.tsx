@@ -31,12 +31,15 @@ export default function Login() {
       <div>
         <TextField
           labelText="비밀번호"
+          type="password"
           id="password"
           value={password}
           width="442px"
           onChange={(event) => setPassword(event.target.value)}
         />
-        <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
+        <Link href="/login/find-password">
+          <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
+        </Link>
       </div>
 
       <div className={styles.buttonContainer}>
