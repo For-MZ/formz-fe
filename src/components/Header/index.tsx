@@ -48,12 +48,6 @@ export default function Header() {
         <div className={styles.userMenu}>
           {isLogin ? (
             <>
-              <Link href={'/login'} className={`${styles.link} ${pathName === '/login' && styles.selected}`}>
-                로그인
-              </Link>
-              <Link href={'/signup'} className={`${styles.link} ${pathName === '/signup' && styles.selected}`}>
-                회원가입
-              </Link>
               <Link href="/mypage">
                 <Image src={defaultProfileImage} alt="기본 프로필 이미지" />
               </Link>
