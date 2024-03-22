@@ -1,42 +1,49 @@
 'use client';
 
-import { useState } from 'react';
-import upIcon from '/public/icons/chevron-up.svg';
-import downIcon from '/public/icons/chevron-down.svg';
+import { ButtonHTMLAttributes, useState } from 'react';
 import styles from './DropDown.module.scss';
-import Image from 'next/image';
+import UpIcon from '/public/icons/chevron-up.svg';
+import DownIcon from '/public/icons/chevron-down.svg';
 
-type Props = {
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   options: string[];
-  selectedOption: string;
-  onSelect: (option: string) => void;
+  onSelectProp: (selectedOption: string) => void;
   placeholder?: string;
+  hasError?: boolean;
 };
 
-export default function DropDown({ options, selectedOption, onSelect, placeholder }: Props) {
+export default function DropDown({ options, onSelectProp, placeholder, hasError, ...buttonProps }: Props) {
   const [isOpenOptionList, setIsOpenOptionList] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(placeholder ? null : options[0]);
 
   const handleToggleDropDown = () => {
     setIsOpenOptionList((prev) => !prev);
   };
 
-  const handleClickOption = (option: string) => {
-    onSelect(option);
+  const handleClickOption = (selectedOption: string) => {
+    setSelectedOption(selectedOption);
+    onSelectProp?.(selectedOption);
     setIsOpenOptionList(false);
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.selectContainer}>
       {/* 드롭다운 토글링 버튼 */}
-      <button type="button" className={styles.toggle} onClick={handleToggleDropDown}>
-        <div>{selectedOption || <span className={styles.placeholder}>{placeholder}</span>}</div>
+      <button
+        {...buttonProps}
+        type="button"
+        className={`${styles.toggle} ${hasError && styles.error}`}
+        onClick={handleToggleDropDown}
+      >
+        {selectedOption || <span className={styles.placeholder}>{placeholder}</span>}
         <div className={styles.icons}>
-          <Image src={upIcon} alt="up 아이콘" width={12} height={12} />
-          <Image src={downIcon} alt="down 아이콘" width={12} height={12} />
+          <UpIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
+          <DownIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
         </div>
       </button>
+
+      {/* 드롭다운 토글링 버튼 클릭 시 보이는 옵션 리스트 */}
       {isOpenOptionList && (
-        // 드롭다운 토글링 버튼 클릭 시 보이는 옵션 리스트
         <ul className={styles.optionList}>
           {options.map((option) => (
             <li

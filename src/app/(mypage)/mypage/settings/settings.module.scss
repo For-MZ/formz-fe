@@ -9,13 +9,23 @@
   display: flex;
   margin-bottom: 24px;
   margin-top: 36px;
-}
-
-.test {
-  margin-top: 27px;
-  margin-left: 8px;
+  width: 442px;
 }
 
 .withdraw {
   color: $text-danger-color;
+}
+
+.password {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.inputdetail {
+  width: 100%;
+}
+
+.buttondetail {
+  margin-top: 26px;
+  margin-left: 12px;
 }

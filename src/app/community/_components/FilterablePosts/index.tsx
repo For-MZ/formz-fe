@@ -7,17 +7,18 @@ import PostList from './PostList';
 import SearchFilter from './SearchFilter';
 import SortingFilter from './SortingFilter';
 import { useState } from 'react';
-import { SimplePost } from '@/types/post';
+import { PostItem } from '@/types/post';
 
 type Props = {
-  categories: string[];
-  posts: SimplePost[];
+  posts: PostItem[];
 };
 
-export default function FilterablePosts({ categories, posts }: Props) {
-  const [selectedCategory, setSelectedCategory] = useState('전체');
-  const [selectedSorting, setSelectedSorting] = useState('최신순');
+export default function FilterablePosts({ posts }: Props) {
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [selectedSorting, setSelectedSorting] = useState<string>('최신순');
   const [currentPage, setCurrentPage] = useState(1);
+
+  const categories: string[] = ['전체', ...new Set(posts.map((post) => post.category))];
 
   const handleSelectCategory = (selected: string) => {
     setSelectedCategory(selected);
@@ -36,17 +37,15 @@ export default function FilterablePosts({ categories, posts }: Props) {
 
   return (
     <section className={styles.filterablePosts}>
-      <SearchFilter />
       <div className={styles.filters}>
-        <CategoryFilter categories={categories} selectedCategory={selectedCategory} onSelect={handleSelectCategory} />
-        {posts?.length > 0 && <SortingFilter selectedSorting={selectedSorting} onSelect={handleSelectSorting} />}
+        <CategoryFilter categories={categories} onSelect={handleSelectCategory} />
+        <SearchFilter />
+        <SortingFilter onSelect={handleSelectSorting} />
       </div>
       <PostList posts={posts} selectedCategory={selectedCategory} selectedSorting={selectedSorting} />
-      {posts?.length > 0 && (
-        <div className={styles.pagination}>
-          <Pagination totalPages={10} currentPage={currentPage} onChangePage={handleChangePage} />
-        </div>
-      )}
+      <div className={styles.pagination}>
+        <Pagination totalPages={10} currentPage={currentPage} onChangePage={handleChangePage} />
+      </div>
     </section>
   );
 }
