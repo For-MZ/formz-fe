@@ -5,9 +5,13 @@ import styles from './ToggleButton.module.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function ToggleButton() {
+type Props = {
+  defaultView: 'card' | 'map';
+};
+
+export default function ToggleButton({ defaultView }: Props) {
   const router = useRouter();
-  const [viewFormat, setViewFormat] = useState<'card' | 'map'>('card');
+  const [viewFormat, setViewFormat] = useState<'card' | 'map'>(defaultView);
   const handleToggleButton = (viewFormat: 'card' | 'map') => {
     setViewFormat(viewFormat);
     switch (viewFormat) {
@@ -16,9 +20,6 @@ export default function ToggleButton() {
         return;
       case 'map':
         router.push('/youth-place/placeMapList');
-        return;
-      default:
-        router.push('/youth-place');
         return;
     }
   };

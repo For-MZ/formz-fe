@@ -39,7 +39,7 @@ export default function Header() {
           </Link>
           {navMenuList.map(({ href, name }) => (
             <li key={href} className={styles.menu}>
-              <Link href={href} className={`${styles.link} ${pathName === href && styles.selected}`}>
+              <Link href={href} className={`${styles.link} ${pathName.startsWith(href) && styles.selected}`}>
                 {name}
               </Link>
             </li>

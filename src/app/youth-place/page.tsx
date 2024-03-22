@@ -7,7 +7,7 @@ export default function PlacePage() {
     <section className={styles.pageContainer}>
       <h2>청년 공간</h2>
       <Filter />
-      <ToggleButton />
+      <ToggleButton defaultView="card" />
     </section>
   );
 }
