@@ -8,7 +8,6 @@ import Button from '@/components/UI/Button';
 import FilterCategory from '../FilterCategory';
 
 const DISTRICT = [
-  '지역(시/도)',
   '서울',
   '부산',
   '대구',
@@ -27,7 +26,7 @@ const DISTRICT = [
   '제주',
   '세종',
 ];
-const SUBDISTRICT = ['지역(시/군/구)']; // TODO 지역(시/도)에 따라서 유동적으로 변화해야 함
+const SUBDISTRICT = ['']; // TODO 지역(시/도)에 따라서 유동적으로 변화해야 함
 const COSTOFUSE = ['전체', '무료', '유료', '부분 유료'];
 const STATUS_OPERATION = ['전체', '운영중', '금일 운영 마감'];
 const RESERVATION = ['전체', '전화예약', '온라인 예약'];

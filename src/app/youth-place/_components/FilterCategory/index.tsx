@@ -15,7 +15,11 @@ export default function FilterCategory({ dropDownOptions, category }: Props) {
   return (
     <div className={styles.categoryWrapper}>
       <p>{category}</p>
-      <DropDown options={dropDownOptions} selectedOption={selectedOption} onSelect={handleSelectOption} />
+      <DropDown
+        options={dropDownOptions}
+        onSelectProp={() => handleSelectOption(selectedOption)}
+        placeholder={category}
+      />
     </div>
   );
 }
