@@ -8,6 +8,14 @@ module.exports = {
     });
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'loremflickr.com',
+      },
+    ],
+  },
   sassOptions: {
     prependData: `@import "@/styles/variables"; @import "@/styles/mixins";`,
   },
