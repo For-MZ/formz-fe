@@ -123,27 +123,27 @@ export default function Signup() {
   return (
     <div className={styles.container}>
       <h2 className={styles.h2}>회원가입</h2>
-      <div>
-        <div className={styles.emailcontainer}>
-          <div>
-            <TextField
-              onChange={handleEmailChange}
-              id="email"
-              name="email"
-              value={email}
-              width="334px"
-              labelText="이메일"
-              placeholder="ForMZ@example.com"
-            />
-          </div>
-          <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-            <Button width="100px" design="outline" onClick={handleMailAuthClick} text="메일 인증" disabled={false} />
-          </div>
+
+      <div className={styles.emailcontainer}>
+        <div className={styles.test}>
+          <TextField
+            onChange={handleEmailChange}
+            id="email"
+            name="email"
+            value={email}
+            width="334px"
+            labelText="이메일"
+            placeholder="ForMZ@example.com"
+          />
+        </div>
+        <div style={{ marginLeft: '8px', marginTop: '26px' }}>
+          <Button width="100px" design="outline" onClick={handleMailAuthClick} text="메일 인증" disabled={false} />
         </div>
       </div>
+
       {showEmailInput && (
         <div className={styles.emailcontainer}>
-          <div style={{ marginTop: '22px' }}>
+          <div className={styles.test} style={{ marginTop: '22px' }}>
             <TextField
               value={verificationCode}
               width="334px"
@@ -167,7 +167,7 @@ export default function Signup() {
       )}
       <div className={styles.name}>
         <div className={styles.namecontainer}>
-          <div>
+          <div className={styles.test}>
             <TextField
               value={nickname}
               onChange={handleNicknameChange}

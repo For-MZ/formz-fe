@@ -11,14 +11,28 @@
 
 .inputcontainer {
   display: flex;
-  margin-bottom: 24px;
-}
-
-.test {
-  margin-top: 27px;
-  margin-left: 8px;
+  width: 442px;
+  flex-direction: column;
 }
 
 .toast {
   margin-top: 140px;
+}
+
+.inputdetail {
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.nicknameinput {
+  width: 100%;
+}
+
+.buttondetail {
+  width: 100px;
+}
+
+.savebuttondetail {
+  margin-top: 36px;
 }
