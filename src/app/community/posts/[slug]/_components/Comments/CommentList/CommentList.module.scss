@@ -1,0 +1,72 @@
+.commentsList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .commentsItem {
+    display: flex;
+    gap: 16px;
+
+    .commentUserProfileImage {
+      width: 60px;
+      height: 60px;
+    }
+
+    .contentBox {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      &Header {
+        display: flex;
+        gap: 8px;
+
+        .nickname {
+          color: $text-primary-color;
+          @include heading-h6;
+        }
+
+        .createdAt {
+          color: $text-secondary-color;
+          @include body-lg-regular;
+        }
+      }
+
+      &Body {
+        @include body-md-regular;
+        color: $text-primary-color;
+      }
+
+      &Footer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .buttons {
+          display: flex;
+          gap: 16px;
+
+          .thumbsUpBox {
+            @include body-lg-semibold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: $text-secondary-color;
+
+            svg path {
+              stroke: $icon-secondary-color;
+            }
+          }
+
+          .replyFormOpenButton {
+            background-color: $background-primary-color;
+            color: $text-primary-color;
+            padding: 8px 0;
+            @include body-md-semibold;
+          }
+        }
+      }
+    }
+  }
+}
