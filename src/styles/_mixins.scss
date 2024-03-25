@@ -129,3 +129,8 @@
   line-height: 120%;
   font-weight: 600;
 }
+
+@mixin error-message {
+  color: $text-danger-color;
+  @include body-sm-regular;
+}
