@@ -1,39 +1,37 @@
-'use client';
-
-import { useState } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './_customEditor.scss';
-import styles from './TextEditor.module.scss';
+import { ImageActions } from '@xeger/quill-image-actions'; // 이미지 리사이징 모듈
+import { ImageFormats } from '@xeger/quill-image-formats'; // 이미지 리사이징 모듈
+
+Quill.register('modules/imageActions', ImageActions);
+Quill.register('modules/imageFormats', ImageFormats);
 
 type Props = {
-  id?: string;
-  value: string;
-  onChange: (html: string) => void;
+  placeholder?: string;
+  hasError?: boolean;
+  value?: string;
+  onChangeProp?: (htmlValue: string, textValue: string) => void;
+  onBlurProp?: (textValue: string) => void;
 };
 
-export default function TextEditor({ id, value, onChange }: Props) {
-  // Quill 컴포넌트의 내용을 관리하기 위한 상태
-  const [editorHtml, setEditorHtml] = useState(value || '');
-
-  // Quill의 내용이 변경될 때마다 호출되는 핸들러 함수
-  const handleChange = (html: string) => {
-    setEditorHtml(html);
-    onChange?.(html);
-  };
-
+export default function TextEditor({ value, onChangeProp, placeholder, hasError, onBlurProp }: Props) {
   const modules = {
+    imageActions: {},
+    imageFormats: {},
     toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      [{ font: [] }],
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', { align: [] }],
+      [{ color: [] }, { background: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       ['link', 'image'],
-      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
       ['clean'],
     ],
   };
 
   const formats = [
+    'font',
     'header',
     'bold',
     'italic',
@@ -42,26 +40,33 @@ export default function TextEditor({ id, value, onChange }: Props) {
     'blockquote',
     'list',
     'bullet',
-    'indent',
     'link',
     'image',
     'align',
     'color',
     'background',
+    'height',
+    'width',
   ];
 
+  const handleChange = (content, delta, source, editor) => {
+    onChangeProp?.(editor.getHTML(), editor.getText());
+  };
+
+  const handleBlur = (previousSelection, source, editor) => {
+    onBlurProp?.(editor.getText());
+  };
+
   return (
-    <>
-      <ReactQuill
-        id={id}
-        className={styles.editor}
-        theme="snow"
-        modules={modules}
-        formats={formats}
-        value={editorHtml}
-        onChange={handleChange}
-        placeholder="본문을 입력해주세요."
-      />
-    </>
+    <ReactQuill
+      className={`${hasError && 'error'}`}
+      theme="snow"
+      modules={modules}
+      formats={formats}
+      value={value}
+      placeholder={placeholder}
+      onChange={handleChange}
+      onBlur={handleBlur}
+    />
   );
 }

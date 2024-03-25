@@ -2217,6 +2217,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xeger/quill-image-actions@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "@xeger/quill-image-actions@npm:0.7.2"
+  dependencies:
+    core-js: "npm:^3.0"
+    deepmerge: "npm:^4.2"
+  peerDependencies:
+    quill: ^1.3.6
+  checksum: 10c0/aea6ba14144a3f8069cc49f8451eb4ec536c8b1f807a65e128eb9532a0a7774fa842b81b9b64ee5e18c5b7c0a11b00ceab6a397549d58f749a8827ff49434127
+  languageName: node
+  linkType: hard
+
+"@xeger/quill-image-formats@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "@xeger/quill-image-formats@npm:0.7.2"
+  dependencies:
+    core-js: "npm:^3.0"
+  peerDependencies:
+    quill: ^1.3.6
+  checksum: 10c0/3a1f0c581e00751df5df939692d8247ac789f202745521b8c4fb3ad93268181ab77c6240f58d27e89f1464e4b69e3362602b9846c6a04a076b589f11daeb3416
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -2894,6 +2917,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.0":
+  version: 3.36.1
+  resolution: "core-js@npm:3.36.1"
+  checksum: 10c0/4f0ad2464535d809ba659226feca15bff14b9b5452518bddff8d81b9c94b0227b3027d9838f22f1dce664958acb4107b935cc0037695ae545edc2a303bca98bf
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^8.1.3":
   version: 8.3.6
   resolution: "cosmiconfig@npm:8.3.6"
@@ -3093,7 +3123,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.3.1":
+"deepmerge@npm:^4.2, deepmerge@npm:^4.3.1":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
   checksum: 10c0/e53481aaf1aa2c4082b5342be6b6d8ad9dfe387bc92ce197a66dea08bd4265904a087e75e464f14d1347cf2ac8afe1e4c16b266e0561cc5df29382d3c5f80044
@@ -3940,6 +3970,8 @@ __metadata:
     "@types/react-dom": "npm:^18"
     "@typescript-eslint/eslint-plugin": "npm:^7.0.2"
     "@typescript-eslint/parser": "npm:^7.0.2"
+    "@xeger/quill-image-actions": "npm:^0.7.2"
+    "@xeger/quill-image-formats": "npm:^0.7.2"
     axios: "npm:^1.6.7"
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.1.0"
