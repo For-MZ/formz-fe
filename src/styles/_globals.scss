@@ -9,8 +9,11 @@ html {
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -30,7 +33,6 @@ em {
   font-style: italic;
 }
 
-.errorMessage {
-  color: $text-danger-color;
-  @include body-sm-regular;
+li {
+  list-style: none;
 }
