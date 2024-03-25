@@ -2,32 +2,38 @@
 
 import Link from 'next/link';
 import styles from './Header.module.scss';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
-import defaultProfileImage from '../../../public/default-profile-image.png';
+import defaultProfileImage from '/public/default-profile-image.png';
 
 const navMenuList = [
   {
     href: '/youth-policy',
     name: '청년 정책',
+    segment: 'youth-policy',
   },
   {
     href: '/youth-place',
     name: '청년 공간',
+    segment: 'youth-place',
   },
   {
     href: '/youth-housing',
     name: '청년 주택',
+    segment: 'youth-housing',
   },
   {
     href: '/community',
     name: '커뮤니티',
+    segment: 'community',
   },
 ];
 
 export default function Header() {
   const pathName = usePathname();
+  const currentSegment = useSelectedLayoutSegment();
+
   const [isLogin, setIsLogin] = useState<boolean>(true);
 
   return (
@@ -37,9 +43,9 @@ export default function Header() {
           <Link href="/" className={styles.link}>
             로고
           </Link>
-          {navMenuList.map(({ href, name }) => (
+          {navMenuList.map(({ href, name, segment }) => (
             <li key={href} className={styles.menu}>
-              <Link href={href} className={`${styles.link} ${pathName === href && styles.selected}`}>
+              <Link href={href} className={`${styles.link} ${segment === currentSegment && styles.selected}`}>
                 {name}
               </Link>
             </li>
