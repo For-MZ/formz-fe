@@ -11,7 +11,6 @@ import LoginButton from '@/components/UI/LoginButton';
 import Loading from '@/components/UI/Loading';
 import { useState } from 'react';
 import Button from '@/components/UI/Button';
-import star from '/public/icons/star.svg';
 import DropDown from '@/components/UI/DropDown';
 import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';

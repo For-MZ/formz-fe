@@ -1,25 +1,26 @@
-.commentsList {
+.commentList {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  .commentsItem {
+  .commentItem {
     display: flex;
     gap: 16px;
 
-    .commentUserProfileImage {
+    .avatar {
       width: 60px;
       height: 60px;
     }
 
-    .contentBox {
+    .textZone {
       display: flex;
       flex-direction: column;
       gap: 8px;
 
-      &Header {
+      .textZoneHeader {
         display: flex;
+        align-items: center;
         gap: 8px;
 
         .nickname {
@@ -33,37 +34,26 @@
         }
       }
 
-      &Body {
+      .textZoneBody {
         @include body-md-regular;
         color: $text-primary-color;
       }
 
-      &Footer {
+      .textZoneFooter {
         display: flex;
         flex-direction: column;
         gap: 8px;
+        position: relative;
 
-        .buttons {
+        .thumbsUpBox {
+          @include body-lg-semibold;
           display: flex;
-          gap: 16px;
+          align-items: center;
+          gap: 8px;
+          color: $text-secondary-color;
 
-          .thumbsUpBox {
-            @include body-lg-semibold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: $text-secondary-color;
-
-            svg path {
-              stroke: $icon-secondary-color;
-            }
-          }
-
-          .replyFormOpenButton {
-            background-color: $background-primary-color;
-            color: $text-primary-color;
-            padding: 8px 0;
-            @include body-md-semibold;
+          svg path {
+            stroke: $icon-secondary-color;
           }
         }
       }
