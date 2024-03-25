@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import styles from './mypage.module.scss';
 import Image from 'next/image';
 import TextField from '@/components/UI/TextField';
@@ -14,8 +14,8 @@ export default function mypage() {
   const [isNicknameAvailable, setIsNicknameAvailable] = useState<boolean>(false);
   const [isChangesSaved, setIsChangesSaved] = useState<boolean>(false);
 
-  const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setNickname(event.target.value);
+  const handleNicknameChange = (value: string) => {
+    setNickname(value);
     // 닉네임을 변경할 때마다 사용 가능한지 확인하도록 초기화
     setIsNicknameAvailable(false);
     setIsChangesSaved(false); // 닉네임이 변경되면 변경 사항 저장 상태를 false로 변경
@@ -47,33 +47,35 @@ export default function mypage() {
     <div className={styles.container}>
       <h2>내 프로필</h2>
       <Image className={styles.image} width={128} height={128} src="/image/user.png" />
+
       <div className={styles.inputcontainer}>
-        <div>
-          <TextField width="334px" labelText="닉네임" onChange={handleNicknameChange} />
+        <div className={styles.inputdetail}>
+          <div className={styles.nicknameinput}>
+            <TextField labelText="닉네임" onChangeProp={handleNicknameChange} />
+          </div>
+          <div className={styles.buttondetail}>
+            <Button
+              disabled={!isNicknameValid || isChangesSaved} // 닉네임 입력값이 없을 때 비활성화됩니다.
+              design="outline"
+              text="중복 확인"
+              onClick={handleCheckAvailability} // 중복 확인 버튼 클릭 시 실행되는 함수를 연결합니다.
+            />
+          </div>
         </div>
-        <div style={{ marginTop: '26px', marginLeft: '8px' }}>
+        <div>
+          <TextField labelText="이메일" disabled />
+        </div>
+        <div className={styles.savebuttondetail}>
           <Button
-            width="100px"
-            disabled={!isNicknameValid || isChangesSaved} // 닉네임 입력값이 없을 때 비활성화됩니다.
-            design="outline"
-            text="중복 확인"
-            onClick={handleCheckAvailability} // 중복 확인 버튼 클릭 시 실행되는 함수를 연결합니다.
+            design="filled"
+            disabled={!isSaveEnabled || isChangesSaved} // 저장 버튼을 클릭하여 변경 사항을 저장하면 다시 비활성화됩니다.
+            text="변경 사항 저장"
+            onClick={handleSaveChanges}
           />
         </div>
-      </div>
-      <div>
-        <TextField width="442px" labelText="이메일" disabled />
-      </div>
-      <div style={{ marginTop: '36px' }}>
-        <Button
-          design="filled"
-          disabled={!isSaveEnabled || isChangesSaved} // 저장 버튼을 클릭하여 변경 사항을 저장하면 다시 비활성화됩니다.
-          text="변경 사항 저장"
-          onClick={handleSaveChanges}
-        />
-      </div>
-      <div className={styles.toast}>
-        {isChangesSaved && <Toast LeftIcon={Checkcircle} text="변경 사항을 저장했습니다." />}
+        <div className={styles.toast}>
+          {isChangesSaved && <Toast LeftIcon={Checkcircle} text="변경 사항을 저장했습니다." />}
+        </div>
       </div>
     </div>
   );

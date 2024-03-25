@@ -19,24 +19,20 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <h2 className={styles.h2}>로그인</h2>
-      <div className={styles.inputId}>
-        <TextField
-          labelText="아이디"
-          id="email"
-          value={email}
-          width="442px"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div>
+      <div className={styles.inputcontainer}>
+        <div className={styles.inputId}>
+          <TextField labelText="아이디" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+        </div>
+
         <TextField
           labelText="비밀번호"
           type="password"
           id="password"
           value={password}
-          width="442px"
           onChange={(event) => setPassword(event.target.value)}
         />
+      </div>
+      <div>
         <Link href="/login/find-password">
           <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
         </Link>

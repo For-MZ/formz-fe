@@ -32,10 +32,10 @@ export default function Settings() {
     <div className={styles.container}>
       <h2>계정 설정</h2>
       <div className={styles.inputcontainer}>
-        <div>
-          <TextField disabled width="357px" labelText="비밀번호" />
+        <div className={styles.inputdetail}>
+          <TextField type="password" disabled labelText="비밀번호" />
         </div>
-        <div style={{ marginTop: '26px', marginLeft: '12px' }}>
+        <div className={styles.buttondetail}>
           <Button onClick={() => setShowConfirm(true)} width="100px" text="변경" design="outline" disabled={false} />
         </div>
       </div>

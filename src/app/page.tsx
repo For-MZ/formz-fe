@@ -16,6 +16,7 @@ import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';
 import Checkcircle from '/public/icons/checkcircle.svg';
 import Alertcircle from '/public/icons/alertcircle.svg';
+import Skeleton from 'react-loading-skeleton';
 
 export default function Home() {
   const [loading] = useState(true);
@@ -110,6 +111,9 @@ export default function Home() {
         LeftIcon={Printer}
         RightIcon={Star}
       />
+      <div style={{ backgroundColor: '#eee', borderRadius: '4px', width: '200px', height: '30px' }}>
+        <Skeleton height={30} width={200} />
+      </div>
     </>
   );
 }
