@@ -1,6 +1,6 @@
 import styles from './PostItem.module.scss';
 import { PostItem as PostItemType } from '@/types/post';
-import Category from '../../../Category';
+import Category from './Category';
 import ImageIcon from '/public/icons/image.svg';
 import ThumbsUpIcon from '/public/icons/thumbs-up.svg';
 import HitsIcon from '/public/icons/eye.svg';
