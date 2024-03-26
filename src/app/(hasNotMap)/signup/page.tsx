@@ -206,8 +206,8 @@ export default function Signup() {
           <Image src="/image/profile.png" width="128" height="128" />
         </div>
       </div>
-      <div>
-        <Button onClick={handleSubmit} width="442px" design="filled" disabled={false} text="회원가입" />
+      <div className={styles.button}>
+        <Button onClick={handleSubmit} design="filled" disabled={false} text="회원가입" />
       </div>
       <div className={styles.login}>
         이미 계정이 있으신가요?
