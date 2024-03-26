@@ -1,10 +1,10 @@
 'use client';
 
+import Button from '@/components/UI/Button';
 import styles from './Replys.module.scss';
 import { useState } from 'react';
 import ChevronUpIcon from '/public/icons/chevron-up.svg';
 import ChevronDownIcon from '/public/icons/chevron-down.svg';
-import Button from '@/components/UI/Button';
 import ReplyForm from './ReplyForm';
 import ReplyList from './ReplyList';
 

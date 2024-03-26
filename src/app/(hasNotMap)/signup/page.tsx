@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import TextField from '@/components/UI/TextField';
-import styles from '@/app/signup/Signup.module.scss';
+import styles from './Signup.module.scss';
 import Link from 'next/link';
-import eye from '../../../public/icons/eye.svg';
+import eye from '/public/icons/eye.svg';
 import axios, { AxiosResponse } from 'axios';
 import Button from '@/components/UI/Button';
 import Image from 'next/image';

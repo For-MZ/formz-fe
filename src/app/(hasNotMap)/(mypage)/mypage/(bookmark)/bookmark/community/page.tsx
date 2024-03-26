@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './community.module.scss';
-import PostList from '@/app/community/_components/FilterablePosts/PostList';
+import PostList from '@/app/(hasNotMap)/community/_components/FilterablePosts/PostList';
 import Pagination from '@/components/UI/Pagination';
 import { SimplePost } from '@/types/post';
 
