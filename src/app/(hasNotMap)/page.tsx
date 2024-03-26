@@ -18,7 +18,7 @@ import Checkcircle from '/public/icons/checkcircle.svg';
 import Alertcircle from '/public/icons/alertcircle.svg';
 import Skeleton from 'react-loading-skeleton';
 
-export default function Home() {
+export default function HomePage() {
   const [loading] = useState(true);
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
   const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();

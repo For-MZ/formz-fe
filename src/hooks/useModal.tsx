@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 export default function useModal(): [boolean, React.MouseEventHandler<HTMLElement>, () => void] {

@@ -1,4 +1,4 @@
-import BookmarkNav from '@/app/(mypage)/_components/BookmarkNav';
+import BookmarkNav from '@/app/(hasNotMap)/(mypage)/_components/BookmarkNav';
 import styles from './layout.module.scss';
 
 type Props = Readonly<{
