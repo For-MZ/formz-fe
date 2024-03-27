@@ -9,6 +9,8 @@ import LoginButton from '@/components/UI/LoginButton';
 import axios from 'axios';
 
 export default function Login() {
+  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
@@ -46,7 +48,7 @@ export default function Login() {
   };
 
   const handleKakaoLogin = () => {
-    // 카카오 로그인 처리
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&scope=profile_nickname`;
   };
 
   const handleGoogleLogin = () => {
