@@ -5,19 +5,35 @@ import styles from './Login.module.scss';
 import Divider from '@/components/UI/Divider';
 import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import LoginButton from '@/components/UI/LoginButton';
 import axios from 'axios';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
   const handleLogin = async () => {
     try {
-      if (!email || !password) {
-        setError('이메일과 비밀번호를 모두 입력하세요.');
+      if (!email && !password) {
+        setEmailError('이메일을 입력하세요.');
+        setPasswordError('비밀번호를 입력하세요.');
         return;
+      } else if (!emailRegEx.test(email)) {
+        setEmailError('올바른 이메일 형식으로 입력해주세요.');
+        return;
+      } else {
+        setEmailError('');
+        setPasswordError('');
       }
 
       // 로그인 요청 보내기
@@ -26,22 +42,26 @@ export default function Login() {
       // 로그인 성공
       console.log('로그인 성공:', response.data);
 
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
+      router.push('/');
       // 여기에서 로그인 성공 시 다른 처리를 할 수 있습니다.
     } catch (error) {
       // 로그인 실패
       console.error('로그인 실패:', error.response?.data || error.message);
       console.log('Email:', email);
       console.log('Password:', password);
-      setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인하세요.');
+      console.log('emailcheck:', emailRegEx.test(email));
     }
   };
 
   const handleKakaoLogin = () => {
-    // 카카오 로그인 처리
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&scope=profile_nickname`;
   };
 
   const handleGoogleLogin = () => {
-    // 구글 로그인 처리
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email profile`;
   };
 
   return (
@@ -49,12 +69,42 @@ export default function Login() {
       <h2 className={styles.h2}>로그인</h2>
       <div className={styles.inputcontainer}>
         <div className={styles.inputId}>
-          <TextField labelText="아이디" id="email" valueProp={email} onChangeProp={setEmail} />
+          <TextField
+            labelText="아이디"
+            id="email"
+            valueProp={email}
+            onChangeProp={setEmail}
+            hasError={!!emailError}
+            helpMessage={emailError}
+            onBlur={() => {
+              if (email.length < 1) {
+                setEmailError('이메일을 입력하세요.');
+              } else if (email.length > 0 && emailRegEx.test(email)) {
+                setEmailError('');
+              } else if (!emailRegEx.test(email)) {
+                setEmailError('올바른 이메일 형식으로 입력해주세요.');
+              }
+            }}
+          />
         </div>
 
-        <TextField labelText="비밀번호" type="password" id="password" valueProp={password} onChangeProp={setPassword} />
+        <TextField
+          labelText="비밀번호"
+          type="password"
+          id="password"
+          valueProp={password}
+          onChangeProp={setPassword}
+          hasError={!!passwordError}
+          helpMessage={passwordError}
+          onBlur={() => {
+            if (password.length < 1) {
+              setPasswordError('비밀번호를 입력하세요.');
+            } else if (password.length > 0) {
+              setPasswordError('');
+            }
+          }}
+        />
       </div>
-      <div className={styles.error}>{error}</div>
       <div>
         <Link href="/login/find-password">
           <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
