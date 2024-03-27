@@ -5,12 +5,17 @@ import styles from './Login.module.scss';
 import Divider from '@/components/UI/Divider';
 import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import LoginButton from '@/components/UI/LoginButton';
 import axios from 'axios';
 
 export default function Login() {
+  const router = useRouter();
+
   const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
   const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
@@ -37,6 +42,10 @@ export default function Login() {
       // 로그인 성공
       console.log('로그인 성공:', response.data);
 
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
+      router.push('/');
       // 여기에서 로그인 성공 시 다른 처리를 할 수 있습니다.
     } catch (error) {
       // 로그인 실패
@@ -52,7 +61,7 @@ export default function Login() {
   };
 
   const handleGoogleLogin = () => {
-    // 구글 로그인 처리
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email profile`;
   };
 
   return (

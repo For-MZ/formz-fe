@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-export default function auth() {
+export default function gauth() {
   const router = useRouter();
 
   useEffect(() => {
@@ -12,13 +12,13 @@ export default function auth() {
       const code = new URL(window.location.href).searchParams.get('code');
 
       if (code) {
-        const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-        const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-
+        const REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+        const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+        const SECRET_KEY = process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY;
         try {
           const response = await axios.post(
-            `https://kauth.kakao.com/oauth/token`,
-            `grant_type=authorization_code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
+            `https://oauth2.googleapis.com/token`,
+            `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&client_secret=${SECRET_KEY}&code=${code}`,
             {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -26,7 +26,7 @@ export default function auth() {
             },
           );
 
-          console.log(response.data.access_token);
+          console.log('액세스토큰', response.data.access_token);
 
           router.push('/');
         } catch (error) {
