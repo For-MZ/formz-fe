@@ -9,15 +9,24 @@ import LoginButton from '@/components/UI/LoginButton';
 import axios from 'axios';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
   const handleLogin = async () => {
     try {
-      if (!email || !password) {
-        setError('이메일과 비밀번호를 모두 입력하세요.');
+      if (!email && !password) {
+        setEmailError('이메일을 입력하세요.');
+        setPasswordError('비밀번호를 입력하세요.');
         return;
+      } else if (!emailRegEx.test(email)) {
+        setEmailError('올바른 이메일 형식으로 입력해주세요.');
+        return;
+      } else {
+        setEmailError('');
+        setPasswordError('');
       }
 
       // 로그인 요청 보내기
@@ -32,7 +41,7 @@ export default function Login() {
       console.error('로그인 실패:', error.response?.data || error.message);
       console.log('Email:', email);
       console.log('Password:', password);
-      setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인하세요.');
+      console.log('emailcheck:', emailRegEx.test(email));
     }
   };
 
@@ -49,12 +58,42 @@ export default function Login() {
       <h2 className={styles.h2}>로그인</h2>
       <div className={styles.inputcontainer}>
         <div className={styles.inputId}>
-          <TextField labelText="아이디" id="email" valueProp={email} onChangeProp={setEmail} />
+          <TextField
+            labelText="아이디"
+            id="email"
+            valueProp={email}
+            onChangeProp={setEmail}
+            hasError={!!emailError}
+            helpMessage={emailError}
+            onBlur={() => {
+              if (email.length < 1) {
+                setEmailError('이메일을 입력하세요.');
+              } else if (email.length > 0 && emailRegEx.test(email)) {
+                setEmailError('');
+              } else if (!emailRegEx.test(email)) {
+                setEmailError('올바른 이메일 형식으로 입력해주세요.');
+              }
+            }}
+          />
         </div>
 
-        <TextField labelText="비밀번호" type="password" id="password" valueProp={password} onChangeProp={setPassword} />
+        <TextField
+          labelText="비밀번호"
+          type="password"
+          id="password"
+          valueProp={password}
+          onChangeProp={setPassword}
+          hasError={!!passwordError}
+          helpMessage={passwordError}
+          onBlur={() => {
+            if (password.length < 1) {
+              setPasswordError('비밀번호를 입력하세요.');
+            } else if (password.length > 0) {
+              setPasswordError('');
+            }
+          }}
+        />
       </div>
-      <div className={styles.error}>{error}</div>
       <div>
         <Link href="/login/find-password">
           <div className={styles.forgetText}>비밀번호를 잊으셨나요?</div>
