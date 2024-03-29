@@ -6,6 +6,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   hasError?: boolean;
   LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   RightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  RightIconOnClick?: () => void; // 추가: RightIcon 클릭 이벤트 핸들러
   helpMessage?: string;
   className?: string;
   labelClassName?: string;
@@ -18,6 +19,7 @@ export default function TextField({
   hasError,
   LeftIcon,
   RightIcon,
+  RightIconOnClick, // 추가: RightIcon 클릭 이벤트 핸들러
   helpMessage,
   className,
   labelClassName,
@@ -46,7 +48,7 @@ export default function TextField({
         {/* 실제 input */}
         <input {...inputProps} className={styles.realInput} onChange={handleChange} value={valueProp} />
         {/* input처럼 보이는 div 내부 우측 아이콘 */}
-        {RightIcon && <RightIcon className={styles.icon} />}
+        {RightIcon && <RightIcon className={styles.icon} onClick={RightIconOnClick} />}
       </div>
       {/* input처럼 보이는 div 밑 헬프 메시지 */}
       {helpMessage && <p className={`${styles.helpMessage} ${hasError && styles.errorHelpMessage}`}>{helpMessage}</p>}
