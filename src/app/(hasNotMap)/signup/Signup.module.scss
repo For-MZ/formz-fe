@@ -34,7 +34,7 @@
   flex-direction: row;
   width: 100%;
 }
-.test {
+.inputwidth {
   width: 320px;
 }
 .login {
@@ -58,10 +58,28 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 48px;
+  margin-top: 25px;
+  margin-left: 8px;
 }
 
+.authbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  margin-top: 22px;
+  margin-left: 8px;
+}
+
+.submitbutton {
+  width: 100%;
+}
 .input {
   height: 48px;
 }

@@ -24,6 +24,7 @@ type FormState = {
   passwordMatch: boolean;
   verificationCode: string;
   verificationError: string;
+  showPassword: boolean;
 };
 
 type ApiResponse = {
@@ -53,6 +54,7 @@ export default function Signup() {
     passwordMatch: true,
     verificationCode: '',
     verificationError: '',
+    showPassword: false,
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);
@@ -60,6 +62,14 @@ export default function Signup() {
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
   const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  // 이미지를 클릭하는 함수 생성 및 비밀번호 보기 여부 토글 설정
+  // 이미지를 클릭하는 함수 생성 및 비밀번호 보기 여부 토글 설정
+  const toggleShowPassword = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showPassword: !prevState.showPassword, // 이전 상태의 반전값으로 설정
+    }));
+  };
 
   const requestVerificationCode = async (email: string): Promise<void> => {
     try {
@@ -150,7 +160,7 @@ export default function Signup() {
       <h2 className={styles.h2}>회원가입</h2>
 
       <div className={styles.emailcontainer}>
-        <div className={styles.test}>
+        <div className={styles.inputwidth}>
           <TextField
             className={styles.input}
             onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, email: value }))}
@@ -171,7 +181,8 @@ export default function Signup() {
             }}
           />
         </div>
-        <div style={{ marginLeft: '8px', marginTop: '26px' }}>
+
+        <div>
           <Button
             className={styles.button}
             design="outline"
@@ -184,7 +195,7 @@ export default function Signup() {
 
       {formState.showEmailInput && (
         <div className={styles.emailcontainer}>
-          <div className={styles.test} style={{ marginTop: '22px' }}>
+          <div className={styles.inputwidth} style={{ marginTop: '22px' }}>
             <TextField
               className={styles.input}
               value={formState.verificationCode}
@@ -192,16 +203,15 @@ export default function Signup() {
               onChange={(e) => setFormState((prevState) => ({ ...prevState, verificationCode: e.target.value }))}
             />
           </div>
+
           <div>
-            <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-              <Button
-                className={styles.button}
-                design="outline"
-                text="인증 확인"
-                disabled={false}
-                onClick={handleVerifyClick}
-              />
-            </div>
+            <Button
+              className={styles.authbutton}
+              design="outline"
+              text="인증 확인"
+              disabled={false}
+              onClick={handleVerifyClick}
+            />
           </div>
           {formState.verificationError && (
             <div style={{ color: 'red', marginTop: '8px' }}>{formState.verificationError}</div>
@@ -210,7 +220,7 @@ export default function Signup() {
       )}
       <div className={styles.name}>
         <div className={styles.namecontainer}>
-          <div className={styles.test}>
+          <div className={styles.inputwidth}>
             <TextField
               className={styles.input}
               value={formState.nickname}
@@ -234,16 +244,15 @@ export default function Signup() {
               }}
             />
           </div>
+
           <div>
-            <div style={{ marginLeft: '8px', marginTop: '26px' }}>
-              <Button
-                className={styles.button}
-                design="outline"
-                text="중복 확인"
-                disabled={false}
-                onClick={handleNicknameCheck}
-              />
-            </div>
+            <Button
+              className={styles.button}
+              design="outline"
+              text="중복 확인"
+              disabled={false}
+              onClick={handleNicknameCheck}
+            />
           </div>
         </div>
       </div>
@@ -251,8 +260,9 @@ export default function Signup() {
         <TextField
           className={styles.input}
           value={formState.password}
-          type="password"
+          type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
           RightIcon={eye}
+          RightIconOnClick={toggleShowPassword}
           placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상"
           maxLength={20}
           onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, password: value }))}
@@ -275,9 +285,10 @@ export default function Signup() {
         <TextField
           className={styles.input}
           value={formState.confirmPassword}
-          type="password"
+          type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
           onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, confirmPassword: value }))}
           RightIcon={eye}
+          RightIconOnClick={toggleShowPassword}
           labelText="비밀번호 확인"
           hasError={!!formState.confirmPasswordError}
           helpMessage={formState.confirmPasswordError}
@@ -296,7 +307,7 @@ export default function Signup() {
           <Image src="/image/profile.png" width="128" height="128" />
         </div>
       </div>
-      <div className={styles.button}>
+      <div className={styles.submitbutton}>
         <Button className={styles.button} onClick={handleSubmit} design="filled" disabled={false} text="회원가입" />
       </div>
       <div className={styles.login}>
