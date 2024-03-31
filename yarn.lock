@@ -1932,6 +1932,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.28.10":
+  version: 5.28.10
+  resolution: "@tanstack/query-devtools@npm:5.28.10"
+  checksum: 10c0/7d055a1f189096a60a0e45623042aeeca285176d15bc0830a0c71c551f7065961ead1a1ae4dce8e189af11b39e2ee0c07aa05f4cf0e32e9e245881b02d7504e5
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.28.10":
+  version: 5.28.10
+  resolution: "@tanstack/react-query-devtools@npm:5.28.10"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.28.10"
+  peerDependencies:
+    "@tanstack/react-query": ^5.28.9
+    react: ^18.0.0
+  checksum: 10c0/4ff21b5e98be59dc121a4934c9d8ce1ba4d5a6936c3b95b80fa3455d2f10a988f07ef18cdbe6078e31ec74f96a3c2fedc35d9b8ce53c89ce26e26e05dafea218
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.24.1":
   version: 5.28.4
   resolution: "@tanstack/react-query@npm:5.28.4"
@@ -3965,6 +3984,7 @@ __metadata:
     "@faker-js/faker": "npm:^8.4.1"
     "@svgr/webpack": "npm:^8.1.0"
     "@tanstack/react-query": "npm:^5.24.1"
+    "@tanstack/react-query-devtools": "npm:^5.28.10"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18.2.58"
     "@types/react-dom": "npm:^18"

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { pretendard } from '@/utils/fonts';
 import '@/styles/main.scss';
+import RQProvider from './_components/RQProvider';
 
 export const metadata: Metadata = {
   title: 'For MZ',
@@ -14,7 +15,9 @@ type Props = Readonly<{
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="ko" className={pretendard.className}>
-      <body>{children}</body>
+      <body>
+        <RQProvider>{children}</RQProvider>
+      </body>
     </html>
   );
 }
