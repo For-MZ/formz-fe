@@ -8,6 +8,7 @@ import eye from '/public/icons/eye.svg';
 import axios, { AxiosResponse } from 'axios';
 import Button from '@/components/UI/Button';
 import Image from 'next/image';
+import Alert from '@/components/UI/Alert';
 
 type FormState = {
   email: string;
@@ -26,6 +27,7 @@ type FormState = {
   verificationError: string;
   showPassword: boolean;
   image: string;
+  showAlert: boolean;
 };
 
 type ApiResponse = {
@@ -53,6 +55,7 @@ export default function Signup() {
     verificationError: '',
     showPassword: false,
     image: '/image/user.png',
+    showAlert: false,
   };
   const fileInput = useRef<HTMLInputElement>(null);
   const [formState, setFormState] = useState<FormState>(initialFormState);
@@ -95,6 +98,19 @@ export default function Signup() {
         emailError: '올바른 이메일 형식으로 입력해주세요.',
       }));
     }
+  };
+  const handleShowAlert = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showAlert: true,
+    }));
+  };
+
+  const handleCloseAlert = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showAlert: false,
+    }));
   };
 
   const handleVerifyClick = async () => {
@@ -214,6 +230,13 @@ export default function Signup() {
   const handleProfileImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // 선택된 파일 가져오기
     if (!file) return;
+
+    const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSizeInBytes) {
+      // 파일 크기가 2MB를 초과하는 경우 모달 표시
+      handleShowAlert();
+      return;
+    }
 
     // 이미지 화면에 띄우기
     const reader = new FileReader();
@@ -418,6 +441,11 @@ export default function Signup() {
             ref={fileInput}
             onChange={handleProfileImageUpload}
           />
+          {formState.showAlert && (
+            <Alert heading="이미지 용량 초과" onClose={handleCloseAlert}>
+              2MB 이내의 파일을 업로드해주세요.
+            </Alert>
+          )}
         </div>
       </div>
 
