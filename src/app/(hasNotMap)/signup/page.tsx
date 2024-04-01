@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TextField from '@/components/UI/TextField';
 import styles from './Signup.module.scss';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ type FormState = {
   verificationCode: string;
   verificationError: string;
   showPassword: boolean;
-  profileImage: File | string;
+  image: string;
 };
 
 type ApiResponse = {
@@ -33,14 +33,8 @@ type ApiResponse = {
   message: string;
 };
 
-type SignupData = {
-  email: string;
-  nickname: string;
-  password: string;
-};
-
 export default function Signup() {
-  const defaultProfileImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+  const defaultProfileImage = '/image/user.png';
 
   const initialFormState: FormState = {
     email: '',
@@ -58,9 +52,9 @@ export default function Signup() {
     verificationCode: '',
     verificationError: '',
     showPassword: false,
-    profileImage: defaultProfileImage, // 초기값: null
+    image: '/image/user.png',
   };
-
+  const fileInput = useRef<HTMLInputElement>(null);
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
   const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
@@ -164,8 +158,8 @@ export default function Signup() {
     formData.append('password', formState.password);
 
     // 프로필 이미지가 있는 경우에만 FormData에 추가
-    if (formState.profileImage) {
-      formData.append('profileImage', formState.profileImage);
+    if (formState.image) {
+      formData.append('profileImage', formState.image);
     } else {
       // 파일을 업로드하지 않은 경우 기본 프로필 이미지를 추가
       formData.append('profileImage', defaultProfileImage);
@@ -217,18 +211,35 @@ export default function Signup() {
     }
   };
 
-  const handleProfileImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // 선택된 파일 가져오기
-    if (file) {
+    if (!file) return;
+
+    // 이미지 화면에 띄우기
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      if (e.target?.result) {
+        setFormState((prevState) => ({ ...prevState, image: e.target?.result as string }));
+      }
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const imageRes = await axios.post('/api/image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const imageURL = imageRes.data.imageURL;
+
+      // 이미지 업로드 성공 시 imageURL을 formState에 저장
       setFormState((prevState) => ({
         ...prevState,
-        profileImage: file, // 상태 업데이트
+        image: imageURL,
       }));
-    } else {
-      setFormState((prevState) => ({
-        ...prevState,
-        profileImage: defaultProfileImage, // 파일이 없는 경우 defaultProfileImage로 설정
-      }));
+    } catch (error) {
+      console.error('이미지 업로드 중 오류 발생:', error);
     }
   };
 
@@ -390,25 +401,26 @@ export default function Signup() {
             }
           }}
         />
+        <div> 프로필 이미지(선택)</div>
       </div>
-      <div className={styles.profile}>
-        <div style={{ marginTop: '36px', marginBottom: '36px' }}>프로필 이미지 (선택)</div>
-        <label className={styles.profileImageLabel}>
-          {/* 프로필 이미지 클릭 영역 */}
+
+      <div className={styles.profilecontainer}>
+        <div className={styles.profile}>
+          <a href="#" onClick={() => fileInput.current?.click()}>
+            <Image src={formState.image} width={150} height={150} />
+          </a>
           <input
             type="file"
+            name="image_URL"
+            id="input-file"
             accept="image/*"
             style={{ display: 'none' }}
-            className={styles.profileImageInput}
-            onChange={handleProfileImageUpload} // 파일 업로드 이벤트 핸들러 연결
+            ref={fileInput}
+            onChange={handleProfileImageUpload}
           />
-          <Image
-            src={formState.profileImage ? URL.createObjectURL(formState.profileImage) : defaultProfileImage}
-            width="128"
-            height="150"
-          />
-        </label>
+        </div>
       </div>
+
       <div className={styles.submitbutton}>
         <Button
           className={styles.submitbutton}
