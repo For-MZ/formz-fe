@@ -17,6 +17,8 @@ export default function RootLayout({ children }: Props) {
     <html lang="ko" className={pretendard.className}>
       <body>
         <RQProvider>{children}</RQProvider>
+        {/* div id="portal" 태그는 모달 띄우는 태그라 안에 넣으면 안됨 */}
+        <div id="portal" />
       </body>
     </html>
   );
