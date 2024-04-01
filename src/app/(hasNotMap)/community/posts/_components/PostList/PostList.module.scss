@@ -1,0 +1,16 @@
+.postListContainer {
+  margin: 0 auto;
+  margin-top: 36px;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.noPostMessage {
+  @include heading-h5;
+  color: $text-disabled-color;
+  text-align: center;
+  margin: 128px 0;
+}

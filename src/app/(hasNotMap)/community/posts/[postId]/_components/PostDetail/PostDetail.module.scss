@@ -1,0 +1,53 @@
+.headerBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .authorImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .metaDataBox {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .author {
+      @include heading-h6;
+    }
+
+    .postMetaData {
+      display: flex;
+      gap: 16px;
+
+      .createdAt {
+        @include body-lg-regular;
+        color: $text-secondary-color;
+      }
+
+      .hitsBox {
+        display: flex;
+        gap: 8px;
+        @include body-lg-semibold;
+      }
+    }
+  }
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .title {
+    @include heading-h5;
+  }
+}
+
+.content {
+  @include body-md-regular;
+}

@@ -1,0 +1,16 @@
+.utilButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+
+  button {
+    background: none;
+    padding: 0;
+  }
+
+  .thumbsUpBox {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
