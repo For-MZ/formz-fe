@@ -104,6 +104,7 @@ export default function Signup() {
       ...prevState,
       showAlert: true,
     }));
+    console.log(formState.showAlert);
   };
 
   const handleCloseAlert = () => {
@@ -111,6 +112,7 @@ export default function Signup() {
       ...prevState,
       showAlert: false,
     }));
+    console.log(formState.showAlert);
   };
 
   const handleVerifyClick = async () => {
@@ -235,9 +237,11 @@ export default function Signup() {
     if (file.size > maxSizeInBytes) {
       // 파일 크기가 2MB를 초과하는 경우 모달 표시
       handleShowAlert();
+      event.target.value = '';
       return;
     }
 
+    console.log('이미지파일', file);
     // 이미지 화면에 띄우기
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
