@@ -1,3 +1,5 @@
+'use client';
+
 import { createPortal } from 'react-dom';
 import styles from './Alert.module.scss';
 import Button from '../Button';
