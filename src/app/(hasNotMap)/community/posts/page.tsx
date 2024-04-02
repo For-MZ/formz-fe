@@ -1,22 +1,17 @@
 import styles from './CommunityPage.module.scss';
 import Banner from './_components/Banner';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import { getPosts } from './_lib/getPosts';
-import PaginationSection from './_components/PaginationSection';
-import FilterablePosts from './_components/FilterablePosts';
+import { getPosts } from './_services/getPosts';
+import PostListPagination from './_components/PostListPagination';
 import FilterProvider from './_context/FilterProvider';
-import CategoryFilter from './_components/CategoryFilter';
-import SortingFilter from './_components/SortingFilter';
+import PostList from './_components/PostList';
 import SearchFilter from './_components/SearchFilter';
 
-type Props = {
-  searchParams: { word?: string; order?: string; category?: string };
-};
-
-export default async function CommunityPage({ searchParams }: Props) {
+export default async function CommunityPage() {
   const queryClient = new QueryClient();
+  // SSR
   await queryClient.prefetchQuery({
-    queryKey: ['community', 'posts', searchParams],
+    queryKey: ['community', 'posts'],
     queryFn: getPosts,
   });
   const dehydratedState = dehydrate(queryClient);
@@ -24,19 +19,15 @@ export default async function CommunityPage({ searchParams }: Props) {
   return (
     <>
       <Banner />
-      <HydrationBoundary state={dehydratedState}>
-        <FilterProvider>
-          <section className={styles.posts}>
+      <section className={styles.container}>
+        <HydrationBoundary state={dehydratedState}>
+          <FilterProvider>
             <SearchFilter />
-            <div className={styles.filters}>
-              <CategoryFilter />
-              <SortingFilter />
-            </div>
-            <FilterablePosts searchParams={searchParams} />
-            <PaginationSection />
-          </section>
-        </FilterProvider>
-      </HydrationBoundary>
+            <PostList />
+          </FilterProvider>
+          <PostListPagination />
+        </HydrationBoundary>
+      </section>
     </>
   );
 }

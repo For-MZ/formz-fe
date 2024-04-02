@@ -1,7 +1,7 @@
 import styles from './Category.module.scss';
 
 type Props = {
-  category: string;
+  category?: string;
 };
 
 export default function Category({ category }: Props) {

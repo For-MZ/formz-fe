@@ -1,4 +1,11 @@
-.headerBox {
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.metaDataContainer {
   width: 100%;
   display: flex;
   align-items: center;
@@ -10,7 +17,7 @@
     border-radius: 50%;
   }
 
-  .metaDataBox {
+  .textMetaDataContainer {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -20,9 +27,8 @@
       @include heading-h6;
     }
 
-    .postMetaData {
+    .postMetaDataContainer {
       display: flex;
-      gap: 16px;
 
       .createdAt {
         @include body-lg-regular;
@@ -36,9 +42,15 @@
       }
     }
   }
+
+  .mutationButtons {
+    display: flex;
+    gap: 16px;
+    align-self: flex-end;
+  }
 }
 
-.titleBox {
+.titleContainer {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -50,4 +62,10 @@
 
 .content {
   @include body-md-regular;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
 }

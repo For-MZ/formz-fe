@@ -16,6 +16,8 @@ export default function FilterProvider({ children }: Props) {
   const [sorting, setSorting] = useState('최신순');
 
   return (
-    <FilterContext.Provider value={{ category, sorting, setCategory, setSorting }}>{children}</FilterContext.Provider>
+    <FilterContext.Provider value={{ category, sorting, setCategory, setSorting }}>
+      {children}
+    </FilterContext.Provider>
   );
 }

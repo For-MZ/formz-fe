@@ -12,13 +12,14 @@ type Props = {
 };
 
 export default function PostItem({ post }: Props) {
-  const { postId, title, categoryCode, uploadTime, writer, likeCnt, views, commentCnt, hasImage } = post;
+  const { postId, title, category, uploadTime, writer, likeCnt, views, commentCnt, hasImage } =
+    post;
 
   return (
     <li className={styles.container}>
       <Link href={`/community/posts/${postId}`}>
         <article className={styles.postItem}>
-          <Category category={categoryCode} />
+          <Category category={category} />
           <p className={styles.postTitle}>{title}</p>
           <div className={styles.postMetaData}>
             <div className={styles.leftZone}>

@@ -8,51 +8,29 @@ import ChevronDownIcon from '/public/icons/chevron-down.svg';
 import ReplyForm from './ReplyForm';
 import ReplyList from './ReplyList';
 import { Reply } from '@/types/Reply';
-import { faker } from '@faker-js/faker';
+import { useQuery } from '@tanstack/react-query';
+import { getReplys } from '../../_services/getReplys';
 
 type Props = {
+  commentId: string;
   cmtChildCnt: number;
 };
 
-export default function Replys({ cmtChildCnt }: Props) {
+export default function Replys({ commentId, cmtChildCnt }: Props) {
   const [isVisibleReplyForm, setIsVisibleReplyForm] = useState<boolean>(false);
   const [isVisibleReplyList, setIsVisibleReplyList] = useState<boolean>(false);
 
-  // getReplys(commentId)
-  const replys: Reply[] = [
-    {
-      replyId: '1',
-      content: '답글 1 내용',
-      cmtWriter: { userId: '1', email: 'test@test.com', nickName: '김희진', profileImage: faker.image.avatarGitHub() },
-      uploadTime: '1시간 전',
-    },
-    {
-      replyId: '2',
-      content: '답글 2 내용',
-      cmtWriter: { userId: '1', email: 'test@test.com', nickName: '김희진', profileImage: faker.image.avatarGitHub() },
-      uploadTime: '1시간 전',
-    },
-    {
-      replyId: '3',
-      content: '답글 3 내용',
-      cmtWriter: { userId: '1', email: 'test@test.com', nickName: '김희진', profileImage: faker.image.avatarGitHub() },
-      uploadTime: '1시간 전',
-    },
-    {
-      replyId: '4',
-      content: '답글 4 내용',
-      cmtWriter: { userId: '1', email: 'test@test.com', nickName: '김희진', profileImage: faker.image.avatarGitHub() },
-      uploadTime: '1시간 전',
-      lastModifiedDate: '',
-    },
-    {
-      replyId: '5',
-      content: '답글 5 내용',
-      cmtWriter: { userId: '1', email: 'test@test.com', nickName: '김희진', profileImage: faker.image.avatarGitHub() },
-      uploadTime: '1시간 전',
-      lastModifiedDate: '',
-    },
-  ];
+  const { data: replys, refetch } = useQuery<
+    Reply[],
+    unknown,
+    Reply[],
+    [_1: string, _2: string, _3: string, _4: string, _5: string]
+  >({
+    queryKey: ['community', 'posts', 'comments', commentId, 'replys'],
+    queryFn: getReplys,
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
 
   const toggleReplyForm = () => {
     setIsVisibleReplyForm((prev) => !prev);
@@ -60,6 +38,7 @@ export default function Replys({ cmtChildCnt }: Props) {
 
   const toggleReplyList = () => {
     setIsVisibleReplyList((prev) => !prev);
+    refetch(); // 답글 목록 토글링 시 리페치
   };
 
   return (

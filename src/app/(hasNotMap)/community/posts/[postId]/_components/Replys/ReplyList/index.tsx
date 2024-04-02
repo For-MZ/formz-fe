@@ -4,16 +4,14 @@ import styles from './ReplyList.module.scss';
 
 type Props = {
   isVisibleReplyList: boolean;
-  replys: Reply[];
+  replys?: Reply[];
 };
 
 export default function ReplyList({ isVisibleReplyList, replys }: Props) {
   return (
     isVisibleReplyList && (
       <ul className={styles.replyList}>
-        {replys.map((reply) => (
-          <ReplyItem key={reply.replyId} reply={reply} />
-        ))}
+        {replys?.map((reply) => <ReplyItem key={reply.replyId} reply={reply} />)}
       </ul>
     )
   );

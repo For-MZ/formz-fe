@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .likeCount {
+    @include body-lg-semibold;
+    color: $text-secondary-color;
+  }
+}
