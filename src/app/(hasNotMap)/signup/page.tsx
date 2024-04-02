@@ -59,7 +59,8 @@ export default function Signup() {
   };
   const fileInput = useRef<HTMLInputElement>(null);
   const [formState, setFormState] = useState<FormState>(initialFormState);
-  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+  const emailRegEx =
+    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
   const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
@@ -72,7 +73,9 @@ export default function Signup() {
 
   const requestVerificationCode = async (email: string): Promise<void> => {
     try {
-      const response = await axios.post('/api/send-verification-code', { email });
+      const response = await axios.post('/api/send-verification-code', {
+        email,
+      });
       console.log('Verification code request successful:', response.data);
     } catch (error) {
       console.error('Error requesting verification code:', error);
@@ -145,7 +148,12 @@ export default function Signup() {
 
   const handleSubmit = async (): Promise<ApiResponse | undefined> => {
     // 필수 입력 항목 체크
-    if (!formState.email || !formState.nickname || !formState.password || !formState.confirmPassword) {
+    if (
+      !formState.email ||
+      !formState.nickname ||
+      !formState.password ||
+      !formState.confirmPassword
+    ) {
       setFormState((prevState) => ({
         ...prevState,
         emailError: !formState.email ? '이메일을 입력해주세요.' : '',
@@ -158,12 +166,15 @@ export default function Signup() {
 
     // 유효성 검사
     const errors: Partial<FormState> = {};
-    if (!emailRegEx.test(formState.email)) errors.emailError = '올바른 이메일 형식으로 입력해주세요.';
+    if (!emailRegEx.test(formState.email))
+      errors.emailError = '올바른 이메일 형식으로 입력해주세요.';
     if (!formState.emailVerified) errors.emailError = '메일 인증을 받아주세요.';
-    if (!nicknameRegEx.test(formState.nickname)) errors.nicknameError = '올바른 닉네임 형식으로 입력해주세요.';
+    if (!nicknameRegEx.test(formState.nickname))
+      errors.nicknameError = '올바른 닉네임 형식으로 입력해주세요.';
     if (!passwordRegEx.test(formState.password))
       errors.passwordError = '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
-    if (formState.password !== formState.confirmPassword) errors.confirmPasswordError = '비밀번호가 일치하지 않습니다.';
+    if (formState.password !== formState.confirmPassword)
+      errors.confirmPasswordError = '비밀번호가 일치하지 않습니다.';
 
     if (Object.keys(errors).length > 0) {
       setFormState((prevState) => ({ ...prevState, ...errors }));
@@ -184,7 +195,10 @@ export default function Signup() {
     }
 
     try {
-      const response: AxiosResponse<ApiResponse> = await axios.post<FormData, AxiosResponse<ApiResponse>>(
+      const response: AxiosResponse<ApiResponse> = await axios.post<
+        FormData,
+        AxiosResponse<ApiResponse>
+      >(
         '/api/sign-up', // 회원가입을 처리하는 API 엔드포인트의 경로
         formData, // FormData 객체 전달
         {
@@ -203,7 +217,9 @@ export default function Signup() {
 
   const handleNicknameCheck = async () => {
     try {
-      const response = await axios.post('/api/check-nickname', { nickname: formState.nickname });
+      const response = await axios.post('/api/check-nickname', {
+        nickname: formState.nickname,
+      });
       if (response.data.available) {
         // 닉네임 사용 가능한 경우
         setFormState((prevState) => ({
@@ -238,6 +254,12 @@ export default function Signup() {
       // 파일 크기가 2MB를 초과하는 경우 모달 표시
       handleShowAlert();
       event.target.value = '';
+      console.log('file 왜 안없어지냐?', file);
+      setFormState((prevState) => ({
+        ...prevState,
+        image: defaultProfileImage,
+      }));
+
       return;
     }
 
@@ -246,7 +268,10 @@ export default function Signup() {
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target?.result) {
-        setFormState((prevState) => ({ ...prevState, image: e.target?.result as string }));
+        setFormState((prevState) => ({
+          ...prevState,
+          image: e.target?.result as string,
+        }));
       }
     };
     reader.readAsDataURL(file);
@@ -287,11 +312,17 @@ export default function Signup() {
             placeholder="ForMZ@example.com"
             onBlur={() => {
               if (formState.email.length < 1) {
-                setFormState((prevState) => ({ ...prevState, emailError: '이메일을 입력해주세요.' }));
+                setFormState((prevState) => ({
+                  ...prevState,
+                  emailError: '이메일을 입력해주세요.',
+                }));
               } else if (formState.email.length > 0 && emailRegEx.test(formState.email)) {
                 setFormState((prevState) => ({ ...prevState, emailError: '' }));
               } else if (!emailRegEx.test(formState.email)) {
-                setFormState((prevState) => ({ ...prevState, emailError: '올바른 이메일 형식으로 입력해주세요.' }));
+                setFormState((prevState) => ({
+                  ...prevState,
+                  emailError: '올바른 이메일 형식으로 입력해주세요.',
+                }));
               }
             }}
           />
@@ -323,13 +354,24 @@ export default function Signup() {
               helpMessage={formState.verificationError}
               onBlur={() => {
                 if (formState.verificationCode.length < 1) {
-                  setFormState((prevState) => ({ ...prevState, verificationError: '인증번호를 입력해주세요.' }));
+                  setFormState((prevState) => ({
+                    ...prevState,
+                    verificationError: '인증번호를 입력해주세요.',
+                  }));
                 } else if (formState.verificationCode.length > 0) {
-                  setFormState((prevState) => ({ ...prevState, verificationError: '' }));
+                  setFormState((prevState) => ({
+                    ...prevState,
+                    verificationError: '',
+                  }));
                 }
               }}
               placeholder="인증 번호를 입력해주세요."
-              onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, verificationCode: value }))}
+              onChangeProp={(value) =>
+                setFormState((prevState) => ({
+                  ...prevState,
+                  verificationCode: value,
+                }))
+              }
             />
           </div>
 
@@ -350,7 +392,9 @@ export default function Signup() {
             <TextField
               className={styles.input}
               value={formState.nickname}
-              onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, nickname: value }))}
+              onChangeProp={(value) =>
+                setFormState((prevState) => ({ ...prevState, nickname: value }))
+              }
               hasError={!!formState.nicknameError}
               helpMessage={formState.nicknameError}
               placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요."
@@ -358,9 +402,18 @@ export default function Signup() {
               maxLength={10}
               onBlur={() => {
                 if (formState.nickname.length < 1) {
-                  setFormState((prevState) => ({ ...prevState, nicknameError: '닉네임을 입력해주세요.' }));
-                } else if (formState.nickname.length > 0 && nicknameRegEx.test(formState.nickname)) {
-                  setFormState((prevState) => ({ ...prevState, nicknameError: '' }));
+                  setFormState((prevState) => ({
+                    ...prevState,
+                    nicknameError: '닉네임을 입력해주세요.',
+                  }));
+                } else if (
+                  formState.nickname.length > 0 &&
+                  nicknameRegEx.test(formState.nickname)
+                ) {
+                  setFormState((prevState) => ({
+                    ...prevState,
+                    nicknameError: '',
+                  }));
                 } else if (!nicknameRegEx.test(formState.nickname)) {
                   setFormState((prevState) => ({
                     ...prevState,
@@ -396,9 +449,15 @@ export default function Signup() {
           helpMessage={formState.passwordError}
           onBlur={() => {
             if (formState.password.length < 1) {
-              setFormState((prevState) => ({ ...prevState, passwordError: '비밀번호를 입력해주세요.' }));
+              setFormState((prevState) => ({
+                ...prevState,
+                passwordError: '비밀번호를 입력해주세요.',
+              }));
             } else if (formState.password.length > 0 && passwordRegEx.test(formState.password)) {
-              setFormState((prevState) => ({ ...prevState, passwordError: '' }));
+              setFormState((prevState) => ({
+                ...prevState,
+                passwordError: '',
+              }));
             } else if (!passwordRegEx.test(formState.password)) {
               setFormState((prevState) => ({
                 ...prevState,
@@ -412,7 +471,12 @@ export default function Signup() {
           className={styles.input}
           value={formState.confirmPassword}
           type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
-          onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, confirmPassword: value }))}
+          onChangeProp={(value) =>
+            setFormState((prevState) => ({
+              ...prevState,
+              confirmPassword: value,
+            }))
+          }
           RightIcon={eye}
           RightIconOnClick={toggleShowPassword}
           labelText="비밀번호 확인"
@@ -420,11 +484,20 @@ export default function Signup() {
           helpMessage={formState.confirmPasswordError}
           onBlur={() => {
             if (formState.confirmPassword.length < 1) {
-              setFormState((prevState) => ({ ...prevState, confirmPasswordError: '비밀번호를 입력해주세요.' }));
+              setFormState((prevState) => ({
+                ...prevState,
+                confirmPasswordError: '비밀번호를 입력해주세요.',
+              }));
             } else if (formState.password !== formState.confirmPassword) {
-              setFormState((prevState) => ({ ...prevState, confirmPasswordError: '비밀번호가 일치하지 않습니다.' }));
+              setFormState((prevState) => ({
+                ...prevState,
+                confirmPasswordError: '비밀번호가 일치하지 않습니다.',
+              }));
             } else if (formState.password === formState.confirmPassword) {
-              setFormState((prevState) => ({ ...prevState, confirmPasswordError: '' }));
+              setFormState((prevState) => ({
+                ...prevState,
+                confirmPasswordError: '',
+              }));
             }
           }}
         />
