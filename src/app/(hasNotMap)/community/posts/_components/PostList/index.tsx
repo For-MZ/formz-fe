@@ -1,22 +1,12 @@
-'use client';
-
 import styles from './PostList.module.scss';
 import PostItem from './PostItem';
 import { Post } from '@/types/Post';
-import { getPosts } from '../../_services/getPosts';
-import { useQuery } from '@tanstack/react-query';
-import { useContext } from 'react';
-import { FilterContext } from '../../_context/FilterProvider';
 
-export default function PostList() {
-  const { category, sorting } = useContext(FilterContext);
+type Props = {
+  posts?: Post[];
+};
 
-  const { data: posts } = useQuery<Post[], unknown, Post[], [_1: string, _2: string]>({
-    queryKey: ['community', 'posts'],
-    queryFn: getPosts,
-    staleTime: 60 * 1000,
-    gcTime: 60 * 1000,
-  });
+export default function PostList({ posts }: Props) {
   // TODO getFilterPosts(category, sorting)
 
   if (posts?.length === 0) {

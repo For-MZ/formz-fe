@@ -4,8 +4,8 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 import { getPosts } from './_services/getPosts';
 import PostListPagination from './_components/PostListPagination';
 import FilterProvider from './_context/FilterProvider';
-import PostList from './_components/PostList';
 import SearchFilter from './_components/SearchFilter';
+import PostListSection from './_components/PostListSection';
 
 export default async function CommunityPage() {
   const queryClient = new QueryClient();
@@ -23,7 +23,7 @@ export default async function CommunityPage() {
         <HydrationBoundary state={dehydratedState}>
           <FilterProvider>
             <SearchFilter />
-            <PostList />
+            <PostListSection />
           </FilterProvider>
           <PostListPagination />
         </HydrationBoundary>
