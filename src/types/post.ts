@@ -4,7 +4,7 @@ export type Post = {
   postId: string;
   title: string;
   writer: User;
-  categoryCode: string;
+  category: string;
   uploadTime: string;
   hasImage: boolean;
   views: number;
@@ -16,7 +16,7 @@ export type PostDetail = {
   title: string;
   content: string;
   writer: User;
-  categoryName: string;
+  category: string;
   bookmarked: boolean;
   liked: boolean;
   likeCnt: number;
