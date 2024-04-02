@@ -24,7 +24,7 @@ const navMenuList = [
     segment: 'youth-housing',
   },
   {
-    href: '/community',
+    href: '/community/posts',
     name: '커뮤니티',
     segment: 'community',
   },
