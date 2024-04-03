@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import styles from './community.module.scss';
-import PostList from '@/app/(hasNotMap)/community/_components/FilterablePosts/PostList';
+import PostList from '@/app/(hasNotMap)/community/posts/_components/PostList';
 import Pagination from '@/components/UI/Pagination';
-import { SimplePost } from '@/types/post';
+import { Post } from '@/types/Post';
 
 export default function community() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const posts: SimplePost[] = [
+  const posts: Post[] = [
     {
       postId: '1',
       title: '게시글 제목1',
@@ -120,7 +120,7 @@ export default function community() {
     <div className={styles.container}>
       <div>
         <PostList posts={posts} />
-        <Pagination totalPages={10} currentPage={currentPage} onPageChange={handlePageChange} />
+        <Pagination totalPages={10} currentPage={currentPage} onChangePage={handlePageChange} />
       </div>
     </div>
   );

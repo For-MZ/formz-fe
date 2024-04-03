@@ -1,0 +1,76 @@
+.container {
+  display: block;
+  width: 100%;
+
+  &:first-of-type {
+    border-top: 1px solid $border-secondary-color;
+  }
+
+  .postItem {
+    cursor: pointer;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: $background-primary-color;
+    border-bottom: 1px solid $border-secondary-color;
+
+    &:hover {
+      background-color: $background-interactive-secondary-hover-color;
+    }
+  }
+}
+
+.category {
+  align-self: flex-start;
+  background-color: $background-interactive-primary-hover-subtle-color;
+  color: $text-interactive-primary-color;
+  padding: 8px 12px;
+  border-radius: 8px;
+  @include body-sm-regular;
+}
+
+.postTitle {
+  @include heading-h6;
+  color: $text-primary-color;
+}
+
+.postMetaData {
+  display: flex;
+  justify-content: space-between;
+
+  .leftZone {
+    display: flex;
+    gap: 8px;
+    color: $text-interactive-secondary-color;
+    @include body-sm-regular;
+  }
+
+  .rightZone {
+    display: flex;
+    gap: 16px;
+    color: $text-primary-color;
+    @include body-md-semibold;
+
+    .thumbsUp {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hits {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .commentCount {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
