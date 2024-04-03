@@ -1,15 +1,17 @@
 .toast {
   height: 44px;
-  max-width: 220px;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 12px 0px 12px;
+  position: fixed;
+  right: 130px;
+  z-index: 1000; /* 다른 컴포넌트 위에 렌더링되도록 설정 */
 
   .logo {
-    width: 12px; /* 로고의 크기를 조정하세요 */
-    height: auto; /* 로고의 크기를 조정하세요 */
+    width: 12px;
+    height: auto;
   }
 
   .button {
@@ -29,4 +31,11 @@
     background-color: $background-danger-color;
     color: $text-interactive-inverse-color;
   }
+  .icon {
+    margin-right: 10px;
+  }
+}
+
+.toast svg {
+  stroke: white;
 }

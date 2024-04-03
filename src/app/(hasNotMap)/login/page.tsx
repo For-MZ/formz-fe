@@ -20,7 +20,8 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
-  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+  const emailRegEx =
+    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
   const handleLogin = async () => {
     try {
@@ -42,8 +43,10 @@ export default function Login() {
       // 로그인 성공
       console.log('로그인 성공:', response.data);
 
-      const token = response.data.token;
-      localStorage.setItem('token', token);
+      const accessToken = response.data.accessToken;
+      const refreshToken = response.data.refreshToken;
+      localStorage.setItem('accesstoken', accessToken);
+      localStorage.setItem('refreshtoken', refreshToken);
 
       router.push('/');
       // 여기에서 로그인 성공 시 다른 처리를 할 수 있습니다.
@@ -115,10 +118,12 @@ export default function Login() {
         <LoginButton type="default" handleLogin={handleLogin} /> {/* handleLogin 함수 전달 */}
         <Divider style="text" text="또는" />
         <div>
-          <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} /> {/* handleKakaoLogin 함수 전달 */}
+          <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} />{' '}
+          {/* handleKakaoLogin 함수 전달 */}
         </div>
         <div style={{ marginTop: '16px' }}>
-          <LoginButton type="google" handleLogin={handleGoogleLogin} /> {/* handleGoogleLogin 함수 전달 */}
+          <LoginButton type="google" handleLogin={handleGoogleLogin} />{' '}
+          {/* handleGoogleLogin 함수 전달 */}
         </div>
       </div>
       <div className={styles.signup}>
