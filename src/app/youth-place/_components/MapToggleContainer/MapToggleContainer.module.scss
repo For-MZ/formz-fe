@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.radioWrapper {
+  display: flex;
+  gap: 5px;
+  label {
+    display: flex;
+    input {
+      margin: 0;
+    }
+    button {
+      background-color: transparent;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  min-height: 400px;
+}
+.scrollablePlaces {
+  width: 360px;
+  padding: 36px;
+}
+.mapContainer {
+  background-color: blue;
+  flex-grow: 1;
+}
