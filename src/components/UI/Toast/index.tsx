@@ -2,15 +2,16 @@
 
 import styles from './Toast.module.scss';
 import { useState, useEffect } from 'react';
+import Checkcircle from '/public/icons/checkcircle.svg';
+import Alertcircle from '/public/icons/alertcircle.svg';
 
 type Props = {
   text: string;
-  type?: 'default' | 'error';
-  LeftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  type?: 'default' | 'error'; // type을 optional로 변경
   onClose?: () => void;
 };
 
-export default function Toast({ text, type = 'default', LeftIcon, ...props }: Props): JSX.Element {
+export default function Toast({ text, type = 'default', ...props }: Props): JSX.Element {
   const [closed, setClosed] = useState(false);
 
   useEffect(() => {
@@ -23,11 +24,14 @@ export default function Toast({ text, type = 'default', LeftIcon, ...props }: Pr
     };
   }, []); // 이펙트는 한 번만 실행됨
 
+  // type에 따라서 적절한 아이콘 설정
+  const Icon = type === 'default' ? Checkcircle : Alertcircle;
+
   return (
     <>
       {!closed && (
         <div {...props} className={`${styles.toast} ${styles[type]}`}>
-          {LeftIcon && <LeftIcon className={styles.icon} />}
+          <Icon className={styles.icon} />
           <div>{text}</div>
           <button className={styles.button}></button>
         </div>
