@@ -43,10 +43,8 @@ export default function Login() {
       // 로그인 성공
       console.log('로그인 성공:', response.data);
 
-      const accessToken = response.data.accessToken;
-      const refreshToken = response.data.refreshToken;
-      localStorage.setItem('accesstoken', accessToken);
-      localStorage.setItem('refreshtoken', refreshToken);
+      const token = response.data.token;
+      localStorage.setItem('token', token);
 
       router.push('/');
       // 여기에서 로그인 성공 시 다른 처리를 할 수 있습니다.
@@ -73,6 +71,7 @@ export default function Login() {
       <div className={styles.inputcontainer}>
         <div className={styles.inputId}>
           <TextField
+            className={styles.input}
             labelText="아이디"
             id="email"
             valueProp={email}
@@ -92,6 +91,7 @@ export default function Login() {
         </div>
 
         <TextField
+          className={styles.input}
           labelText="비밀번호"
           type="password"
           id="password"
