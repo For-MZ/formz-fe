@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Filter.module.scss';
 import TextField from '@/components/UI/TextField';
 import SearchIcon from '/public/icons/search.svg';
@@ -22,7 +22,15 @@ export default function Filter() {
   const [, setOperation] = useState('');
   const [, setReservation] = useState('');
   const [, setConsultation] = useState('');
+  const [key, setKey] = useState(0);
 
+  useEffect(() => {
+    setDistrict('');
+    setCost('');
+    setOperation('');
+    setReservation('');
+    setConsultation('');
+  }, [key]);
   return (
     <>
       <section className={styles.filterContainer}>
@@ -30,7 +38,7 @@ export default function Filter() {
           <SearchIcon width="40" className={styles.icon} />
           <TextField value={keyword} onChange={handleChange} placeholder="청년공간 이름을 입력하세요." />
         </div>
-        <div className={styles.DropDownWrapper}>
+        <div className={styles.DropDownWrapper} key={key}>
           <DistrictDropDowns
             district={district}
             setDistrict={setDistrict}
@@ -60,8 +68,8 @@ export default function Filter() {
         </div>
       </section>
       <div className={styles.buttonWrapper}>
-        <Button text={'선택 초기화'} design="outline" onClick={() => console.log('클릭')} />
-        <Button text={'검색'} design="outline" onClick={() => console.log('클릭')} />
+        <Button text={'선택 초기화'} design="outline" onClick={() => setKey((prevKey) => prevKey + 1)} />
+        <Button text={'검색'} design="filled" onClick={() => console.log('클릭')} />
       </div>
     </>
   );
