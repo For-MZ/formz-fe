@@ -45,7 +45,10 @@ export default function Header() {
           </Link>
           {navMenuList.map(({ href, name, segment }) => (
             <li key={href} className={styles.menu}>
-              <Link href={href} className={`${styles.link} ${segment === currentSegment && styles.selected}`}>
+              <Link
+                href={href}
+                className={`${styles.link} ${segment === currentSegment && styles.selected}`}
+              >
                 {name}
               </Link>
             </li>
@@ -54,10 +57,17 @@ export default function Header() {
         <div className={styles.userMenu}>
           {isLogin ? (
             <>
-              <Link href={'/login'} className={`${styles.link} ${pathName === '/login' && styles.selected}`}>
+              <Link
+                href={'/login'}
+                className={`${styles.link} ${pathName === '/login' && styles.selected}`}
+              >
                 로그인
               </Link>
-              <Link href={'/signup'} className={`${styles.link} ${pathName === '/signup' && styles.selected}`}>
+              <Link
+                href={'/signup'}
+                scroll={false}
+                className={`${styles.link} ${pathName === '/signup' && styles.selected}`}
+              >
                 회원가입
               </Link>
               <Link href="/mypage">
@@ -66,10 +76,16 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link href={'/login'} className={`${styles.link} ${pathName === '/login' && styles.selected}`}>
+              <Link
+                href={'/login'}
+                className={`${styles.link} ${pathName === '/login' && styles.selected}`}
+              >
                 로그인
               </Link>
-              <Link href={'/signup'} className={`${styles.link} ${pathName === '/signup' && styles.selected}`}>
+              <Link
+                href={'/signup'}
+                className={`${styles.link} ${pathName === '/signup' && styles.selected}`}
+              >
                 회원가입
               </Link>
             </>

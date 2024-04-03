@@ -9,6 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 import Button from '@/components/UI/Button';
 import Image from 'next/image';
 import Alert from '@/components/UI/Alert';
+import Toast from '@/components/UI/Toast';
 
 type FormState = {
   email: string;
@@ -22,12 +23,13 @@ type FormState = {
   confirmPasswordError: string;
   emailVerified: boolean;
   nicknameAvailable: boolean;
-  passwordMatch: boolean;
   verificationCode: string;
   verificationError: string;
   showPassword: boolean;
   image: string;
   showAlert: boolean;
+  submitSuccess: boolean;
+  submitFail: boolean;
 };
 
 type ApiResponse = {
@@ -37,6 +39,7 @@ type ApiResponse = {
 
 export default function Signup() {
   const defaultProfileImage = '/image/user.png';
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const initialFormState: FormState = {
     email: '',
@@ -50,19 +53,94 @@ export default function Signup() {
     confirmPasswordError: '',
     emailVerified: false,
     nicknameAvailable: false,
-    passwordMatch: true,
     verificationCode: '',
     verificationError: '',
     showPassword: false,
     image: '/image/user.png',
     showAlert: false,
+    submitSuccess: false,
+    submitFail: false,
   };
-  const fileInput = useRef<HTMLInputElement>(null);
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
   const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const submitRequirements =
+    formState.email &&
+    formState.nickname &&
+    formState.password &&
+    formState.confirmPassword &&
+    emailRegEx.test(formState.email) &&
+    nicknameRegEx.test(formState.nickname) &&
+    passwordRegEx.test(formState.password) &&
+    passwordRegEx.test(formState.confirmPassword) &&
+    formState.password === formState.confirmPassword;
+
+  const authRequirements = formState.email && emailRegEx.test(formState.email);
+
+  const validateEmail = (email: string): string => {
+    if (email.length < 1) {
+      return '이메일을 입력해주세요.';
+    } else if (!emailRegEx.test(formState.email)) {
+      return '올바른 이메일 형식으로 입력해주세요.';
+    }
+    return '';
+  };
+
+  const validatePassword = (password: string): string => {
+    if (password.length < 1) {
+      return '비밀번호를 입력해주세요.';
+    } else if (!passwordRegEx.test(password)) {
+      return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
+    }
+    return '';
+  };
+
+  const validateNickname = (nickname: string): string => {
+    if (nickname.length < 1) {
+      return '닉네임을 입력해주세요.';
+    } else if (!nicknameRegEx.test(formState.nickname)) {
+      return '올바른 닉네임 형식으로 입력해주세요.';
+    }
+    return '';
+  };
+
+  const validateConfirmPassword = (password: string, confirmPassword: string): string => {
+    if (confirmPassword.length < 1) {
+      return '비밀번호를 입력해주세요.';
+    } else if (!passwordRegEx.test(confirmPassword)) {
+      return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
+    } else if (password !== confirmPassword) {
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return '';
+  };
+  const handleBlurEmail = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      emailError: validateEmail(prevState.email),
+    }));
+  };
+  const handleBlurNickname = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      nicknameError: validateNickname(prevState.nickname),
+    }));
+  };
+  const handleBlurPassword = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      passwordError: validatePassword(prevState.password),
+    }));
+  };
+
+  const handleBlurConfirmPassword = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      confirmPasswordError: validateConfirmPassword(prevState.password, prevState.confirmPassword),
+    }));
+  };
 
   const toggleShowPassword = () => {
     setFormState((prevState) => ({
@@ -84,24 +162,18 @@ export default function Signup() {
   };
 
   const handleMailAuthClick = async () => {
-    if (emailRegEx.test(formState.email)) {
+    if (!authRequirements) {
+      handleBlurEmail();
+      return;
+    } else {
       setFormState((prevState) => ({
         ...prevState,
         showEmailInput: true,
       }));
       requestVerificationCode(formState.email); // 인증 번호를 요청
-    } else if (formState.email.length < 1) {
-      setFormState((prevState) => ({
-        ...prevState,
-        emailError: '이메일을 입력해주세요.',
-      }));
-    } else if (!emailRegEx.test(formState.email)) {
-      setFormState((prevState) => ({
-        ...prevState,
-        emailError: '올바른 이메일 형식으로 입력해주세요.',
-      }));
     }
   };
+
   const handleShowAlert = () => {
     setFormState((prevState) => ({
       ...prevState,
@@ -147,39 +219,14 @@ export default function Signup() {
   };
 
   const handleSubmit = async (): Promise<ApiResponse | undefined> => {
-    // 필수 입력 항목 체크
-    if (
-      !formState.email ||
-      !formState.nickname ||
-      !formState.password ||
-      !formState.confirmPassword
-    ) {
-      setFormState((prevState) => ({
-        ...prevState,
-        emailError: !formState.email ? '이메일을 입력해주세요.' : '',
-        nicknameError: !formState.nickname ? '닉네임을 입력해주세요.' : '',
-        passwordError: !formState.password ? '비밀번호를 입력해주세요.' : '',
-        confirmPasswordError: !formState.confirmPassword ? '비밀번호를 입력해주세요.' : '',
-      }));
+    if (!submitRequirements) {
+      handleBlurEmail();
+      handleBlurNickname();
+      handleBlurPassword();
+      handleBlurConfirmPassword();
       return;
     }
 
-    // 유효성 검사
-    const errors: Partial<FormState> = {};
-    if (!emailRegEx.test(formState.email))
-      errors.emailError = '올바른 이메일 형식으로 입력해주세요.';
-    if (!formState.emailVerified) errors.emailError = '메일 인증을 받아주세요.';
-    if (!nicknameRegEx.test(formState.nickname))
-      errors.nicknameError = '올바른 닉네임 형식으로 입력해주세요.';
-    if (!passwordRegEx.test(formState.password))
-      errors.passwordError = '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
-    if (formState.password !== formState.confirmPassword)
-      errors.confirmPasswordError = '비밀번호가 일치하지 않습니다.';
-
-    if (Object.keys(errors).length > 0) {
-      setFormState((prevState) => ({ ...prevState, ...errors }));
-      return;
-    }
     // FormData 객체 생성
     const formData = new FormData();
     formData.append('email', formState.email);
@@ -207,11 +254,21 @@ export default function Signup() {
           },
         },
       );
+      setFormState((prevState) => ({
+        ...prevState,
+        submitSuccess: true,
+      }));
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 3000);
       return response.data; // 서버 응답을 반환합니다.
     } catch (error) {
-      // 오류 처리
+      setFormState((prevState) => ({
+        ...prevState,
+        submitFail: true,
+      }));
+
       console.error('회원가입 요청 중 오류 발생:', error);
-      throw error;
     }
   };
 
@@ -254,7 +311,6 @@ export default function Signup() {
       // 파일 크기가 2MB를 초과하는 경우 모달 표시
       handleShowAlert();
       event.target.value = '';
-      console.log('file 왜 안없어지냐?', file);
       setFormState((prevState) => ({
         ...prevState,
         image: defaultProfileImage,
@@ -310,21 +366,7 @@ export default function Signup() {
             helpMessage={formState.emailError}
             labelText="이메일"
             placeholder="ForMZ@example.com"
-            onBlur={() => {
-              if (formState.email.length < 1) {
-                setFormState((prevState) => ({
-                  ...prevState,
-                  emailError: '이메일을 입력해주세요.',
-                }));
-              } else if (formState.email.length > 0 && emailRegEx.test(formState.email)) {
-                setFormState((prevState) => ({ ...prevState, emailError: '' }));
-              } else if (!emailRegEx.test(formState.email)) {
-                setFormState((prevState) => ({
-                  ...prevState,
-                  emailError: '올바른 이메일 형식으로 입력해주세요.',
-                }));
-              }
-            }}
+            onBlur={handleBlurEmail}
           />
         </div>
 
@@ -400,27 +442,7 @@ export default function Signup() {
               placeholder="공백을 제외한 한글, 영어, 숫자로만 입력해주세요."
               labelText="닉네임"
               maxLength={10}
-              onBlur={() => {
-                if (formState.nickname.length < 1) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    nicknameError: '닉네임을 입력해주세요.',
-                  }));
-                } else if (
-                  formState.nickname.length > 0 &&
-                  nicknameRegEx.test(formState.nickname)
-                ) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    nicknameError: '',
-                  }));
-                } else if (!nicknameRegEx.test(formState.nickname)) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    nicknameError: '올바른 닉네임 형식으로 입력해주세요.',
-                  }));
-                }
-              }}
+              onBlur={handleBlurNickname}
             />
           </div>
 
@@ -447,24 +469,7 @@ export default function Signup() {
           onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, password: value }))}
           hasError={!!formState.passwordError}
           helpMessage={formState.passwordError}
-          onBlur={() => {
-            if (formState.password.length < 1) {
-              setFormState((prevState) => ({
-                ...prevState,
-                passwordError: '비밀번호를 입력해주세요.',
-              }));
-            } else if (formState.password.length > 0 && passwordRegEx.test(formState.password)) {
-              setFormState((prevState) => ({
-                ...prevState,
-                passwordError: '',
-              }));
-            } else if (!passwordRegEx.test(formState.password)) {
-              setFormState((prevState) => ({
-                ...prevState,
-                passwordError: '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.',
-              }));
-            }
-          }}
+          onBlur={handleBlurPassword}
           labelText="비밀번호"
         />
         <TextField
@@ -482,24 +487,7 @@ export default function Signup() {
           labelText="비밀번호 확인"
           hasError={!!formState.confirmPasswordError}
           helpMessage={formState.confirmPasswordError}
-          onBlur={() => {
-            if (formState.confirmPassword.length < 1) {
-              setFormState((prevState) => ({
-                ...prevState,
-                confirmPasswordError: '비밀번호를 입력해주세요.',
-              }));
-            } else if (formState.password !== formState.confirmPassword) {
-              setFormState((prevState) => ({
-                ...prevState,
-                confirmPasswordError: '비밀번호가 일치하지 않습니다.',
-              }));
-            } else if (formState.password === formState.confirmPassword) {
-              setFormState((prevState) => ({
-                ...prevState,
-                confirmPasswordError: '',
-              }));
-            }
-          }}
+          onBlur={handleBlurConfirmPassword}
         />
         <div> 프로필 이미지(선택)</div>
       </div>
@@ -541,6 +529,8 @@ export default function Signup() {
           <div className={styles.underline}>로그인</div>
         </Link>
       </div>
+      {formState.submitSuccess && <Toast text="회원가입에 성공하였습니다." />}
+      {formState.submitFail && <Toast type="error" text="회원가입에 실패하였습니다." />}
     </div>
   );
 }
