@@ -20,11 +20,13 @@
 
 .wrapper {
   display: flex;
-  min-height: 400px;
+  max-height: 1124px;
+  margin-top: 24px;
 }
 .scrollablePlaces {
   width: 360px;
   padding: 36px;
+  overflow-y: auto;
 }
 .mapContainer {
   background-color: blue;
