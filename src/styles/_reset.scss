@@ -134,6 +134,7 @@ button {
   align-items: center;
   justify-content: center;
   outline: none;
+  background-color: transparent;
   &:not(:disabled) {
     cursor: pointer;
   }
