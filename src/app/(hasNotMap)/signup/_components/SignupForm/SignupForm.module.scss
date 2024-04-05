@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  margin: 0px auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 442px;
+  @media (max-width: 768px) {
+  }
+}
+
+.h2 {
+  margin-bottom: 48px;
+}
+.name {
+  margin-top: 24px;
+  width: 100%;
+}
+.password {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.emailcontainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.namecontainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.inputwidth {
+  width: 320px;
+}
+.login {
+  margin-top: 36px;
+  color: $text-disabled-color;
+  font-weight: 200;
+  display: flex;
+}
+
+.underline {
+  text-decoration: underline;
+  font-weight: 400;
+  margin-left: 8px;
+  color: $text-disabled-color;
+}
+.profilecontainer {
+  display: flex;
+  margin-right: auto;
+}
+.profile {
+  width: 150px; /* 이미지의 너비와 높이 설정 */
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%; /* 동그란 형태로 만들기 */
+  margin-top: 8px;
+  margin-bottom: 36px;
+  position: relative; /* 링크를 겹치기 위해 포지션 설정 */
+}
+.profile a {
+  position: absolute; /* 링크를 프로필 이미지 위에 겹치게 하기 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 프로필 이미지 영역에 맞게 보이도록 설정 */
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  margin-top: 25px;
+  margin-left: 8px;
+}
+
+.authbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  margin-top: 22px;
+  margin-left: 8px;
+}
+
+.submitbutton {
+  width: 100%;
+}
+.input {
+  height: 48px;
+}
