@@ -1,0 +1,60 @@
+.container {
+  h5 {
+    @include heading-h5;
+    padding: 16px 0;
+    border-bottom: 1px solid $border-disabled-color;
+  }
+}
+
+.detailTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleWrapper {
+  display: flex;
+  gap: 36px;
+  margin-bottom: 16px;
+  p {
+    @include body-md-semibold;
+    margin-top: 36px;
+    &:first-child,
+    &:last-child {
+      width: 164px;
+    }
+    &:nth-child(2) {
+      flex: 1;
+    }
+  }
+}
+
+.typesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contents {
+  display: flex;
+  gap: 36px;
+  p {
+    &:first-child,
+    &:last-child {
+      width: 164px;
+    }
+    &:nth-child(2) {
+      flex: 1;
+    }
+  }
+}
+// .spcType,
+// .description,
+// .capacity {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+// }
+
+.spcType,
+.capacity {
+}

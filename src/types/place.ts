@@ -24,3 +24,5 @@ export type FullPlace = {
   counseling: string;
   image: string;
 };
+
+export type DetailPlace = { spcType: string; description: string; capacity: string }[];
