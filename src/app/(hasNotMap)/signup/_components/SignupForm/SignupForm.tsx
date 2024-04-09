@@ -40,7 +40,7 @@ export default function SignupForm() {
     emailVerified: false,
     nicknameAvailable: false,
     verificationCode: '',
-    verificationError: '',
+    verificationCodeError: '',
     showPassword: false,
     image: '/image/user.png',
     showAlert: false,
@@ -57,9 +57,13 @@ export default function SignupForm() {
     formValidatorUtils.nicknameRegEx.test(formState.nickname) &&
     formValidatorUtils.passwordRegEx.test(formState.password) &&
     formValidatorUtils.passwordRegEx.test(formState.confirmPassword) &&
-    formState.password === formState.confirmPassword;
+    formState.password === formState.confirmPassword &&
+    formState.emailVerified;
 
   const authRequirements = formState.email && formValidatorUtils.emailRegEx.test(formState.email);
+  const verifications =
+    formState.verificationCode &&
+    formValidatorUtils.verificationCodeRegEx.test(formState.verificationCode);
 
   const handleBlurField = (
     fieldName: keyof FormState,
@@ -90,33 +94,17 @@ export default function SignupForm() {
       }
     }
   };
-  const toggleShowPassword = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      showPassword: !prevState.showPassword, // 이전 상태의 반전값으로 설정
-    }));
-  };
-
-  const handleCloseAlert = () => {
-    //스테이트 분리 useModal 로 해서 없애셈
-    setFormState((prevState) => ({
-      ...prevState,
-      showAlert: false,
-    }));
-    console.log(formState.showAlert);
-  };
-
-  const handleShowAlert = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      showAlert: true,
-    }));
-    console.log(formState.showAlert);
-  };
 
   const handleVerifyClick = async () => {
-    //이것도 분리 서비스(api) or 유틸 or helper
-    console.log('인증번호', formState.verificationCode);
+    if (!verifications) {
+      handleBlurField(
+        'verificationCode',
+        formState.verificationCode,
+        formValidatorUtils.validateVerificationCode,
+      );
+      return;
+    }
+
     try {
       // 사용자가 입력한 인증번호와 백엔드에서 받은 인증번호를 비교
       if (formState.verificationCode === receivedVerificationCode) {
@@ -141,6 +129,29 @@ export default function SignupForm() {
         verificationError: '인증 과정에서 오류가 발생했습니다.',
       }));
     }
+  };
+  const toggleShowPassword = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showPassword: !prevState.showPassword, // 이전 상태의 반전값으로 설정
+    }));
+  };
+
+  const handleCloseAlert = () => {
+    //스테이트 분리 useModal 로 해서 없애셈
+    setFormState((prevState) => ({
+      ...prevState,
+      showAlert: false,
+    }));
+    console.log(formState.showAlert);
+  };
+
+  const handleShowAlert = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showAlert: true,
+    }));
+    console.log(formState.showAlert);
   };
 
   const handleSubmit = async (): Promise<ApiResponse | undefined> => {
@@ -184,6 +195,11 @@ export default function SignupForm() {
   };
 
   const handleNicknameCheck = async () => {
+    if (!submitRequirements) {
+      handleBlurField('nickname', formState.nickname, formValidatorUtils.validateNickname);
+      return;
+    }
+
     try {
       const isAvailable = await checkNicknameAvailability(formState.nickname); // 닉네임 중복 확인 서비스 함수 호출
       if (isAvailable) {
@@ -221,7 +237,6 @@ export default function SignupForm() {
       // 파일 크기가 2MB를 초과하는 경우 모달 표시
       handleShowAlert();
       event.target.value = '';
-      console.log('file 왜 안없어지냐?', file);
       setFormState((prevState) => ({
         ...prevState,
         image: defaultProfileImage,
@@ -271,7 +286,6 @@ export default function SignupForm() {
           <TextField
             className={styles.input}
             onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, email: value }))}
-            id="email"
             valueProp={formState.email}
             hasError={!!formState.emailError}
             helpMessage={formState.emailError}
@@ -304,28 +318,19 @@ export default function SignupForm() {
           <div className={styles.inputwidth} style={{ marginTop: '22px' }}>
             <TextField
               className={styles.input}
-              value={formState.verificationCode}
-              hasError={!!formState.verificationError}
-              helpMessage={formState.verificationError}
-              onBlur={() => {
-                if (formState.verificationCode.length < 1) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    verificationError: '인증번호를 입력해주세요.',
-                  }));
-                } else if (formState.verificationCode.length > 0) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    verificationError: '',
-                  }));
-                }
-              }}
-              placeholder="인증 번호를 입력해주세요."
+              valueProp={formState.verificationCode}
               onChangeProp={(value) =>
-                setFormState((prevState) => ({
-                  ...prevState,
-                  verificationCode: value,
-                }))
+                setFormState((prevState) => ({ ...prevState, verificationCode: value }))
+              }
+              hasError={!!formState.verificationCodeError}
+              helpMessage={formState.verificationCodeError}
+              placeholder="숫자로 이루어진 인증번호를 입력해주세요."
+              onBlur={() =>
+                handleBlurField(
+                  'verificationCode',
+                  formState.verificationCode,
+                  formValidatorUtils.validateVerificationCode,
+                )
               }
             />
           </div>
@@ -346,7 +351,7 @@ export default function SignupForm() {
           <div className={styles.inputwidth}>
             <TextField
               className={styles.input}
-              value={formState.nickname}
+              valueProp={formState.nickname}
               onChangeProp={(value) =>
                 setFormState((prevState) => ({ ...prevState, nickname: value }))
               }

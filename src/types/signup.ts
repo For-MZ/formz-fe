@@ -1,5 +1,4 @@
 export type FormState = {
-  //types 폴더에 넣기
   email: string;
   emailError: string;
   nickname: string;
@@ -12,7 +11,7 @@ export type FormState = {
   emailVerified: boolean;
   nicknameAvailable: boolean;
   verificationCode: string;
-  verificationError: string;
+  verificationCodeError: string;
   showPassword: boolean;
   image: string;
   showAlert: boolean;
