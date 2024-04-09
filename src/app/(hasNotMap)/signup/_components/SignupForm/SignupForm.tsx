@@ -12,8 +12,8 @@ import { requestVerificationCode } from '../../(services)/requestVerificationCod
 import { submitForm } from '../../(services)/signupService';
 import formValidatorUtils from '@/utils/formValidator';
 import { FormState } from '@/types/signup';
-import { uploadImage } from '../../(services)/imageUploadService';
 import { checkNicknameAvailability } from '../../(services)/checkNicknameAvailability';
+import axios from 'axios';
 
 type ValidatorFunction = (value: string) => string;
 
@@ -102,6 +102,14 @@ export default function SignupForm() {
     setFormState((prevState) => ({
       ...prevState,
       showAlert: false,
+    }));
+    console.log(formState.showAlert);
+  };
+
+  const handleShowAlert = () => {
+    setFormState((prevState) => ({
+      ...prevState,
+      showAlert: true,
     }));
     console.log(formState.showAlert);
   };
@@ -208,20 +216,49 @@ export default function SignupForm() {
     const file = event.target.files?.[0]; // 선택된 파일 가져오기
     if (!file) return;
 
-    try {
-      const imageURL = await uploadImage(file); // 이미지 업로드 서비스 함수 호출
-      if (imageURL) {
+    const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSizeInBytes) {
+      // 파일 크기가 2MB를 초과하는 경우 모달 표시
+      handleShowAlert();
+      event.target.value = '';
+      console.log('file 왜 안없어지냐?', file);
+      setFormState((prevState) => ({
+        ...prevState,
+        image: defaultProfileImage,
+      }));
+
+      return;
+    }
+
+    console.log('이미지파일', file);
+    // 이미지 화면에 띄우기
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      if (e.target?.result) {
         setFormState((prevState) => ({
           ...prevState,
-          image: imageURL,
+          image: e.target?.result as string,
         }));
-      } else {
-        // 이미지 업로드 실패 시 처리
-        // 예를 들어, 오류 메시지를 보여줄 수 있습니다.
       }
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const imageRes = await axios.post('/api/image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const imageURL = imageRes.data.imageURL;
+
+      // 이미지 업로드 성공 시 imageURL을 formState에 저장
+      setFormState((prevState) => ({
+        ...prevState,
+        image: imageURL,
+      }));
     } catch (error) {
-      // 이미지 업로드 중 오류 발생 시 처리
-      // 예를 들어, 오류 메시지를 보여줄 수 있습니다.
+      console.error('이미지 업로드 중 오류 발생:', error);
     }
   };
 
