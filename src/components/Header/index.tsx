@@ -2,32 +2,38 @@
 
 import Link from 'next/link';
 import styles from './Header.module.scss';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
-import defaultProfileImage from '../../../public/default-profile-image.png';
+import defaultProfileImage from '/public/default-profile-image.png';
 
 const navMenuList = [
   {
     href: '/youth-policy',
     name: '청년 정책',
+    segment: 'youth-policy',
   },
   {
     href: '/youth-place',
     name: '청년 공간',
+    segment: 'youth-place',
   },
   {
     href: '/youth-housing',
     name: '청년 주택',
+    segment: 'youth-housing',
   },
   {
-    href: '/community',
+    href: '/community/posts',
     name: '커뮤니티',
+    segment: 'community',
   },
 ];
 
 export default function Header() {
   const pathName = usePathname();
+  const currentSegment = useSelectedLayoutSegment();
+
   const [isLogin, setIsLogin] = useState<boolean>(true);
 
   return (
@@ -37,9 +43,12 @@ export default function Header() {
           <Link href="/" className={styles.link}>
             로고
           </Link>
-          {navMenuList.map(({ href, name }) => (
+          {navMenuList.map(({ href, name, segment }) => (
             <li key={href} className={styles.menu}>
-              <Link href={href} className={`${styles.link} ${pathName.startsWith(href) && styles.selected}`}>
+              <Link
+                href={href}
+                className={`${styles.link} ${segment === currentSegment && styles.selected}`}
+              >
                 {name}
               </Link>
             </li>
@@ -48,10 +57,17 @@ export default function Header() {
         <div className={styles.userMenu}>
           {isLogin ? (
             <>
-              <Link href={'/login'} className={`${styles.link} ${pathName === '/login' && styles.selected}`}>
+              <Link
+                href={'/login'}
+                className={`${styles.link} ${pathName === '/login' && styles.selected}`}
+              >
                 로그인
               </Link>
-              <Link href={'/signup'} className={`${styles.link} ${pathName === '/signup' && styles.selected}`}>
+              <Link
+                href={'/signup'}
+                scroll={false}
+                className={`${styles.link} ${pathName === '/signup' && styles.selected}`}
+              >
                 회원가입
               </Link>
               <Link href="/mypage">
@@ -60,10 +76,16 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link href={'/login'} className={`${styles.link} ${pathName === '/login' && styles.selected}`}>
+              <Link
+                href={'/login'}
+                className={`${styles.link} ${pathName === '/login' && styles.selected}`}
+              >
                 로그인
               </Link>
-              <Link href={'/signup'} className={`${styles.link} ${pathName === '/signup' && styles.selected}`}>
+              <Link
+                href={'/signup'}
+                className={`${styles.link} ${pathName === '/signup' && styles.selected}`}
+              >
                 회원가입
               </Link>
             </>

@@ -1,0 +1,20 @@
+export type FormState = {
+  email: string;
+  emailError: string;
+  nickname: string;
+  nicknameError: string;
+  password: string;
+  passwordError: string;
+  showEmailInput: boolean;
+  confirmPassword: string;
+  confirmPasswordError: string;
+  emailVerified: boolean;
+  nicknameAvailable: boolean;
+  verificationCode: string;
+  verificationCodeError: string;
+  showPassword: boolean;
+  image: string;
+  showAlert: boolean;
+  submitSuccess: boolean;
+  submitFail: boolean;
+};

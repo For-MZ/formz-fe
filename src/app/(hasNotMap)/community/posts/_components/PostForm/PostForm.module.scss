@@ -1,0 +1,53 @@
+.postForm {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 54px 0;
+
+  .categoryBox {
+    .categoryLabel {
+      @include heading-h5;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .categoryDropDown {
+      width: 236px;
+    }
+  }
+
+  .titleBox {
+    .titleInput {
+      height: 48px;
+    }
+
+    .titleLabel {
+      @include heading-h5;
+      margin-bottom: 8px;
+    }
+  }
+
+  .contentBox {
+    display: flex;
+    flex-direction: column;
+
+    .contentLabel {
+      @include heading-h5;
+      margin-bottom: 16px;
+    }
+  }
+
+  .buttonBox {
+    margin-top: 30px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+}
+
+.errorMessage {
+  @include error-message;
+  margin-top: 8px;
+}
