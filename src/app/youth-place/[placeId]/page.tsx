@@ -3,6 +3,7 @@ import PlaceMainInfo from '../_components/PlaceMainInfo';
 import Gallery from '../_components/Gallery';
 import PlaceDetailInfo from '../_components/PlaceDetailInfo';
 import WayToGo from '../_components/WayToGo';
+import ButtonWrapper from '../_components/ButtonWrapper';
 
 export default function PlaceDetailPage() {
   return (
@@ -11,6 +12,7 @@ export default function PlaceDetailPage() {
       <Gallery />
       <PlaceDetailInfo />
       <WayToGo />
+      <ButtonWrapper />
     </section>
   );
 }

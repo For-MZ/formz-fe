@@ -17,7 +17,7 @@
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
   .icon {
     path {
-      stroke: $icon-interactive-inverse-color;
+      fill: $icon-interactive-inverse-color;
     }
   }
   &:hover {
@@ -50,7 +50,7 @@
   color: $text-success-color;
   .icon {
     path {
-      fill: $icon-success-color;
+      stroke: $icon-success-color;
     }
   }
   &:hover {
