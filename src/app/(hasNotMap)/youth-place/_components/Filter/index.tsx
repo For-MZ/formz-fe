@@ -15,7 +15,7 @@ const RESERVATION = ['전체', '전화예약', '온라인 예약'];
 const CONSULTATON_OF_EMPLOYMENT = ['전체', '가능', '불가능'];
 
 export default function Filter() {
-  const [keyword, handleChange] = useInput('');
+  const [keyword, _, setKeyword] = useInput('');
   const [district, setDistrict] = useState('');
   const [subDistrict, setSubDistrict] = useState('');
   const [, setCost] = useState('');
@@ -25,21 +25,28 @@ export default function Filter() {
   const [key, setKey] = useState(0);
 
   useEffect(() => {
+    setKeyword('');
     setDistrict('');
     setCost('');
     setOperation('');
     setReservation('');
     setConsultation('');
   }, [key]);
+
+  const handleChangeKeyword = (keywordVal: string) => {
+    setKeyword(keywordVal);
+  };
+
   return (
     <>
       <section className={styles.filterContainer}>
         <div className={styles.searchWrapper}>
-          <SearchIcon width="40" className={styles.icon} />
           <TextField
-            value={keyword}
-            onChange={handleChange}
+            valueProp={keyword}
+            onChangeProp={handleChangeKeyword}
             placeholder="청년공간 이름을 입력하세요."
+            LeftIcon={SearchIcon}
+            className={styles.icon}
           />
         </div>
         <div className={styles.DropDownWrapper} key={key}>
