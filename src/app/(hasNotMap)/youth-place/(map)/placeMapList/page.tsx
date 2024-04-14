@@ -1,6 +1,6 @@
 import styles from './page.module.scss';
-import Filter from '../Filter';
-import ToggleButton from '../ToggleButton';
+import Filter from '../../_components/Filter';
+import ToggleButton from '../../_components/ToggleButton';
 import MapToggleContainer from '@/app/(hasNotMap)/youth-place/_components/MapToggleContainer';
 
 export default function MapListPage() {
