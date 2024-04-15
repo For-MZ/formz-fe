@@ -20,7 +20,7 @@
 
 .wrapper {
   display: flex;
-  max-height: 1124px;
+  max-height: 100dvh;
   margin-top: 24px;
 }
 .scrollablePlaces {
@@ -29,6 +29,6 @@
   overflow-y: auto;
 }
 .mapContainer {
-  background-color: blue;
-  flex-grow: 1;
+  width: calc(1200px - 360px);
+  height: 100dvh;
 }

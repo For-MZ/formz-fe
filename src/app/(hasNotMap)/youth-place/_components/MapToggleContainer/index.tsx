@@ -1,7 +1,7 @@
 import styles from './MapToggleContainer.module.scss';
-import MapContainer from '../MapContainer';
 import ScrollablePlaces from '../ScrollablePlaces';
 import SearchResultHead from '../SearchResultHead';
+import Map from '@/components/Map';
 
 export default function MapToggleContainer() {
   return (
@@ -12,7 +12,7 @@ export default function MapToggleContainer() {
           <ScrollablePlaces />
         </div>
         <div className={styles.mapContainer}>
-          <MapContainer />
+          <Map />
         </div>
       </section>
     </>
