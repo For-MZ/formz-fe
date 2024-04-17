@@ -7,6 +7,8 @@ import Category from '../../../_components/PostList/PostItem/Category';
 import { getPostDetail } from '../../_services/getPostDetail';
 import MutationButtons from '../MutationButtons';
 import ActionButtons from '../ActionButtons';
+import Avatar from '@/components/UI/Avatar';
+import Viewer from '../Viewer';
 
 type Props = {
   postId: string;
@@ -23,13 +25,11 @@ export default function PostDetail({ postId }: Props) {
   return (
     <section className={styles.container}>
       <div className={styles.firstRowContainer}>
-        <div>
-          <img
-            className={styles.authorImage}
-            src={data?.writer.profileImage}
-            alt={`${data?.writer.nickName}님의 프로필 이미지`}
-          />
-        </div>
+        <Avatar
+          size="lg"
+          imageUrl={data?.writer.profileImage as string}
+          nickname={data?.writer.nickName as string}
+        />
         <div className={styles.textMetaDataContainer}>
           <div className={styles.author}>{data?.writer.nickName}</div>
           <div className={styles.postMetaDataContainer}>
@@ -47,7 +47,7 @@ export default function PostDetail({ postId }: Props) {
         <h1 className={styles.title}>{data?.title}</h1>
       </div>
       <div className={styles.thirdRowContainer}>
-        <p className={styles.content}>{data?.content}</p>
+        <Viewer content={data?.content as string} />
       </div>
       <ActionButtons likeCount={data?.likeCnt as number} />
     </section>

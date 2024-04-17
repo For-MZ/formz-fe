@@ -25,13 +25,13 @@
     @include body-md-semibold;
 
     .cancel {
-      padding: 8px 0px;
-      color: $text-primary-color;
+      padding: 12px 16px;
+      color: $text-interactive-primary-color;
     }
 
     .write {
-      padding: 8px 0px;
-      color: $text-interactive-primary-color;
+      padding: 12px 16px;
+      color: $text-interactive-inverse-color;
     }
   }
 }
