@@ -6,6 +6,8 @@ import { FullPlace } from '@/types/place';
 import Button from '@/components/UI/Button';
 import MapPin from '/public/icons/map-pin.svg';
 import Copy from '/public/icons/copy.svg';
+import Map from '@/components/Map';
+import { useRouter } from 'next/navigation';
 
 const place: FullPlace = {
   spcId: '202403260001',
@@ -24,6 +26,7 @@ const place: FullPlace = {
 
 export default function WayToGo() {
   const { address } = place;
+  const router = useRouter();
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -31,6 +34,10 @@ export default function WayToGo() {
     } catch (e) {
       console.log('복사에 실패하였습니다');
     }
+  };
+
+  const handleFindAWay = () => {
+    router.push(`https://map.naver.com/p/directions/${address}`);
   };
 
   return (
@@ -43,9 +50,11 @@ export default function WayToGo() {
             <Copy />
           </button>
         </div>
-        <Button design="outline" text="길찾기" LeftIcon={MapPin} />
+        <Button design="outline" text="길찾기" LeftIcon={MapPin} onClick={handleFindAWay} />
       </div>
-      <div className={styles.mapApi}>지도 api 불러올 MapContainer</div>
+      <div className={styles.mapApi}>
+        <Map />
+      </div>
     </section>
   );
 }
