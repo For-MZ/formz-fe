@@ -1,28 +1,19 @@
 'use client';
 
 import HitsIcon from '/public/icons/eye.svg';
-import { PostDetail } from '@/types/Post';
 import styles from './PostDetail.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import Category from '../../../_components/PostList/PostItem/Category';
 import { getPostDetail } from '../../_services/getPostDetail';
-import CopyURLPost from '../CopyPostUrl';
-import BookmarkPost from '../BookmarkPost';
-import LikePost from '../LikePost';
-import UpdatePost from '../EditPost';
-import DeletePost from '../DeletePost';
+import MutationButtons from '../MutationButtons';
+import ActionButtons from '../ActionButtons';
 
 type Props = {
   postId: string;
 };
 
 export default function PostDetail({ postId }: Props) {
-  const { data, error } = useQuery<
-    PostDetail,
-    unknown,
-    PostDetail,
-    [_1: string, _2: string, _3: string]
-  >({
+  const { data, error } = useQuery({
     queryKey: ['community', 'posts', postId],
     queryFn: getPostDetail,
     staleTime: 60 * 1000,
@@ -31,12 +22,14 @@ export default function PostDetail({ postId }: Props) {
 
   return (
     <section className={styles.container}>
-      <div className={styles.metaDataContainer}>
-        <img
-          className={styles.authorImage}
-          src={data?.writer.profileImage}
-          alt={`${data?.writer.nickName}님의 프로필 이미지`}
-        />
+      <div className={styles.firstRowContainer}>
+        <div>
+          <img
+            className={styles.authorImage}
+            src={data?.writer.profileImage}
+            alt={`${data?.writer.nickName}님의 프로필 이미지`}
+          />
+        </div>
         <div className={styles.textMetaDataContainer}>
           <div className={styles.author}>{data?.writer.nickName}</div>
           <div className={styles.postMetaDataContainer}>
@@ -47,23 +40,16 @@ export default function PostDetail({ postId }: Props) {
             </div>
           </div>
         </div>
-        <div className={styles.mutationButtons}>
-          <UpdatePost />
-          <DeletePost />
-        </div>
+        <MutationButtons />
       </div>
-      <div className={styles.titleContainer}>
+      <div className={styles.secondRowContainer}>
         <Category category={data?.category} />
         <h1 className={styles.title}>{data?.title}</h1>
       </div>
-      <div>
+      <div className={styles.thirdRowContainer}>
         <p className={styles.content}>{data?.content}</p>
       </div>
-      <div className={styles.buttonContainer}>
-        <CopyURLPost />
-        <BookmarkPost isBookmark={data?.bookmarked} />
-        <LikePost isLike={data?.liked} likeCnt={data?.likeCnt} />
-      </div>
+      <ActionButtons likeCount={data?.likeCnt as number} />
     </section>
   );
 }

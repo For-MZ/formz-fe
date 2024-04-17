@@ -5,29 +5,22 @@ import styles from './Replys.module.scss';
 import { useState } from 'react';
 import ChevronUpIcon from '/public/icons/chevron-up.svg';
 import ChevronDownIcon from '/public/icons/chevron-down.svg';
-import ReplyForm from './ReplyForm';
-import ReplyList from './ReplyList';
-import { Reply } from '@/types/Reply';
+import ReplyForm from '../ReplyForm';
+import ReplyList from '../ReplyList';
 import { useQuery } from '@tanstack/react-query';
-import { getReplys } from '../../_services/getReplys';
+import { getReplies } from '../../_services/getReplies';
 
 type Props = {
   commentId: string;
   cmtChildCnt: number;
 };
 
-export default function Replys({ commentId, cmtChildCnt }: Props) {
-  const [isVisibleReplyForm, setIsVisibleReplyForm] = useState<boolean>(false);
-  const [isVisibleReplyList, setIsVisibleReplyList] = useState<boolean>(false);
-
-  const { data: replys, refetch } = useQuery<
-    Reply[],
-    unknown,
-    Reply[],
-    [_1: string, _2: string, _3: string, _4: string, _5: string]
-  >({
-    queryKey: ['community', 'posts', 'comments', commentId, 'replys'],
-    queryFn: getReplys,
+export default function ReplySection({ commentId, cmtChildCnt }: Props) {
+  const [isVisibleReplyForm, setIsVisibleReplyForm] = useState(false);
+  const [isVisibleReplyList, setIsVisibleReplyList] = useState(false);
+  const { data: replies, refetch } = useQuery({
+    queryKey: ['community', 'posts', 'comments', commentId, 'replies'],
+    queryFn: getReplies,
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
   });
@@ -50,9 +43,8 @@ export default function Replys({ commentId, cmtChildCnt }: Props) {
         className={styles.replyFormOpenButton}
         onClick={toggleReplyForm}
       />
-      <ReplyForm isVisibleReplyForm={isVisibleReplyForm} />
-
-      {cmtChildCnt === 0 ? null : (
+      {isVisibleReplyForm && <ReplyForm commentId={commentId} />}
+      {cmtChildCnt ? (
         <Button
           type="button"
           className={styles.replyListToggle}
@@ -61,8 +53,8 @@ export default function Replys({ commentId, cmtChildCnt }: Props) {
           text={`답글 ${cmtChildCnt}개`}
           onClick={toggleReplyList}
         />
-      )}
-      <ReplyList isVisibleReplyList={isVisibleReplyList} replys={replys} />
+      ) : null}
+      {isVisibleReplyList && <ReplyList replies={replies} />}
     </>
   );
 }
