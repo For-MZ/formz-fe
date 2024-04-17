@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+
+  .textField {
+    height: 60px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 12px;
+
+    .cancel {
+      padding: 12px 16px;
+    }
+
+    .edit {
+      padding: 12px 16px;
+    }
+  }
+}
