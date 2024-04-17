@@ -5,18 +5,18 @@ import styles from './confirm.module.scss';
 import Button from '../Button';
 
 type Props = {
-  children: React.ReactNode;
-  onConfirm: () => void;
-  onCancel: () => void;
-  heading?: string;
+  children?: React.ReactNode;
+  heading: string;
+  onClickCancelButton: () => void;
+  onClickRightButton: () => void;
   rightButtonText: string;
 };
 
 export default function Confirm({
   children,
-  onConfirm,
-  onCancel,
   heading,
+  onClickCancelButton,
+  onClickRightButton,
   rightButtonText,
 }: Props) {
   const portalElement = document.getElementById('portal') as Element;
@@ -24,12 +24,12 @@ export default function Confirm({
   const handleClose = (event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
     // 이벤트 버블링 막기
     if (event.target === event.currentTarget) {
-      onCancel();
+      onClickCancelButton();
     }
   };
 
-  const handleConfirm = () => {
-    onConfirm();
+  const handleClickRightButton = () => {
+    onClickRightButton?.();
   };
 
   return createPortal(
@@ -43,7 +43,7 @@ export default function Confirm({
             design="filled"
             text={rightButtonText}
             className={styles.button}
-            onClick={handleConfirm}
+            onClick={handleClickRightButton}
           />
         </div>
       </div>

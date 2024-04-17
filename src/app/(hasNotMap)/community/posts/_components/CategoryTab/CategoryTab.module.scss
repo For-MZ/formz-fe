@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 53px;
+
+  .category {
+    padding: 0 8px;
+    line-height: 51px;
+    color: $text-primary-color;
+    cursor: pointer;
+
+    &:hover {
+      color: $text-interactive-primary-color;
+      border-bottom: 2px solid $border-interactive-primary-color;
+    }
+
+    &.selected {
+      color: $text-interactive-primary-color;
+      border-bottom: 2px solid $border-interactive-primary-color;
+    }
+  }
+}

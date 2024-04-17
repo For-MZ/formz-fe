@@ -3,15 +3,20 @@ import Banner from './_components/Banner';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { getPosts } from './_services/getPosts';
 import PostListPagination from './_components/PostListPagination';
-import FilterProvider from './_context/FilterProvider';
-import SearchFilter from './_components/SearchFilter';
 import PostListSection from './_components/PostListSection';
+import CategoryTab from './_components/CategoryTab';
+import SearchForm from './_components/SearchForm';
+import SortingRadio from './_components/SortingRadio';
 
-export default async function CommunityPage() {
+type Props = {
+  searchParams: { category: string; order: string };
+};
+
+export default async function CommunityPage({ searchParams }: Props) {
   const queryClient = new QueryClient();
   // SSR
   await queryClient.prefetchQuery({
-    queryKey: ['community', 'posts'],
+    queryKey: ['community', 'posts', searchParams],
     queryFn: getPosts,
   });
   const dehydratedState = dehydrate(queryClient);
@@ -21,10 +26,12 @@ export default async function CommunityPage() {
       <Banner />
       <section className={styles.container}>
         <HydrationBoundary state={dehydratedState}>
-          <FilterProvider>
-            <SearchFilter />
-            <PostListSection />
-          </FilterProvider>
+          <SearchForm />
+          <div className={styles.filterContainer}>
+            <CategoryTab />
+            <SortingRadio />
+          </div>
+          <PostListSection searchParams={searchParams} />
           <PostListPagination />
         </HydrationBoundary>
       </section>

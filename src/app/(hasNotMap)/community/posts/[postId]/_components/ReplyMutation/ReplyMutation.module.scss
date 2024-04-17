@@ -1,0 +1,11 @@
+.mutationZone {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-wrap: nowrap;
+  @include body-md-medium;
+
+  .delete {
+    color: red;
+  }
+}

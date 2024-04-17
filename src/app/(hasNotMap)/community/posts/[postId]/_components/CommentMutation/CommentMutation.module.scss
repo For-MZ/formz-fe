@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  height: fit-content;
+  text-wrap: nowrap;
+  @include body-md-semibold;
+
+  .delete {
+    color: $text-danger-color;
+  }
+}

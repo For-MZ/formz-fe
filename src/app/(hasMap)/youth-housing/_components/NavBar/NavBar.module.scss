@@ -1,0 +1,25 @@
+.container {
+  padding: 16px;
+  text-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  background-color: $background-primary-color;
+
+  .list {
+    padding: 8px;
+    padding-bottom: 24px;
+    cursor: pointer;
+
+    &.current {
+      color: $text-interactive-primary-color;
+      border-bottom: 2px solid $border-interactive-primary-color;
+    }
+
+    .menuText {
+      @include body-lg-semibold;
+    }
+  }
+}

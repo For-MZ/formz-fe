@@ -5,7 +5,7 @@
   gap: 36px;
 }
 
-.metaDataContainer {
+.firstRowContainer {
   width: 100%;
   display: flex;
   align-items: center;
@@ -42,15 +42,9 @@
       }
     }
   }
-
-  .mutationButtons {
-    display: flex;
-    gap: 16px;
-    align-self: flex-end;
-  }
 }
 
-.titleContainer {
+.secondRowContainer {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -62,10 +56,4 @@
 
 .content {
   @include body-md-regular;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
 }

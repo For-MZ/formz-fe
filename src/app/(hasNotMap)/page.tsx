@@ -19,16 +19,19 @@ export default function HomePage() {
   const [loading] = useState(true);
   const [isOpenAlert, onOpenAlert, onCloseAlert] = useModal();
   const [isOpenConfirm, onOpenConfirm, onCloseConfirm] = useModal();
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState([]);
+  console.log(category);
 
   return (
     <>
       <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
       <TextField labelText="본문" placeholder="본문을 입력해주세요." />
       <TextField labelText="에러 테스트" hasError helpMessage="헬프 에러 미시지" />
+
       <DropDown
+        multiple
         options={['전체', '정책', '공간', '주택', '커뮤니티']}
-        onSelectProp={(category: string) => setCategory(category)}
+        defaultValue={'전체'}
         placeholder="카테고리를 선택해주세요."
       />
       <p>선택된 카테고리: {category}</p>

@@ -7,7 +7,7 @@ export const getComments: QueryFunction<
 > = async ({ queryKey }) => {
   const [_1, _2, postId, _4] = queryKey;
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/all/${postId}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/community/comments/${postId}`, {
     next: {
       tags: ['community', 'posts', postId, 'comments'],
     },

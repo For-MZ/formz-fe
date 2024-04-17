@@ -3,7 +3,7 @@ import { fakerKO as faker } from '@faker-js/faker';
 export const COMMUNITY_POSTS = [
   {
     postId: '1',
-    title: faker.lorem.lines(),
+    title: `정책 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -20,7 +20,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '2',
-    title: faker.lorem.lines(),
+    title: `정책 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -28,7 +28,7 @@ export const COMMUNITY_POSTS = [
       nickName: faker.internet.displayName(),
       profileImage: faker.image.url(),
     },
-    category: '자유',
+    category: '정책',
     uploadTime: faker.date.past() as unknown as string,
     hasImage: faker.datatype.boolean(),
     views: faker.number.int({ min: 0, max: 999 }),
@@ -37,7 +37,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '3',
-    title: faker.lorem.lines(),
+    title: `꿀팁 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -54,7 +54,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '4',
-    title: faker.lorem.lines(),
+    title: `주택 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -71,7 +71,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '5',
-    title: faker.lorem.lines(),
+    title: `정책 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -88,7 +88,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '6',
-    title: faker.lorem.lines(),
+    title: `주택 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -105,7 +105,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '7',
-    title: faker.lorem.lines(),
+    title: `정책 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -122,7 +122,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '8',
-    title: faker.lorem.lines(),
+    title: `꿀팁 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -139,7 +139,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '9',
-    title: faker.lorem.lines(),
+    title: `취업 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -156,7 +156,7 @@ export const COMMUNITY_POSTS = [
   },
   {
     postId: '10',
-    title: faker.lorem.lines(),
+    title: `창업 관련 게시글 제목`,
     content: faker.lorem.paragraphs(30),
     writer: {
       userId: faker.string.uuid(),
@@ -165,74 +165,6 @@ export const COMMUNITY_POSTS = [
       profileImage: faker.image.url(),
     },
     category: '창업',
-    uploadTime: faker.date.past() as unknown as string,
-    hasImage: faker.datatype.boolean(),
-    views: faker.number.int({ min: 0, max: 999 }),
-    likeCnt: faker.number.int({ min: 0, max: 999 }),
-    commentCnt: faker.number.int({ min: 0, max: 20 }),
-  },
-  {
-    postId: '11',
-    title: faker.lorem.lines(),
-    content: faker.lorem.paragraphs(30),
-    writer: {
-      userId: faker.string.uuid(),
-      email: faker.internet.email(),
-      nickName: faker.internet.displayName(),
-      profileImage: faker.image.url(),
-    },
-    category: '취업',
-    uploadTime: faker.date.past() as unknown as string,
-    hasImage: faker.datatype.boolean(),
-    views: faker.number.int({ min: 0, max: 999 }),
-    likeCnt: faker.number.int({ min: 0, max: 999 }),
-    commentCnt: faker.number.int({ min: 0, max: 20 }),
-  },
-  {
-    postId: '12',
-    title: faker.lorem.lines(),
-    content: faker.lorem.paragraphs(30),
-    writer: {
-      userId: faker.string.uuid(),
-      email: faker.internet.email(),
-      nickName: faker.internet.displayName(),
-      profileImage: faker.image.url(),
-    },
-    category: '꿀팁',
-    uploadTime: faker.date.past() as unknown as string,
-    hasImage: faker.datatype.boolean(),
-    views: faker.number.int({ min: 0, max: 999 }),
-    likeCnt: faker.number.int({ min: 0, max: 999 }),
-    commentCnt: faker.number.int({ min: 0, max: 20 }),
-  },
-  {
-    postId: '13',
-    title: faker.lorem.lines(),
-    content: faker.lorem.paragraphs(30),
-    writer: {
-      userId: faker.string.uuid(),
-      email: faker.internet.email(),
-      nickName: faker.internet.displayName(),
-      profileImage: faker.image.url(),
-    },
-    category: '주택',
-    uploadTime: faker.date.past() as unknown as string,
-    hasImage: faker.datatype.boolean(),
-    views: faker.number.int({ min: 0, max: 999 }),
-    likeCnt: faker.number.int({ min: 0, max: 999 }),
-    commentCnt: faker.number.int({ min: 0, max: 20 }),
-  },
-  {
-    postId: '14',
-    title: faker.lorem.lines(),
-    content: faker.lorem.paragraphs(30),
-    writer: {
-      userId: faker.string.uuid(),
-      email: faker.internet.email(),
-      nickName: faker.internet.displayName(),
-      profileImage: faker.image.url(),
-    },
-    category: '정책',
     uploadTime: faker.date.past() as unknown as string,
     hasImage: faker.datatype.boolean(),
     views: faker.number.int({ min: 0, max: 999 }),
