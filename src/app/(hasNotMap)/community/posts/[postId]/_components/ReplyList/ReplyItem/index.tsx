@@ -3,6 +3,7 @@ import styles from './ReplyItem.module.scss';
 import ReplyMutation from '../../ReplyMutation';
 import { useState } from 'react';
 import ReplyEditForm from '../../ReplyEditForm';
+import Avatar from '@/components/UI/Avatar';
 
 type Props = {
   reply: Reply;
@@ -13,9 +14,7 @@ export default function ReplyItem({ reply }: Props) {
 
   return (
     <li className={styles.replyItem}>
-      <div>
-        <img className={styles.avatar} src={reply.cmtWriter.profileImage} alt="" />
-      </div>
+      <Avatar imageUrl={reply.cmtWriter.profileImage} nickname={reply.cmtWriter.nickName} />
       {isEditing ? (
         <ReplyEditForm
           replyId={reply.replyId}

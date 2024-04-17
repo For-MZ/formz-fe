@@ -9,6 +9,8 @@
   }
 
   .textZone {
+    flex-grow: 1;
+
     .nickname {
       @include heading-h6;
       color: $text-primary-color;
@@ -16,7 +18,6 @@
 
     .createdAt {
       margin-left: 8px;
-
       @include body-lg-regular;
       color: $text-secondary-color;
     }

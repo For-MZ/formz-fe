@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import useInput from '@/hooks/useInput';
 import { useMutation } from '@tanstack/react-query';
 import { createReply } from '../../_services/createReply';
+import Avatar from '@/components/UI/Avatar';
 
 type Props = {
   commentId: string;
@@ -43,8 +44,7 @@ export default function ReplyForm({ commentId, content }: Props) {
   return (
     <form className={styles.replyForm} onSubmit={handleSubmitComment}>
       <div className={styles.replyInputBox}>
-        {/* 로그인 유저 이미지 */}
-        <img className={styles.replyUserProfileImage} src="/default-profile-image.png" alt="" />
+        <Avatar imageUrl={'/default-profile-image.png'} nickname={''} />
         <TextField
           className={styles.replyInput}
           value={replyValue}
@@ -57,11 +57,11 @@ export default function ReplyForm({ commentId, content }: Props) {
           <Button
             type="button"
             className={styles.cancel}
-            design="transparent"
+            design="outline"
             text="취소"
             onClick={initValue}
           />
-          <Button type="submit" className={styles.write} design="transparent" text="작성" />
+          <Button type="submit" className={styles.write} design="filled" text="답글 작성" />
         </div>
       )}
     </form>

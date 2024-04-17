@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { createComment } from '../../_services/createComment';
 import useInput from '@/hooks/useInput';
+import Avatar from '@/components/UI/Avatar';
 
 export default function CommentForm() {
   const { postId }: { postId: string } = useParams();
@@ -40,8 +41,7 @@ export default function CommentForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.input}>
-        {/* 로그인 유저 이미지 */}
-        <img className={styles.userAvatar} src="/default-profile-image.png" alt="" />
+        <Avatar size="lg" imageUrl="/default-profile-image.png" nickname="" />
         <TextField
           className={styles.commentForm}
           value={commentValue}
@@ -51,8 +51,14 @@ export default function CommentForm() {
       </div>
       {isVisibleMutationButtons && (
         <div className={styles.buttons}>
-          <Button type="button" design="outline" text="취소" onClick={initValue} />
-          <Button type="submit" design="filled" text="댓글 작성" />
+          <Button
+            type="button"
+            design="outline"
+            text="취소"
+            onClick={initValue}
+            className={styles.cancel}
+          />
+          <Button type="submit" design="filled" text="댓글 작성" className={styles.confirm} />
         </div>
       )}
     </form>
