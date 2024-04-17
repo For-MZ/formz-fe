@@ -15,5 +15,9 @@ export default function useInput(initialValue: string) {
     setInputValue(event.target.value);
   };
 
-  return [inputValue, handleChange, setInputValue] as const;
+  const initValue = () => {
+    setInputValue('');
+  };
+
+  return [inputValue, handleChange, initValue, setInputValue] as const;
 }

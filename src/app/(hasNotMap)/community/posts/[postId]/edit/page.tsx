@@ -16,7 +16,7 @@ export default function PostEditPage({ params: { postId } }: Props) {
 
   return (
     <>
-      <PostForm data={data} type="edit" />
+      <PostForm data={data} />
     </>
   );
 }

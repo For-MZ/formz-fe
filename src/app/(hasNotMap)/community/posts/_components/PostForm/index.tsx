@@ -3,13 +3,16 @@
 import styles from './PostForm.module.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { QueryClient, useMutation } from '@tanstack/react-query';
+import WriteIcon from '/public/icons/edit-2.svg';
 import DropDown from '@/components/UI/DropDown';
 import TextField from '@/components/UI/TextField';
 import Button from '@/components/UI/Button';
-import WriteIcon from '/public/icons/edit-2.svg';
-import dynamic from 'next/dynamic';
-import { PostDetail } from '@/types/Post';
+import { createPost } from '../../_services/createPost';
 // react-quill ssr 지원안해서 다이나믹 임포트
+import dynamic from 'next/dynamic';
+import { hasMinMaxLength, isEmpty } from '@/utils/validation';
+import { PostDetail } from '@/types/Post';
 const TextEditor = dynamic(() => import('./TextEditor'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -18,134 +21,77 @@ const TextEditor = dynamic(() => import('./TextEditor'), {
 const CATEGORY_OPTIONS = ['정책', '공간', '주택', '취업', '창업', '자유', '꿀팁'];
 
 type Props = {
-  type: 'edit' | 'create';
   data?: PostDetail;
 };
 
-export default function PostForm({ type, data }: Props) {
+export default function PostForm({ data }: Props) {
   const navigate = useRouter();
-  console.log(data?.category);
+  const [form, setForm] = useState({
+    category: data?.category || '',
+    title: data?.title || '',
+    content: data?.content || '',
+  });
+  const [contentTextValue, setContentTextValue] = useState(''); // form.content에서 html 태그 제외한 스트링
+  const [didEdit, setDidEdit] = useState({
+    category: false,
+    title: false,
+    content: false,
+  });
+  console.log(form.title.length);
+  const categoryIsInvalid = didEdit.category && isEmpty(form.category);
+  const titleIsInvalid = didEdit.title && hasMinMaxLength(form.title, 1, 61);
+  const contentIsInvalid = didEdit.content && hasMinMaxLength(contentTextValue, 10, 601);
 
-  const [category, setCategory] = useState(type === 'edit' ? data?.category : '');
-  const [categoryError, setCategoryError] = useState<string>('');
-  const [title, setTitle] = useState<string>(data?.title ?? '');
-  const [titleError, setTitleError] = useState<string>('');
-  const [content, setContent] = useState<string>(data?.content ?? '');
-  const [contentError, setContentError] = useState<string>('');
+  console.log(categoryIsInvalid, titleIsInvalid, contentIsInvalid);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const { mutate } = useMutation({
+    mutationFn: () => {
+      const body = new FormData();
+      body.append('category', form.category);
+      body.append('title', form.title);
+      body.append('content', form.content);
+      return createPost(body);
+    },
+    onSuccess: () => {
+      const queryClient = new QueryClient();
+      queryClient.invalidateQueries({ queryKey: ['community', 'posts'] });
+      alert('게시글 작성 성공');
+    },
+    onError: () => {
+      alert('게시글 작성 실패');
+    },
+  });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // TODO 로그인 여부 확인
 
-    // TODO 유효성 검사
+    // TODO 유효성 검사 로직 추가
 
-    // TODO 게시글 생성 요청
-    console.log({ category, title, content });
+    mutate();
   };
 
-  const handleSelectCategory = (selectedCategory: string) => {
-    setCategory(selectedCategory);
-
-    if (selectedCategory) {
-      setCategoryError('');
-    }
+  const handleChange = (identifier: 'category' | 'title' | 'content', value: string) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      [identifier]: value,
+    }));
+    // 수정 시 에러 메시지 안보이게
+    setDidEdit((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: false,
+    }));
   };
 
-  const handleChangeTitle = (value: string) => {
-    setTitle(value);
-
-    if (value.length > 0 && value.length < 61) {
-      setTitleError('');
-    } else {
-      setTitleError('제목은 1자 이상 60자 이하여야 합니다.');
-    }
+  const handleChangeContentTextValue = (textValue: string) => {
+    setContentTextValue(textValue);
   };
 
-  const handleChangeContent = (htmlValue: string, contentValue: string) => {
-    setContent(htmlValue);
-
-    const contentValueLength = contentValue.length - 1;
-
-    if (contentValueLength > 9 && contentValueLength < 1001) {
-      setContentError('');
-    } else {
-      setContentError('본문은 10자 이상 1000자 이하여야 합니다.');
-    }
+  const handleBlur = (identifier: 'category' | 'title' | 'content') => {
+    setDidEdit((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: true,
+    }));
   };
-
-  if (type === 'edit' && data) {
-    return (
-      <form className={styles.postForm} onSubmit={handleSubmit}>
-        <div className={styles.categoryBox}>
-          <label htmlFor="category" className={styles.categoryLabel}>
-            카테고리
-          </label>
-          <DropDown
-            id="category"
-            className={styles.categoryDropDown}
-            placeholder="카테고리를 선택해주세요."
-            options={CATEGORY_OPTIONS}
-            selectedValue={category}
-            onSelectProp={handleSelectCategory}
-            hasError={!!categoryError}
-            onBlur={() => {
-              if (!category) {
-                setCategoryError('카테고리를 선택해야 합니다.');
-              }
-            }}
-          />
-          {categoryError && (
-            <p className={`${!!categoryError && styles.errorMessage}`}>{categoryError}</p>
-          )}
-        </div>
-        <div className={styles.titleBox}>
-          <TextField
-            labelText="제목"
-            className={styles.titleInput}
-            labelClassName={styles.titleLabel}
-            id="title"
-            valueProp={title}
-            onChangeProp={handleChangeTitle}
-            placeholder="1~60자 사이의 제목을 입력해주세요."
-            hasError={!!titleError}
-            helpMessage={titleError}
-            onBlur={() => {
-              if (!(title.length > 0 && title.length < 61)) {
-                setTitleError('제목은 1자 이상 60자 이하여야 합니다.');
-              }
-            }}
-          />
-        </div>
-        <div className={styles.contentBox}>
-          <label htmlFor="content" className={styles.contentLabel}>
-            본문
-          </label>
-          <TextEditor
-            value={content}
-            onChangeProp={handleChangeContent}
-            placeholder="본문을 입력해주세요."
-            hasError={!!contentError}
-            onBlurProp={(textValue: string) => {
-              const textValueLength = textValue.length - 1;
-
-              if (textValueLength > 9 && textValueLength < 1001) {
-                setContentError('');
-              } else {
-                setContentError('본문은 10자 이상 1000자 이하여야 합니다.');
-              }
-            }}
-          />
-          {contentError && (
-            <p className={`${contentError && styles.errorMessage}`}>{contentError}</p>
-          )}
-        </div>
-        <div className={styles.buttonBox}>
-          <Button type="button" design="outline" text="취소" onClick={() => navigate.back()} />
-          <Button type="submit" design="filled" text="게시글 수정" LeftIcon={WriteIcon} />
-        </div>
-      </form>
-    );
-  }
 
   return (
     <form className={styles.postForm} onSubmit={handleSubmit}>
@@ -154,21 +100,16 @@ export default function PostForm({ type, data }: Props) {
           카테고리
         </label>
         <DropDown
-          id="category"
           className={styles.categoryDropDown}
-          placeholder="카테고리를 선택해주세요."
+          placeholder="게시글과 관련된 카테고리를 선택해주세요 :)"
           options={CATEGORY_OPTIONS}
-          selectedValue={category}
-          onSelectProp={handleSelectCategory}
-          hasError={!!categoryError}
-          onBlur={() => {
-            if (!category) {
-              setCategoryError('카테고리를 선택해야 합니다.');
-            }
-          }}
+          value={form.category}
+          onSelect={(value) => handleChange('category', value)}
+          hasError={categoryIsInvalid}
+          onBlur={() => handleBlur('category')}
         />
-        {categoryError && (
-          <p className={`${!!categoryError && styles.errorMessage}`}>{categoryError}</p>
+        {categoryIsInvalid && (
+          <p className={`${categoryIsInvalid && styles.errorMessage}`}>카테고리를 선택해주세요.</p>
         )}
       </div>
       <div className={styles.titleBox}>
@@ -177,16 +118,13 @@ export default function PostForm({ type, data }: Props) {
           className={styles.titleInput}
           labelClassName={styles.titleLabel}
           id="title"
-          valueProp={title}
-          onChangeProp={handleChangeTitle}
-          placeholder="1~60자 사이의 제목을 입력해주세요."
-          hasError={!!titleError}
-          helpMessage={titleError}
-          onBlur={() => {
-            if (!(title.length > 0 && title.length < 61)) {
-              setTitleError('제목은 1자 이상 60자 이하여야 합니다.');
-            }
-          }}
+          name="title"
+          value={form.title}
+          onChange={(event) => handleChange('title', event.target.value)}
+          placeholder="본문에 알맞는 제목을 작성해주세요 :)"
+          hasError={titleIsInvalid}
+          helpMessage="제목은 1~60자 사이로 입력해주세요."
+          onBlur={() => handleBlur('title')}
         />
       </div>
       <div className={styles.contentBox}>
@@ -194,25 +132,29 @@ export default function PostForm({ type, data }: Props) {
           본문
         </label>
         <TextEditor
-          value={content}
-          onChangeProp={handleChangeContent}
-          placeholder="본문을 입력해주세요."
-          hasError={!!contentError}
-          onBlurProp={(textValue: string) => {
-            const textValueLength = textValue.length - 1;
-
-            if (textValueLength > 9 && textValueLength < 1001) {
-              setContentError('');
-            } else {
-              setContentError('본문은 10자 이상 1000자 이하여야 합니다.');
-            }
+          value={form.content}
+          onChange={(htmlValue, textValue) => {
+            handleChange('content', htmlValue);
+            handleChangeContentTextValue(textValue);
           }}
+          placeholder="본문을 입력해주세요. 욕설, 비방, 광고 관련된 글은 삭제될 수 있습니다."
+          hasError={contentIsInvalid}
+          onBlur={() => handleBlur('content')}
         />
-        {contentError && <p className={`${contentError && styles.errorMessage}`}>{contentError}</p>}
+        {contentIsInvalid && (
+          <p className={`${contentIsInvalid && styles.errorMessage}`}>
+            본문은 10~600자 사이로 입력해주세요.
+          </p>
+        )}
       </div>
       <div className={styles.buttonBox}>
-        <Button type="button" design="outline" text="취소" onClick={() => navigate.back()} />
-        <Button type="submit" design="filled" text="게시글 작성" LeftIcon={WriteIcon} />
+        <Button type="button" design="outline" text="취소" onClick={navigate.back} />
+        <Button
+          type="submit"
+          design="filled"
+          text={data ? '게시글 수정' : '게시글 작성'}
+          LeftIcon={WriteIcon}
+        />
       </div>
     </form>
   );

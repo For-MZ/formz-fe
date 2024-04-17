@@ -7,8 +7,6 @@ type Props = {
 };
 
 export default function PostList({ posts }: Props) {
-  // TODO getFilterPosts(category, sorting)
-
   if (posts?.length === 0) {
     return <p className={styles.noPostMessage}>커뮤니티 게시글이 없습니다.</p>;
   }
