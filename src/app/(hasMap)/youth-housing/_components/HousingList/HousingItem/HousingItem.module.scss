@@ -1,0 +1,45 @@
+.container {
+  padding: 16px;
+  @include shadow3;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .firstRow {
+    @include body-sm-regular;
+    color: $text-secondary-color;
+    display: flex;
+    gap: 8px;
+
+    .status {
+      margin-left: auto;
+    }
+  }
+
+  .secondRow {
+    @include body-lg-semibold;
+    color: $text-primary-color;
+  }
+
+  .thirdRow {
+    display: flex;
+    gap: 8px;
+
+    .image {
+      width: 120px;
+      height: 120px;
+      background-color: aquamarine;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .date {
+        @include body-md-semibold;
+        color: $text-primary-color;
+      }
+    }
+  }
+}

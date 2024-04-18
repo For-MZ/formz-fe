@@ -1,41 +1,38 @@
 'use client';
 
-import { ButtonHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './DropDown.module.scss';
 import UpIcon from '/public/icons/chevron-up.svg';
 import DownIcon from '/public/icons/chevron-down.svg';
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  id?: string;
+type Props = {
   options: string[];
-  selectedValue?: string | null;
-  onSelectProp: (selectedOption: string) => void;
+  value: string | null;
+  onSelect: (value: string) => void;
   placeholder?: string;
   hasError?: boolean;
   className?: string;
+  multiple?: boolean;
+  onBlur?: () => void;
 };
 
-/**
- *
- * @param id button태그 id props
- * @param className container className props
- * @returns
- */
 export default function DropDown({
   options,
+  value,
+  onSelect,
   placeholder,
-  selectedValue,
-  onSelectProp,
   hasError,
   className,
-  ...buttonProps
+  onBlur,
 }: Props) {
-  const [selectedOption, setSelectedOption] = useState<string | null>(
-    selectedValue || (placeholder ? null : options[0]),
-  );
-  const [isOpenOptionList, setIsOpenOptionList] = useState<boolean>(false);
-  const optionListRef = useRef<HTMLElement>(null);
+  const [isOpenOptionList, setIsOpenOptionList] = useState(false);
 
+  const handleClickOption = (value: string) => {
+    onSelect?.(value);
+    setIsOpenOptionList(false);
+  };
+
+  const optionListRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // 드롭다운 메뉴 컨테이너 요소
@@ -61,34 +58,25 @@ export default function DropDown({
     setIsOpenOptionList((prev) => !prev);
   };
 
-  const handleClickOption = (option: string) => {
-    setSelectedOption(option);
-    onSelectProp(option);
-    setIsOpenOptionList(false);
-  };
-
   return (
     <div className={`${styles.container} ${className}`}>
-      {/* 드롭다운 토글링 버튼 */}
       <button
         type="button"
         className={`${styles.toggle} ${hasError && styles.error}`}
         onClick={handleToggleDropDown}
-        {...buttonProps}
+        onBlur={onBlur}
       >
-        {selectedOption || <span className={styles.placeholder}>{placeholder}</span>}
+        {value || <span className={styles.placeholder}>{placeholder}</span>}
         <div className={styles.icons}>
           <UpIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
           <DownIcon width="12" height="12" viewBox="0 0 20 20" className={styles.icon} />
         </div>
       </button>
-
-      {/* 드롭다운 토글링 버튼 클릭 시 보이는 옵션 리스트 */}
       {isOpenOptionList && (
         <menu className={styles.optionList} ref={optionListRef}>
           {options.map((option) => (
             <li
-              className={`${styles.optionItem} ${selectedOption === option && styles.selected}`}
+              className={`${styles.optionItem} ${value === option && styles.selected}`}
               key={option}
               onClick={() => handleClickOption(option)}
             >

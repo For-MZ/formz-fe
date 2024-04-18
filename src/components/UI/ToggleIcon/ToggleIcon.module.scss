@@ -1,0 +1,39 @@
+.container {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  padding: 0;
+  background-color: transparent;
+
+  svg {
+    width: 20px;
+    height: 20px;
+
+    path {
+      stroke: $icon-primary-color;
+    }
+  }
+
+  &.onIcon {
+    padding: 0;
+    background-color: transparent;
+
+    svg {
+      width: 20px;
+      height: 20px;
+
+      path {
+        stroke: $icon-interactive-primary-color;
+      }
+    }
+  }
+}
+
+.count {
+  @include body-lg-semibold;
+  color: $text-secondary-color;
+}

@@ -91,6 +91,7 @@
 
 .transparent {
   padding: 8px 0;
+  text-wrap: nowrap;
   background-color: $background-primary-color;
   color: $text-success-color;
   .icon {

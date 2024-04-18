@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './community.module.scss';
-import PostList from '@/app/(hasNotMap)/community/posts/_components/PostList';
+import PostList from '../../../../../community/posts/_components/PostList';
 import Pagination from '@/components/UI/Pagination';
 import { Post } from '@/types/Post';
 

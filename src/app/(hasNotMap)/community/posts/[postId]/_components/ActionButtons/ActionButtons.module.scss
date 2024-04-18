@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+
+  .likeContainer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .likeCount {
+      @include body-lg-semibold;
+      color: $text-secondary-color;
+    }
+  }
+}
