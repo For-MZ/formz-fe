@@ -1,4 +1,4 @@
-export type FormState = {
+export type Signup = {
   email: string;
   emailError: string;
   nickname: string;
@@ -17,4 +17,18 @@ export type FormState = {
   showAlert: boolean;
   submitSuccess: boolean;
   submitFail: boolean;
+};
+
+export type Login = {
+  email: string;
+  password: string;
+  emailError: string;
+  passwordError: string;
+  loginFail: boolean;
+};
+
+export type FindPassword = {
+  email: string;
+  emailError: string;
+  emailVerified: boolean;
 };

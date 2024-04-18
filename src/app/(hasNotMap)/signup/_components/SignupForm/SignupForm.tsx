@@ -11,7 +11,7 @@ import Toast from '@/components/UI/Toast';
 import { requestVerificationCode } from '../../(services)/requestVerificationCode';
 import { submitForm } from '../../(services)/signupService';
 import formValidatorUtils from '@/utils/formValidator';
-import { FormState } from '@/types/signup';
+import { Signup } from '@/types/auth';
 import { checkNicknameAvailability } from '../../(services)/checkNicknameAvailability';
 import axios from 'axios';
 
@@ -26,7 +26,7 @@ export default function SignupForm() {
   const defaultProfileImage = '/image/user.png'; //맨 위로 올릴수도있다
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const initialFormState: FormState = {
+  const initialFormState: Signup = {
     //인풋폼을 따로 제작해서 스테이트 관리 . custom hook, useReducer 등 참고
     email: '',
     emailError: '',
@@ -47,7 +47,7 @@ export default function SignupForm() {
     submitSuccess: false,
     submitFail: false,
   };
-  const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [formState, setFormState] = useState<Signup>(initialFormState);
   const submitRequirements =
     formState.email &&
     formState.nickname &&
@@ -66,13 +66,13 @@ export default function SignupForm() {
     formValidatorUtils.verificationCodeRegEx.test(formState.verificationCode);
 
   const handleBlurField = (
-    fieldName: keyof FormState,
+    fieldName: keyof Signup,
     fieldValue: string,
     validator: ValidatorFunction,
   ) => {
     setFormState((prevState) => ({
       ...prevState,
-      [`${fieldName}Error` as keyof FormState]: validator(fieldValue),
+      [`${fieldName}Error` as keyof Signup]: validator(fieldValue),
     }));
   };
 
@@ -285,8 +285,8 @@ export default function SignupForm() {
         <div className={styles.inputwidth}>
           <TextField
             className={styles.input}
-            onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, email: value }))}
-            valueProp={formState.email}
+            onChange={(e) => setFormState((prevState) => ({ ...prevState, email: e.target.value }))}
+            value={formState.email}
             hasError={!!formState.emailError}
             helpMessage={formState.emailError}
             labelText="이메일"
@@ -318,9 +318,9 @@ export default function SignupForm() {
           <div className={styles.inputwidth} style={{ marginTop: '22px' }}>
             <TextField
               className={styles.input}
-              valueProp={formState.verificationCode}
-              onChangeProp={(value) =>
-                setFormState((prevState) => ({ ...prevState, verificationCode: value }))
+              value={formState.verificationCode}
+              onChange={(e) =>
+                setFormState((prevState) => ({ ...prevState, verificationCode: e.target.value }))
               }
               hasError={!!formState.verificationCodeError}
               helpMessage={formState.verificationCodeError}
@@ -351,9 +351,9 @@ export default function SignupForm() {
           <div className={styles.inputwidth}>
             <TextField
               className={styles.input}
-              valueProp={formState.nickname}
-              onChangeProp={(value) =>
-                setFormState((prevState) => ({ ...prevState, nickname: value }))
+              value={formState.nickname}
+              onChange={(e) =>
+                setFormState((prevState) => ({ ...prevState, nickname: e.target.value }))
               }
               hasError={!!formState.nicknameError}
               helpMessage={formState.nicknameError}
@@ -386,7 +386,9 @@ export default function SignupForm() {
           RightIconOnClick={toggleShowPassword}
           placeholder="영문 대소문자, 숫자, 특수 문자 포함 8자 이상"
           maxLength={20}
-          onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, password: value }))}
+          onChange={(e) =>
+            setFormState((prevState) => ({ ...prevState, password: e.target.value }))
+          }
           hasError={!!formState.passwordError}
           helpMessage={formState.passwordError}
           onBlur={() =>
@@ -398,10 +400,10 @@ export default function SignupForm() {
           className={styles.input}
           value={formState.confirmPassword}
           type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
-          onChangeProp={(value) =>
+          onChange={(e) =>
             setFormState((prevState) => ({
               ...prevState,
-              confirmPassword: value,
+              confirmPassword: e.target.value,
             }))
           }
           RightIcon={eye}

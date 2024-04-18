@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  margin: 124px auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 442px;
+  @media (max-width: 768px) {
+  }
+}
+
+.h2 {
+  margin-bottom: 48px;
+}
+
+.inputcontainer {
+  width: 442px;
+}
+
+.inputId {
+  margin-bottom: 24px;
+}
+
+.input {
+  height: 48px;
+}
+
+.buttonContainer {
+  width: 100%;
+}
+.submitbutton {
+  width: 100%;
+}
+
+.verifiedbutton {
+  width: 100%;
+}
+
+.verifiedButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  margin-top: 36px;
+}
+
+.preButton {
+  width: 100%;
+}
+
+.mainButton {
+  width: 100%;
+}
+
+.margin {
+  margin-bottom: 36px;
+}
