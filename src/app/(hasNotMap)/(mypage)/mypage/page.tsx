@@ -9,29 +9,14 @@ import axios from 'axios';
 import Toast from '@/components/UI/Toast';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import Alert from '@/components/UI/Alert';
-
-type FormState = {
-  nickname: string;
-  isNicknameAvailable: boolean;
-  isSaveEnabled: boolean;
-  nicknameError: string;
-  image: string;
-  showAlert: boolean;
-  changeSuccess: boolean;
-  changeFail: boolean;
-};
-
-type ApiResponse = {
-  success: boolean;
-  message: string;
-};
+import { MyPage } from '@/types/User';
 
 export default function mypage() {
   const defaultProfileImage = '/image/user.png';
   const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const userInfo = useUserInfo();
   const fileInput = useRef<HTMLInputElement>(null);
-  const initialFormState: FormState = {
+  const initialFormState: MyPage = {
     nickname: '',
     isNicknameAvailable: false,
     isSaveEnabled: false,
@@ -42,7 +27,7 @@ export default function mypage() {
     changeFail: false,
   };
 
-  const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [formState, setFormState] = useState<MyPage>(initialFormState);
 
   const handleNicknameChange = (value: string) => {
     setFormState((prevState) => ({
@@ -224,8 +209,8 @@ export default function mypage() {
           />
         </div>
       </div>
-      {formState.changeFail && <Toast type="error" text="비밀번호 변경에 실패하였습니다." />}
-      {formState.changeSuccess && <Toast text="비밀번호 변경에 성공하였습니다." />}
+      {formState.changeFail && <Toast type="error" text="변경사항 저장에 실패하였습니다." />}
+      {formState.changeSuccess && <Toast text="변경사항 저장에 성공하였습니다." />}
     </div>
   );
 }

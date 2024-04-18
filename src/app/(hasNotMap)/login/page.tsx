@@ -9,105 +9,73 @@ import { useRouter } from 'next/navigation';
 import LoginButton from '@/components/UI/LoginButton';
 import axios from 'axios';
 import Toast from '@/components/UI/Toast';
+import { Login } from '@/types/auth';
+import formValidatorUtils from '@/utils/formValidator';
+import useToken from '@/hooks/useToken';
 
-type FormState = {
-  email: string;
-  password: string;
-  emailError: string;
-  passwordError: string;
-  loginFail: boolean;
-};
+type ValidatorFunction = (value: string) => string;
 
 export default function Login() {
-  const initialFormState: FormState = {
+  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+  const { setToken, setRefreshToken } = useToken();
+
+  const initialFormState: Login = {
     email: '',
     password: '',
     emailError: '',
     passwordError: '',
     loginFail: false,
   };
-  const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [formState, setFormState] = useState<Login>(initialFormState);
   const router = useRouter();
 
-  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
-  const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-  const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
-  const emailRegEx =
-    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
-  const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const handleBlurField = (
+    fieldName: keyof Login,
+    fieldValue: string,
+    validator: ValidatorFunction,
+  ) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [`${fieldName}Error` as keyof Login]: validator(fieldValue),
+    }));
+  };
   const submitRequirements =
     formState.email &&
     formState.password &&
-    emailRegEx.test(formState.email) &&
-    passwordRegEx.test(formState.password);
-
-  const validateEmail = (email: string): string => {
-    if (email.length < 1) {
-      return '이메일을 입력해주세요.';
-    } else if (!emailRegEx.test(email)) {
-      return '올바른 이메일 형식으로 입력해주세요.';
-    }
-    return '';
-  };
-
-  const validatePassword = (password: string): string => {
-    if (password.length < 1) {
-      return '비밀번호를 입력해주세요.';
-    } else if (!passwordRegEx.test(password)) {
-      return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
-    }
-    return '';
-  };
-
-  const handleBlueEmail = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      emailError: validateEmail(prevState.email),
-    }));
-  };
-
-  const handleBluePassword = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      passwordError: validatePassword(prevState.password),
-    }));
-  };
+    formValidatorUtils.emailRegEx.test(formState.email) &&
+    formValidatorUtils.passwordRegEx.test(formState.password);
 
   const handleLogin = async () => {
     setFormState((prevState) => ({
       ...prevState,
       loginFail: false,
     }));
+
     if (!submitRequirements) {
-      handleBlueEmail();
-      handleBluePassword();
+      handleBlurField('email', formState.email, formValidatorUtils.validateEmail);
+      handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
       return;
     }
     try {
-      // 로그인 요청 보내기
       const response = await axios.post('/api/login', {
         email: formState.email,
         password: formState.password,
       });
-
-      // 로그인 성공
       console.log('로그인 성공:', response.data);
+      const { token, refreshToken } = response.data;
 
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-
+      localStorage.setItem('isLogin', 'true');
+      setToken(token);
+      setRefreshToken(refreshToken);
       router.push('/');
-      // 여기에서 로그인 성공 시 다른 처리를 할 수 있습니다.
     } catch (error) {
-      // 로그인 실패
       setFormState((prevState) => ({
         ...prevState,
         loginFail: true,
       }));
-      console.log('Email:', formState.email);
-      console.log('Password:', formState.password);
-      console.log('emailcheck:', emailRegEx.test(formState.email));
     }
   };
 
@@ -128,11 +96,13 @@ export default function Login() {
             className={styles.input}
             labelText="아이디"
             id="email"
-            valueProp={formState.email}
-            onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, email: value }))}
+            value={formState.email}
+            onChange={(e) => setFormState((prevState) => ({ ...prevState, email: e.target.value }))}
+            onBlur={() =>
+              handleBlurField('email', formState.email, formValidatorUtils.validateEmail)
+            }
             hasError={!!formState.emailError}
             helpMessage={formState.emailError}
-            onBlur={handleBlueEmail}
           />
         </div>
 
@@ -141,11 +111,15 @@ export default function Login() {
           labelText="비밀번호"
           type="password"
           id="password"
-          valueProp={formState.password}
-          onChangeProp={(value) => setFormState((prevState) => ({ ...prevState, password: value }))}
+          value={formState.password}
+          onChange={(e) =>
+            setFormState((prevState) => ({ ...prevState, password: e.target.value }))
+          }
+          onBlur={() =>
+            handleBlurField('password', formState.password, formValidatorUtils.validatePassword)
+          }
           hasError={!!formState.passwordError}
           helpMessage={formState.passwordError}
-          onBlur={handleBluePassword}
         />
       </div>
       <div>
@@ -155,15 +129,13 @@ export default function Login() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <LoginButton type="default" handleLogin={handleLogin} /> {/* handleLogin 함수 전달 */}
+        <LoginButton type="default" handleLogin={handleLogin} />
         <Divider style="text" text="또는" />
         <div>
-          <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} />{' '}
-          {/* handleKakaoLogin 함수 전달 */}
+          <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} />
         </div>
         <div style={{ marginTop: '16px' }}>
-          <LoginButton type="google" handleLogin={handleGoogleLogin} />{' '}
-          {/* handleGoogleLogin 함수 전달 */}
+          <LoginButton type="google" handleLogin={handleGoogleLogin} />
         </div>
       </div>
       <div className={styles.signup}>
