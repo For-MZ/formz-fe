@@ -6,7 +6,9 @@
   justify-content: space-between;
   padding: 0px 12px 0px 12px;
   position: fixed;
-  right: 130px;
+  top: 120px; // 화면 하단에서 20px 위에 고정
+  right: 0; // 화면 가로 중앙에 고정
+  transform: translateX(-30%);
   z-index: 1000; /* 다른 컴포넌트 위에 렌더링되도록 설정 */
 
   .logo {
