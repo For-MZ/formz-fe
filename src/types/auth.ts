@@ -26,3 +26,9 @@ export type Login = {
   passwordError: string;
   loginFail: boolean;
 };
+
+export type FindPassword = {
+  email: string;
+  emailError: string;
+  emailVerified: boolean;
+};
