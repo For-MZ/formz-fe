@@ -16,8 +16,11 @@ import useToken from '@/hooks/useToken';
 type ValidatorFunction = (value: string) => string;
 
 export default function Login() {
-  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+  const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
   const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+  const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
+  const NAVER_REDIRECT_URI = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI;
+  const NAVER_SECRET_KEY = process.env.NEXT_PUBLIC_NAVER_SECRET_KEY;
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
   const { setToken, setRefreshToken } = useToken();
@@ -80,11 +83,15 @@ export default function Login() {
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&scope=profile_nickname`;
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&scope=profile_nickname`;
   };
 
   const handleGoogleLogin = () => {
     window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email profile`;
+  };
+
+  const handleNaverLogin = () => {
+    window.location.href = `https://nid.naver.com/oauth2.0/authorize?client_id=${NAVER_CLIENT_ID}&response_type=code&redirect_uri=${NAVER_REDIRECT_URI}&state=${NAVER_SECRET_KEY}`;
   };
 
   return (
@@ -131,11 +138,16 @@ export default function Login() {
       <div className={styles.buttonContainer}>
         <LoginButton type="default" handleLogin={handleLogin} />
         <Divider style="text" text="또는" />
-        <div>
-          <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} />
-        </div>
-        <div style={{ marginTop: '16px' }}>
-          <LoginButton type="google" handleLogin={handleGoogleLogin} />
+        <div className={styles.oauth}>
+          <div>
+            <LoginButton type="kakaoTalk" handleLogin={handleKakaoLogin} />
+          </div>
+          <div>
+            <LoginButton type="naver" handleLogin={handleNaverLogin} />
+          </div>
+          <div>
+            <LoginButton type="google" handleLogin={handleGoogleLogin} />
+          </div>
         </div>
       </div>
       <div className={styles.signup}>

@@ -3,9 +3,11 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import useToken from '@/hooks/useToken';
 
-export default function gauth() {
+export default function google() {
   const router = useRouter();
+  const { setToken, setRefreshToken } = useToken();
 
   useEffect(() => {
     const getCodeAndRequestToken = async () => {
@@ -27,6 +29,11 @@ export default function gauth() {
           );
 
           console.log('액세스토큰', response.data.access_token);
+          console.log('리프레시토큰', response.data.refresh_token);
+
+          // 받은 액세스 토큰과 리프레시 토큰을 useToken 훅을 사용하여 저장
+          setToken(response.data.access_token);
+          setRefreshToken(response.data.refresh_token);
 
           router.push('/');
         } catch (error) {
@@ -36,7 +43,7 @@ export default function gauth() {
     };
 
     getCodeAndRequestToken();
-  }, []);
+  }, [setToken, setRefreshToken, router]);
 
   return (
     <div>

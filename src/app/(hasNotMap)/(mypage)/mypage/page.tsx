@@ -10,10 +10,12 @@ import Toast from '@/components/UI/Toast';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import Alert from '@/components/UI/Alert';
 import { MyPage } from '@/types/User';
+import formValidatorUtils from '@/utils/formValidator';
+
+type ValidatorFunction = (value: string) => string;
 
 export default function mypage() {
   const defaultProfileImage = '/image/user.png';
-  const nicknameRegEx = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const userInfo = useUserInfo();
   const fileInput = useRef<HTMLInputElement>(null);
   const initialFormState: MyPage = {
@@ -29,10 +31,14 @@ export default function mypage() {
 
   const [formState, setFormState] = useState<MyPage>(initialFormState);
 
-  const handleNicknameChange = (value: string) => {
+  const handleBlurField = (
+    fieldName: keyof MyPage,
+    fieldValue: string,
+    validator: ValidatorFunction,
+  ) => {
     setFormState((prevState) => ({
       ...prevState,
-      nickname: value,
+      [`${fieldName}Error` as keyof MyPage]: validator(fieldValue),
     }));
   };
 
@@ -168,29 +174,21 @@ export default function mypage() {
             <TextField
               className={styles.input}
               labelText="닉네임"
-              onChangeProp={handleNicknameChange}
-              valueProp={formState.nickname}
+              onChange={(e) =>
+                setFormState((prevState) => ({ ...prevState, nickname: e.target.value }))
+              }
+              value={formState.nickname}
               hasError={!!formState.nicknameError}
               helpMessage={formState.nicknameError}
-              onBlur={() => {
-                if (!nicknameRegEx.test(formState.nickname)) {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    nicknameError: '올바른 닉네임 형식으로 입력해주세요.',
-                  }));
-                } else {
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    nicknameError: '',
-                  }));
-                }
-              }}
+              onBlur={() =>
+                handleBlurField('nickname', formState.nickname, formValidatorUtils.validateNickname)
+              }
             />
           </div>
           <div>
             <Button
               className={styles.button}
-              disabled={!formState.nickname || !nicknameRegEx.test(formState.nickname)}
+              disabled={!formState.nickname}
               design="outline"
               text="중복 확인"
               onClick={handleCheckAvailability}

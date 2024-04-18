@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './LoginButton.module.scss';
 import KakaoIcon from '/public/icons/kakaotalk.svg';
 import GoogleIcon from '/public/icons/google.svg';
+import NaverIcon from '/public/icons/naver.svg';
 
-type ButtonType = 'default' | 'kakaoTalk' | 'google';
+type ButtonType = 'default' | 'kakaoTalk' | 'google' | 'naver';
 type ButtonInfo = {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | undefined;
   text: string;
@@ -12,6 +13,7 @@ type ButtonInfo = {
 const buttonInfo: Record<ButtonType, ButtonInfo> = {
   default: { Icon: undefined, text: '로그인', handleLogin: () => {} },
   kakaoTalk: { Icon: KakaoIcon, text: '카카오로 로그인', handleLogin: () => {} },
+  naver: { Icon: NaverIcon, text: '네이버로 로그인', handleLogin: () => {} },
   google: { Icon: GoogleIcon, text: '구글로 로그인', handleLogin: () => {} },
 };
 

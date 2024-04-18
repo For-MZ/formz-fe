@@ -51,3 +51,9 @@
 .input {
   height: 48px;
 }
+
+.oauth {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
