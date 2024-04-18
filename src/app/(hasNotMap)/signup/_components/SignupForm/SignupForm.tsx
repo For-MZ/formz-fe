@@ -206,24 +206,23 @@ export default function SignupForm() {
         // 닉네임 사용 가능한 경우
         setFormState((prevState) => ({
           ...prevState,
-          nicknameAvailable: true,
           nicknameError: '닉네임 사용 가능',
         }));
       } else {
         // 닉네임이 이미 사용 중인 경우
+
         setFormState((prevState) => ({
           ...prevState,
           nicknameError: '닉네임이 이미 사용 중입니다.',
-          nicknameAvailable: false,
         }));
       }
     } catch (error) {
       // 닉네임 중복 확인 중 오류 발생 시 처리
       // 예를 들어, 오류 메시지를 보여줄 수 있습니다.
+
       setFormState((prevState) => ({
         ...prevState,
         nicknameError: '닉네임 중복 확인 중 오류 발생',
-        nicknameAvailable: false,
       }));
     }
   };

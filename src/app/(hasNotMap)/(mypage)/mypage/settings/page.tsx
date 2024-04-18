@@ -9,19 +9,10 @@ import Confirm from '@/components/UI/Confirm';
 import eye from '/public/icons/eye.svg';
 import axios from 'axios';
 import Toast from '@/components/UI/Toast';
+import { Settings } from '@/types/User';
+import formValidatorUtils from '@/utils/formValidator';
 
-type FormState = {
-  showConfirm: boolean;
-  password: string;
-  passwordError: string;
-  newPassword: string;
-  newPasswordError: string;
-  confirmPassword: string;
-  confirmPasswordError: string;
-  showPassword: boolean;
-  changeSuccess: boolean;
-  changeFail: boolean;
-};
+type ValidatorFunction = (value: string) => string;
 
 type ApiResponse = {
   success: boolean;
@@ -29,30 +20,40 @@ type ApiResponse = {
 };
 
 export default function Settings() {
-  const initialFormState: FormState = {
+  const initialFormState: Settings = {
     showConfirm: false,
     password: '',
     passwordError: '',
     newPassword: '',
     newPasswordError: '',
-    confirmPassword: '',
-    confirmPasswordError: '',
+    confirmNewPassword: '',
+    confirmNewPasswordError: '',
     showPassword: false,
     changeSuccess: false,
     changeFail: false,
   };
 
-  const [formState, setFormState] = useState<FormState>(initialFormState);
-  const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const [formState, setFormState] = useState<Settings>(initialFormState);
   const submitRequirements =
     formState.password &&
     formState.newPassword &&
-    formState.confirmPassword &&
-    passwordRegEx.test(formState.password) &&
-    passwordRegEx.test(formState.newPassword) &&
-    passwordRegEx.test(formState.confirmPassword) &&
-    formState.newPassword === formState.confirmPassword &&
+    formState.confirmNewPassword &&
+    formValidatorUtils.passwordRegEx.test(formState.password) &&
+    formValidatorUtils.passwordRegEx.test(formState.newPassword) &&
+    formValidatorUtils.passwordRegEx.test(formState.confirmNewPassword) &&
+    formState.newPassword === formState.confirmNewPassword &&
     formState.password !== formState.newPassword;
+
+  const handleBlurField = (
+    fieldName: keyof Settings,
+    fieldValue: string,
+    validator: ValidatorFunction,
+  ) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [`${fieldName}Error` as keyof Settings]: validator(fieldValue),
+    }));
+  };
 
   const toggleShowPassword = () => {
     setFormState((prevState) => ({
@@ -61,69 +62,17 @@ export default function Settings() {
     }));
   };
 
-  const validatePassword = (password: string): string => {
-    if (password.length < 1) {
-      return '비밀번호를 입력해주세요.';
-    } else if (!passwordRegEx.test(password)) {
-      return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
-    }
-    return '';
-  };
-
-  const validateConfirmPassword = (
-    password: string,
-    confirmPassword: string,
-    newPassword: string,
-  ): string => {
-    if (confirmPassword.length < 1) {
-      return '비밀번호를 입력해주세요.';
-    } else if (!passwordRegEx.test(confirmPassword)) {
-      return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
-    } else if (newPassword !== confirmPassword) {
-      return '비밀번호가 일치하지 않습니다.';
-    } else if (password === newPassword && password === confirmPassword) {
-      return '현재 비밀번호와 새 비밀번호가 같습니다.';
-    }
-    return '';
-  };
-
-  const handleBlurPassword = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      passwordError: validatePassword(prevState.password),
-    }));
-  };
-
-  const handleBlurNewPassword = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      newPasswordError: validatePassword(prevState.newPassword),
-    }));
-  };
-
-  const handleBlurConfirmPassword = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      confirmPasswordError: validateConfirmPassword(
-        prevState.password,
-        prevState.confirmPassword,
-        prevState.newPassword,
-      ),
-    }));
-  };
-
   const handleSubmit = async (): Promise<ApiResponse | undefined> => {
     if (!submitRequirements) {
-      handleBlurPassword();
-      handleBlurNewPassword();
-      handleBlurConfirmPassword();
+      handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
+      handleBlurField('newPassword', formState.newPassword, formValidatorUtils.validateNewPassword);
       return;
     }
     try {
       const response = await axios.post('/api/password-change', {
         password: formState.password,
         newPassword: formState.newPassword,
-        confirmPassword: formState.confirmPassword,
+        confirmNewPassword: formState.confirmNewPassword,
       });
       console.log('비밀번호 변경 성공', response.data);
       setFormState((prevState) => ({
@@ -133,8 +82,8 @@ export default function Settings() {
         passwordError: '',
         newPassword: '',
         newPasswordError: '',
-        confirmPassword: '',
-        confirmPasswordError: '',
+        confirmNewPassword: '',
+        confirmNewPasswordError: '',
         showPassword: false,
         changeSuccess: true,
       }));
@@ -147,8 +96,8 @@ export default function Settings() {
         passwordError: '',
         newPassword: '',
         newPasswordError: '',
-        confirmPassword: '',
-        confirmPasswordError: '',
+        confirmNewPassword: '',
+        confirmNewPasswordError: '',
         showPassword: false,
         changeFail: true,
       }));
@@ -163,8 +112,8 @@ export default function Settings() {
       passwordError: '',
       newPassword: '',
       newPasswordError: '',
-      confirmPassword: '',
-      confirmPasswordError: '',
+      confirmNewPassword: '',
+      confirmNewPasswordError: '',
       showPassword: false,
     }));
   };
@@ -202,8 +151,8 @@ export default function Settings() {
         {/* Confirm 모달 */}
         {formState.showConfirm && (
           <Confirm
-            onConfirm={handleSubmit} // 확인 버튼을 클릭할 때 실행되는 함수
-            onCancel={handleCancel} // 취소 버튼을 클릭할 때 실행되는 함수
+            onClickRightButton={handleSubmit} // 확인 버튼을 클릭할 때 실행되는 함수
+            onClickCancelButton={handleCancel} // 취소 버튼을 클릭할 때 실행되는 함수
             heading="비밀번호 변경" // 모달의 제목
             rightButtonText="변경" // 확인 버튼의 텍스트
           >
@@ -213,13 +162,15 @@ export default function Settings() {
               RightIcon={eye}
               placeholder="현재 비밀번호를 입력해주세요."
               labelText="현재 비밀번호"
-              valueProp={formState.password}
-              onChangeProp={(value) =>
-                setFormState((prevState) => ({ ...prevState, password: value }))
+              value={formState.password}
+              onChange={(e) =>
+                setFormState((prevState) => ({ ...prevState, password: e.target.value }))
               }
               hasError={!!formState.passwordError}
               helpMessage={formState.passwordError}
-              onBlur={handleBlurPassword}
+              onBlur={() =>
+                handleBlurField('password', formState.password, formValidatorUtils.validatePassword)
+              }
             />
             <div className={styles.password}>
               <TextField
@@ -228,13 +179,19 @@ export default function Settings() {
                 RightIconOnClick={toggleShowPassword}
                 placeholder="새 비밀번호를 입력해주세요."
                 labelText="새 비밀번호"
-                valueProp={formState.newPassword}
-                onChangeProp={(value) =>
-                  setFormState((prevState) => ({ ...prevState, newPassword: value }))
+                value={formState.newPassword}
+                onChange={(e) =>
+                  setFormState((prevState) => ({ ...prevState, newPassword: e.target.value }))
                 }
                 hasError={!!formState.newPasswordError}
                 helpMessage={formState.newPasswordError}
-                onBlur={handleBlurNewPassword}
+                onBlur={() =>
+                  handleBlurField(
+                    'newPassword',
+                    formState.newPassword,
+                    formValidatorUtils.validateNewPassword,
+                  )
+                }
               />
             </div>
             <div>
@@ -244,13 +201,26 @@ export default function Settings() {
                 RightIcon={eye}
                 placeholder="새 비밀번호를 한 번 더 입력해주세요."
                 labelText="새 비밀번호 확인"
-                valueProp={formState.confirmPassword}
-                onChangeProp={(value) =>
-                  setFormState((prevState) => ({ ...prevState, confirmPassword: value }))
+                value={formState.confirmNewPassword}
+                onChange={(e) =>
+                  setFormState((prevState) => ({
+                    ...prevState,
+                    confirmNewPassword: e.target.value,
+                  }))
                 }
-                hasError={!!formState.confirmPasswordError}
-                helpMessage={formState.confirmPasswordError}
-                onBlur={handleBlurConfirmPassword}
+                hasError={!!formState.confirmNewPasswordError}
+                helpMessage={formState.confirmNewPasswordError}
+                onBlur={() =>
+                  handleBlurField(
+                    'confirmNewPassword',
+                    formState.confirmNewPassword,
+                    (confirmNewPassword) =>
+                      formValidatorUtils.validateConfirmPassword(
+                        formState.newPassword,
+                        confirmNewPassword,
+                      ),
+                  )
+                }
               />
             </div>
           </Confirm>

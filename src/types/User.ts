@@ -15,3 +15,16 @@ export type MyPage = {
   changeSuccess: boolean;
   changeFail: boolean;
 };
+
+export type Settings = {
+  showConfirm: boolean;
+  password: string;
+  passwordError: string;
+  newPassword: string;
+  newPasswordError: string;
+  confirmNewPassword: string;
+  confirmNewPasswordError: string;
+  showPassword: boolean;
+  changeSuccess: boolean;
+  changeFail: boolean;
+};
