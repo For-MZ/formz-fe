@@ -27,8 +27,7 @@ export default function HomePage() {
       <Checkbox isNotValid onChange={() => {}} />
       <Divider style="none" />
       <Divider text="text" style="text" />
-      <Toast text="Message" type="default" />
-      <Toast text="Message" type="error" />
+      <Toast text="메세지다" type="default" />
 
       <Loading loading={loading} />
       <Button
