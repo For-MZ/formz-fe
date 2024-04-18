@@ -34,11 +34,8 @@ export default function WayToGo() {
     try {
       await navigator.clipboard.writeText(text);
       setStatus('success');
-      console.log('클립보드에 링크가 복사되었습니다.');
     } catch (e) {
       setStatus('error');
-
-      console.log('복사에 실패하였습니다');
     }
   };
 
@@ -48,11 +45,10 @@ export default function WayToGo() {
 
   return (
     <section className={styles.container}>
-      {status === 'success' ? (
+      {status === 'success' && (
         <Toast text="클립보드에 청년공간 주소가 복사되었습니다!" type="default" />
-      ) : (
-        <Toast text="청년공간 주소 복사에 실패했습니다" type="error" />
       )}
+      {status === 'error' && <Toast text="청년공간 주소 복사에 실패했습니다" type="error" />}
       <h5>찾아가는 길</h5>
       <div className={styles.wrapper}>
         <div className={styles.addressCopy}>
