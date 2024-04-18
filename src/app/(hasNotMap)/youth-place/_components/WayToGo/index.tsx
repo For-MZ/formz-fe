@@ -8,6 +8,8 @@ import MapPin from '/public/icons/map-pin.svg';
 import Copy from '/public/icons/copy.svg';
 import Map from '@/components/Map';
 import { useRouter } from 'next/navigation';
+import Toast from '@/components/UI/Toast';
+import { useState } from 'react';
 
 const place: FullPlace = {
   spcId: '202403260001',
@@ -25,13 +27,17 @@ const place: FullPlace = {
 };
 
 export default function WayToGo() {
+  const [status, setStatus] = useState<'success' | 'error' | ''>('');
   const { address } = place;
   const router = useRouter();
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
+      setStatus('success');
       console.log('클립보드에 링크가 복사되었습니다.');
     } catch (e) {
+      setStatus('error');
+
       console.log('복사에 실패하였습니다');
     }
   };
@@ -42,12 +48,17 @@ export default function WayToGo() {
 
   return (
     <section className={styles.container}>
+      {status === 'success' ? (
+        <Toast text="클립보드에 청년공간 주소가 복사되었습니다!" type="default" />
+      ) : (
+        <Toast text="청년공간 주소 복사에 실패했습니다" type="error" />
+      )}
       <h5>찾아가는 길</h5>
       <div className={styles.wrapper}>
         <div className={styles.addressCopy}>
           <p>주소: {address}</p>
           <button onClick={() => handleCopyClipBoard(address)}>
-            <Copy />
+            <Copy className={styles.icon} />
           </button>
         </div>
         <Button design="outline" text="길찾기" LeftIcon={MapPin} onClick={handleFindAWay} />

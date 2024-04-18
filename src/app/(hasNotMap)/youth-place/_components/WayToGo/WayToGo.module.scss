@@ -11,9 +11,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  div {
+  .addressCopy {
     display: flex;
     gap: 16px;
+
+    button {
+      .icon:hover {
+        path {
+          fill: $icon-interactive-primary-color;
+        }
+      }
+    }
   }
 }
 
