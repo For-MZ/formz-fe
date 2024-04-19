@@ -1,9 +1,18 @@
-import axios from 'axios';
-
 export async function requestVerificationCode(email: string): Promise<void> {
   try {
-    const response = await axios.post('/api/send-verification-code', { email });
-    console.log('Verification code request successful:', response.data);
+    const response = await fetch('/api/send-verification-code', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error requesting verification code');
+    }
+
+    console.log('Verification code request successful');
     // 성공했을 때의 처리도 이곳에서 가능합니다.
   } catch (error) {
     console.error('Error requesting verification code:', error);
