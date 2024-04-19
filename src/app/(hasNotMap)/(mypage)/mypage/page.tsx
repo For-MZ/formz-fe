@@ -5,7 +5,6 @@ import styles from './mypage.module.scss';
 import Image from 'next/image';
 import TextField from '@/components/UI/TextField';
 import Button from '@/components/UI/Button';
-import axios from 'axios';
 import Toast from '@/components/UI/Toast';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import Alert from '@/components/UI/Alert';
@@ -44,8 +43,11 @@ export default function mypage() {
 
   const handleCheckAvailability = async () => {
     try {
-      const response = await axios.get(`/api/check-nickname?nickname=${formState.nickname}`);
-      const data = response.data;
+      const response = await fetch(`/api/check-nickname?nickname=${formState.nickname}`);
+      if (!response.ok) {
+        throw new Error('Failed to check nickname availability');
+      }
+      const data = await response.json();
       setFormState((prevState) => ({
         ...prevState,
         isNicknameAvailable: data.available,
@@ -66,13 +68,15 @@ export default function mypage() {
     const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
     if (file.size > maxSizeInBytes) {
       // 파일 크기가 2MB를 초과하는 경우 모달 표시
-      handleShowAlert();
+      setFormState((prevState) => ({
+        ...prevState,
+        showAlert: true,
+      }));
       event.target.value = '';
       setFormState((prevState) => ({
         ...prevState,
         image: defaultProfileImage,
       }));
-
       return;
     }
 
@@ -93,10 +97,18 @@ export default function mypage() {
     formData.append('image', file);
 
     try {
-      const imageRes = await axios.post('/api/image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await fetch('/api/image', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      const imageURL = imageRes.data.imageURL;
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+      const data = await response.json();
+      const imageURL = data.imageURL;
 
       // 이미지 업로드 성공 시 imageURL을 formState에 저장
       setFormState((prevState) => ({
@@ -109,14 +121,6 @@ export default function mypage() {
     }
   };
 
-  const handleShowAlert = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      showAlert: true,
-    }));
-    console.log(formState.showAlert);
-  };
-
   const handleCloseAlert = () => {
     setFormState((prevState) => ({
       ...prevState,
@@ -127,8 +131,16 @@ export default function mypage() {
 
   const handleSubmit = async (): Promise<void> => {
     try {
-      // 프로필 이미지 변경 API 호출
-      await axios.put('/api/update-profile-image', { image: userInfo.profileImage });
+      const response = await fetch('/api/update-profile-image', {
+        method: 'PUT',
+        body: JSON.stringify({ image: userInfo.profileImage }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update profile image');
+      }
       setFormState((prevState) => ({
         ...prevState,
         isSaveEnabled: false,

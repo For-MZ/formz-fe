@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import useToken from '@/hooks/useToken';
 
 export default function kakao() {
@@ -19,22 +18,26 @@ export default function kakao() {
         const KAKAO_REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
 
         try {
-          const response = await axios.post(
-            `https://kauth.kakao.com/oauth/token`,
-            `grant_type=authorization_code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
-            {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-              },
+          const response = await fetch(`https://kauth.kakao.com/oauth/token`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
             },
-          );
+            body: `grant_type=authorization_code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
+          });
 
-          console.log('액세스토큰', response.data.access_token);
-          console.log('리프레시토큰', response.data.refresh_token);
+          if (!response.ok) {
+            throw new Error('Failed to request token');
+          }
+
+          const data = await response.json();
+
+          console.log('액세스토큰', data.access_token);
+          console.log('리프레시토큰', data.refresh_token);
 
           // 받은 액세스 토큰과 리프레시 토큰을 useToken 훅을 사용하여 저장
-          setToken(response.data.access_token);
-          setRefreshToken(response.data.refresh_token);
+          setToken(data.access_token);
+          setRefreshToken(data.refresh_token);
           router.push('/');
         } catch (error) {
           console.error('Error occurred while requesting token:', error);

@@ -5,7 +5,6 @@ import styles from './withdraw.module.scss';
 import Checkbox from '@/components/UI/CheckBox';
 import Link from 'next/link';
 import Button from '@/components/UI/Button';
-import axios from 'axios';
 import Toast from '@/components/UI/Toast';
 
 type FormState = {
@@ -38,15 +37,26 @@ export default function Withdraw() {
     setFormState((prevState) => ({
       ...prevState,
       withdrawfail: false,
-      withdrawssuccess: false,
+      withdrawn: false,
     }));
     const { email, token } = formState; // formState에서 email과 token 가져오기
     try {
-      const response = await axios.post('/api/withdraw', {
-        email: email,
-        token: token,
+      const response = await fetch('/api/withdraw', {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          token,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      console.log(response.data);
+      if (!response.ok) {
+        throw new Error('Withdrawal failed');
+      }
+      // 응답 데이터를 추출합니다.
+      const data = await response.json();
+      console.log(data);
       setFormState((prevState) => ({
         ...prevState,
         withdrawn: true,

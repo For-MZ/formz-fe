@@ -7,7 +7,6 @@ import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LoginButton from '@/components/UI/LoginButton';
-import axios from 'axios';
 import Toast from '@/components/UI/Toast';
 import { Login } from '@/types/auth';
 import formValidatorUtils from '@/utils/formValidator';
@@ -62,24 +61,38 @@ export default function Login() {
       handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
       return;
     }
-    try {
-      const response = await axios.post('/api/login', {
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         email: formState.email,
         password: formState.password,
-      });
-      console.log('로그인 성공:', response.data);
-      const { token, refreshToken } = response.data;
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('로그인에 실패하였습니다.');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('로그인 성공:', data);
+        const { token, refreshToken } = data;
 
-      localStorage.setItem('isLogin', 'true');
-      setToken(token);
-      setRefreshToken(refreshToken);
-      router.push('/');
-    } catch (error) {
-      setFormState((prevState) => ({
-        ...prevState,
-        loginFail: true,
-      }));
-    }
+        localStorage.setItem('isLogin', 'true');
+        setToken(token);
+        setRefreshToken(refreshToken);
+        router.push('/');
+      })
+      .catch((error) => {
+        console.error('로그인 에러:', error);
+        setFormState((prevState) => ({
+          ...prevState,
+          loginFail: true,
+        }));
+      });
   };
 
   const handleKakaoLogin = () => {

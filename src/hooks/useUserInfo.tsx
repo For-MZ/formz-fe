@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
-interface UserInfo {
+type UserInfo = {
   nickname: string;
   email: string;
   profileImage: string;
-}
+};
 
 export function useUserInfo(): UserInfo {
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -19,8 +18,11 @@ export function useUserInfo(): UserInfo {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get<UserInfo>('/api/user-info');
-        const data = response.data;
+        const response = await fetch('/api/user-info');
+        if (!response.ok) {
+          throw new Error('Failed to fetch user info');
+        }
+        const data = await response.json();
         setUserInfo(data);
       } catch (error) {
         console.error('사용자 정보를 불러오는 데 실패했습니다:', error);

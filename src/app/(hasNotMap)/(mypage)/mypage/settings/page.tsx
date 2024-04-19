@@ -7,17 +7,11 @@ import Link from 'next/link';
 import Button from '@/components/UI/Button';
 import Confirm from '@/components/UI/Confirm';
 import eye from '/public/icons/eye.svg';
-import axios from 'axios';
 import Toast from '@/components/UI/Toast';
 import { Settings } from '@/types/User';
 import formValidatorUtils from '@/utils/formValidator';
 
 type ValidatorFunction = (value: string) => string;
-
-type ApiResponse = {
-  success: boolean;
-  message: string;
-};
 
 export default function Settings() {
   const initialFormState: Settings = {
@@ -62,60 +56,45 @@ export default function Settings() {
     }));
   };
 
-  const handleSubmit = async (): Promise<ApiResponse | undefined> => {
+  const handleSubmit = async (): Promise<void> => {
     if (!submitRequirements) {
       handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
       handleBlurField('newPassword', formState.newPassword, formValidatorUtils.validateNewPassword);
       return;
     }
     try {
-      const response = await axios.post('/api/password-change', {
-        password: formState.password,
-        newPassword: formState.newPassword,
-        confirmNewPassword: formState.confirmNewPassword,
+      const response = await fetch('/api/password-change', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: formState.password,
+          newPassword: formState.newPassword,
+          confirmNewPassword: formState.confirmNewPassword,
+        }),
       });
-      console.log('비밀번호 변경 성공', response.data);
+      if (!response.ok) {
+        throw new Error('Password change failed');
+      }
+      console.log('비밀번호 변경 성공');
+      setFormState(initialFormState); // 폼 초기화
       setFormState((prevState) => ({
         ...prevState,
-        showConfirm: false,
-        password: '',
-        passwordError: '',
-        newPassword: '',
-        newPasswordError: '',
-        confirmNewPassword: '',
-        confirmNewPasswordError: '',
-        showPassword: false,
         changeSuccess: true,
       }));
     } catch (error) {
-      console.log('변겅실패, 에러', error);
+      console.log('비밀번호 변경 실패', error);
+      setFormState(initialFormState); // 폼 초기화
       setFormState((prevState) => ({
         ...prevState,
-        showConfirm: false,
-        password: '',
-        passwordError: '',
-        newPassword: '',
-        newPasswordError: '',
-        confirmNewPassword: '',
-        confirmNewPasswordError: '',
-        showPassword: false,
         changeFail: true,
       }));
     }
   };
 
   const handleCancel = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      showConfirm: false,
-      password: '',
-      passwordError: '',
-      newPassword: '',
-      newPasswordError: '',
-      confirmNewPassword: '',
-      confirmNewPasswordError: '',
-      showPassword: false,
-    }));
+    setFormState(initialFormState); // 폼 초기화
   };
 
   const handleChangeButton = () => {

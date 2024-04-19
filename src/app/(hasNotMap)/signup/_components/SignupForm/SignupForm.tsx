@@ -13,14 +13,8 @@ import { submitForm } from '../../(services)/signupService';
 import formValidatorUtils from '@/utils/formValidator';
 import { Signup } from '@/types/auth';
 import { checkNicknameAvailability } from '../../(services)/checkNicknameAvailability';
-import axios from 'axios';
 
 type ValidatorFunction = (value: string) => string;
-
-type ApiResponse = {
-  success: boolean;
-  message: string;
-};
 
 export default function SignupForm() {
   const defaultProfileImage = '/image/user.png'; //맨 위로 올릴수도있다
@@ -154,7 +148,7 @@ export default function SignupForm() {
     console.log(formState.showAlert);
   };
 
-  const handleSubmit = async (): Promise<ApiResponse | undefined> => {
+  const handleSubmit = async (): Promise<void> => {
     if (!submitRequirements) {
       handleBlurField('email', formState.email, formValidatorUtils.validateEmail);
       handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
@@ -240,7 +234,6 @@ export default function SignupForm() {
         ...prevState,
         image: defaultProfileImage,
       }));
-
       return;
     }
 
@@ -261,10 +254,17 @@ export default function SignupForm() {
     formData.append('image', file);
 
     try {
-      const imageRes = await axios.post('/api/image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const imageRes = await fetch('/api/image', {
+        method: 'POST',
+        body: formData,
       });
-      const imageURL = imageRes.data.imageURL;
+
+      if (!imageRes.ok) {
+        throw new Error('이미지 업로드 실패');
+      }
+
+      const imageData = await imageRes.json();
+      const imageURL = imageData.imageURL;
 
       // 이미지 업로드 성공 시 imageURL을 formState에 저장
       setFormState((prevState) => ({
