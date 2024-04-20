@@ -30,7 +30,12 @@ const DISTRICT = [
   '제주',
   '세종',
 ];
-export default function DistrictDropDowns({ district, setDistrict, subDistrict, setSubDistrict }: Props) {
+export default function DistrictDropDowns({
+  district,
+  setDistrict,
+  subDistrict,
+  setSubDistrict,
+}: Props) {
   const SUBDISTRICT = handleSubDistrictsChange(district);
   const [key, setKey] = useState(0);
   useEffect(() => {
@@ -41,14 +46,16 @@ export default function DistrictDropDowns({ district, setDistrict, subDistrict, 
   return (
     <>
       <DropDown
+        value={district}
         options={DISTRICT}
-        onSelectProp={(selected: string) => setDistrict(selected)}
+        onSelect={(selected: string) => setDistrict(selected)}
         placeholder="지역(시/도)"
       />
       <DropDown
+        value={subDistrict}
         key={key}
         options={SUBDISTRICT}
-        onSelectProp={(selected: string) => setSubDistrict(selected)}
+        onSelect={(selected: string) => setSubDistrict(selected)}
         placeholder="지역(시/군/구)"
       />
     </>

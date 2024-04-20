@@ -3,18 +3,26 @@
   display: flex;
   flex-direction: column;
   gap: 36px;
-  padding: 24px 36px;
-  background-color: $background-secondary-color;
   margin: 36px 0;
 }
 
 // 키워드 검색 부분
 .searchWrapper {
-  background-color: $background-primary-color;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  form {
+    flex: 1;
+  }
   .icon {
     path {
       fill: $icon-interactive-primary-color;
     }
+  }
+  .moreButton {
+    font-size: 12px;
+    padding: 8px 10px;
   }
 }
 
