@@ -1,31 +1,46 @@
 .filterContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  border: 1px solid;
-}
-.categoryWrapper {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.categoryTitle {
-  font-size: 20px;
-  min-width: 100px;
-  font-weight: 700;
-}
-.listWrapper {
-  display: inline;
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: 36px;
+  margin: 36px 0;
 }
+
+.searchWrapper {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  .textfield {
+    flex: 1;
+    path {
+      fill: $icon-interactive-primary-color;
+    }
+  }
+
+  .moreButton {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
+
 .DropDownWrapper {
   display: flex;
   gap: 20px;
+  div.dropdown {
+    width: 100%;
+  }
 }
+
+.ageWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  p {
+    white-space: nowrap;
+  }
+}
+
 .buttonWrapper {
   display: flex;
   gap: 10px;

@@ -12,14 +12,13 @@
   gap: 5px;
   align-items: center;
 
-  form {
+  .textfield {
     flex: 1;
-  }
-  .icon {
     path {
       fill: $icon-interactive-primary-color;
     }
   }
+
   .moreButton {
     font-size: 12px;
     padding: 8px 10px;
