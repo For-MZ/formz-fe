@@ -1,13 +1,22 @@
 .wrapper {
   display: inline-flex;
-  gap: 2px;
-  background-color: $background-secondary-color;
-  padding: 4px;
+  border-radius: 16px;
+  background-color: $background-disabled-color;
+  margin-bottom: 24px;
+
   button {
-    width: 40px;
-    height: 25px;
-    font-size: 10px;
-    border-radius: 0;
-    padding: 0;
+    border-radius: 16px;
+    width: 53px;
+    height: 30px;
+    padding: 8px 16px;
+    font-size: 12px;
+    &.selected {
+      background-color: $background-interactive-primary-color;
+      color: $text-interactive-inverse-color;
+    }
+    &.unselected {
+      background-color: $background-disabled-color;
+      color: $text-secondary-color;
+    }
   }
 }

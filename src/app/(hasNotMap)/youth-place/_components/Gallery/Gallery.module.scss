@@ -1,0 +1,18 @@
+.container {
+  h5 {
+    @include heading-h5;
+    padding: 16px 0;
+    border-bottom: 1px solid $border-disabled-color;
+  }
+}
+
+.imgWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 36px;
+  p {
+    padding-top: 16px;
+    @include heading-h6;
+  }
+}
