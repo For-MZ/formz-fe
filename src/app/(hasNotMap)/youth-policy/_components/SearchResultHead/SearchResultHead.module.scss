@@ -1,0 +1,38 @@
+.header {
+  margin: 36px 0 24px;
+  padding: 9.5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // "검색 결과" 텍스트
+  h5 {
+    @include heading-h5;
+    color: $text-primary-color;
+  }
+}
+
+.radioWrapper {
+  display: flex;
+  gap: 16px;
+
+  label {
+    display: flex;
+    gap: 8px;
+    input[type='radio']:checked {
+      appearance: none;
+      width: 20px;
+      box-shadow: 0 0 0 1.4px $border-interactive-primary-color;
+      border-radius: 50%;
+      border: 3px solid white;
+      background-color: $border-interactive-primary-color;
+      cursor: pointer;
+    }
+    input[type='radio'] {
+      appearance: none;
+      width: 20px;
+      box-shadow: 0 0 0 1.4px $border-interactive-primary-color;
+      border-radius: 50%;
+    }
+  }
+}
