@@ -1,9 +1,8 @@
+import IconCounter from '../../_components/IconCounter';
 import ActionToolbars from './_components/ActionToolbars';
 import BottomButtons from './_components/BottomButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
-import EyeIcon from '/public/icons/eye.svg';
-import ThumbsUpIcon from '/public/icons/thumbs-up.svg';
 
 type Props = {
   params: { policyId: string };
@@ -32,16 +31,11 @@ export default function PolicyDetailPage({ params }: Props) {
         </div>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
-        <div className={styles.iconWrapper}>
-          <div className={styles.icon}>
-            <EyeIcon />
-            <span>{viewCount}</span>
-          </div>
-          <div className={styles.icon}>
-            <ThumbsUpIcon />
-            <span>{recommendCount}</span>
-          </div>
-        </div>
+        <IconCounter
+          viewCount={viewCount}
+          recommendCount={recommendCount}
+          className={styles.iconCounter}
+        />
       </div>
       <DetailInfo title="한 눈에 보는 정책 요약" />
       <DetailInfo title="신청 자격" />
