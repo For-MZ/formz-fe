@@ -1,7 +1,5 @@
-'use client';
-
-import styles from './SearchResultHead.module.scss';
 import SortRadio from '@/components/UI/SortRadio';
+import styles from './SearchResultHead.module.scss';
 
 type Props = {
   options: { value: string; labelText: string }[];
@@ -11,14 +9,14 @@ type Props = {
 
 export default function SearchResultHead({ options, selectedOption, onChangeSortOption }: Props) {
   return (
-    <div className={styles.container}>
+    <div className={styles.header}>
       <h5>
         검색 결과 <span>nnn</span>건
       </h5>
       <SortRadio
         options={options}
         selectedOption={selectedOption}
-        name="placeSortOrder"
+        name="policySortOrder"
         onChange={onChangeSortOption}
       />
     </div>

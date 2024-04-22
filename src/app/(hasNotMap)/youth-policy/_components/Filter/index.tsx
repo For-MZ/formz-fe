@@ -5,10 +5,19 @@ import Button from '@/components/UI/Button';
 import DropDown from '@/components/UI/DropDown';
 import TextField from '@/components/UI/TextField';
 import useInput from '@/hooks/useInput';
-import { useState } from 'react';
+import SearchIcon from '/public/icons/search.svg';
+import { useEffect, useState } from 'react';
+import Menu from '/public/icons/menu.svg';
 
-const POLICY_FIELDS = ['전체', '일자리 분야', '주거 분야', '교육 분야', '복지﹒문화 분야', '참여﹒권리 분야'];
-const AREAS = [
+const POLICY_FIELDS = [
+  '전체',
+  '일자리 분야',
+  '주거 분야',
+  '교육 분야',
+  '복지﹒문화 분야',
+  '참여﹒권리 분야',
+];
+const DISTRICTS = [
   '전체',
   '중앙부처',
   '서울',
@@ -30,7 +39,7 @@ const AREAS = [
   '세종',
 ];
 const SPECIALIZED_FIELDS = [
-  '전체 선택',
+  '전체',
   '중소기업',
   '여성',
   '저소득층',
@@ -41,7 +50,7 @@ const SPECIALIZED_FIELDS = [
   '제한없음',
 ];
 const EMPLOYMENT_STATUS = [
-  '전체 선택',
+  '전체',
   '재직자',
   '자영업자',
   '미취업자',
@@ -53,7 +62,7 @@ const EMPLOYMENT_STATUS = [
   '제한없음',
 ];
 const ACADEMIC_ABILITY = [
-  '전체 선택',
+  '전체',
   '고졸 미만',
   '고교 재학',
   '고졸 예정',
@@ -65,91 +74,103 @@ const ACADEMIC_ABILITY = [
   '제한없음',
 ];
 export default function Filter() {
-  const [keyword, handleChange] = useInput('');
-  const [selectedPolicy, setSelectedPolicy] = useState<string[]>([]);
-  const [selectedArea, setSelectedArea] = useState<string[]>([]);
-  const [selectedSpecialized, setSelectedSpecialized] = useState('전체 선택');
-  const [selectedEmployment, setSelectedEmployment] = useState('전체 선택');
-  const [selectedAcademy, setSelectedAcademy] = useState('전체 선택');
-  const handleSelectPolicy = (selected: string) => {
-    if (selectedPolicy.includes(selected)) {
-      setSelectedPolicy(selectedPolicy.filter((item) => item !== selected));
-    } else {
-      setSelectedPolicy([...selectedPolicy, selected]);
-    }
-  };
-  const handleSelectArea = (selected: string) => {
-    if (selectedArea.includes(selected)) {
-      setSelectedArea(selectedArea.filter((item) => item !== selected));
-    } else {
-      setSelectedArea([...selectedArea, selected]);
-    }
-  };
-  const handleSelectField = (selected: string) => setSelectedSpecialized(selected);
-  const handleSelectEmployment = (selected: string) => setSelectedEmployment(selected);
-  const handleSelectAcademy = (selected: string) => setSelectedAcademy(selected);
+  const [nameValue, handleChangePolicyName, initNameValue] = useInput('');
+  const [ageValue, handleChangeAge, initAgeValue] = useInput('');
+  const [field, setField] = useState('');
+  const [district, setDistrict] = useState('');
+  const [specializedField, setSpecializedField] = useState('');
+  const [employmentStatus, setEmploymentStatus] = useState('');
+  const [academicAbility, setAcademicAbility] = useState('');
+  const [key, setKey] = useState(0);
+  const [isShow, setIsShow] = useState(false);
+  const onShowDropDowns = () => setIsShow((prev) => !prev);
+
+  useEffect(() => {
+    initNameValue();
+    initAgeValue();
+    setField('');
+    setDistrict('');
+    setSpecializedField('');
+    setEmploymentStatus('');
+    setAcademicAbility('');
+  }, [key]);
 
   return (
     <>
-      <h2>청년 정책</h2>
       <section className={styles.filterContainer}>
-        <div className={styles.categoryWrapper}>
-          <p className={styles.categoryTitle}>정책 이름 및 내용</p>
-          <TextField value={keyword} onChange={handleChange} placeholder="키워드를 입력하세요." />
+        <div className={styles.searchWrapper}>
+          <TextField
+            name="search"
+            value={nameValue}
+            onChange={handleChangePolicyName}
+            LeftIcon={SearchIcon}
+            type="search"
+            placeholder="청년정책 이름을 입력하세요."
+            className={styles.textfield}
+          />
+          <Button
+            design="outline"
+            className={styles.moreButton}
+            LeftIcon={Menu}
+            onClick={onShowDropDowns}
+          />
         </div>
-        <div className={styles.categoryWrapper}>
-          <p className={styles.categoryTitle}>정책 분야</p>
-          <ul className={styles.listWrapper}>
-            {POLICY_FIELDS.map((policy, index) => (
-              <li key={index}>
-                <Button
-                  text={policy}
-                  type={selectedPolicy.includes(policy) ? 'filled' : 'outline'}
-                  onClick={() => handleSelectPolicy(policy)}
-                  disabled={false}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={styles.categoryWrapper}>
-          <p className={styles.categoryTitle}>지역</p>
-          <ul className={styles.listWrapper}>
-            {AREAS.map((area, index) => (
-              <li key={index}>
-                <Button
-                  text={area}
-                  type={selectedArea.includes(area) ? 'filled' : 'outline'}
-                  onClick={() => handleSelectArea(area)}
-                  disabled={false}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={styles.DropDownWrapper}>
-          <div className={styles.categoryWrapper}>
-            <p className={styles.categoryTitle}>특화분야</p>
-            <DropDown options={SPECIALIZED_FIELDS} selected={selectedSpecialized} onSelect={handleSelectField} />
+        {isShow && (
+          <div className={styles.DropDownWrapper} key={key}>
+            <DropDown
+              value={field}
+              options={POLICY_FIELDS}
+              onSelect={(selected: string) => setField(selected)}
+              placeholder="정책 분야"
+              className={styles.dropdown}
+            />
+            <DropDown
+              value={district}
+              options={DISTRICTS}
+              onSelect={(selected: string) => setDistrict(selected)}
+              placeholder="지역"
+              className={styles.dropdown}
+            />
+            <DropDown
+              value={specializedField}
+              options={SPECIALIZED_FIELDS}
+              onSelect={(selected: string) => setSpecializedField(selected)}
+              placeholder="특화 분야"
+              className={styles.dropdown}
+            />
+            <DropDown
+              value={academicAbility}
+              options={ACADEMIC_ABILITY}
+              onSelect={(selected: string) => setAcademicAbility(selected)}
+              placeholder="학력"
+              className={styles.dropdown}
+            />
+            <DropDown
+              value={employmentStatus}
+              options={EMPLOYMENT_STATUS}
+              onSelect={(selected: string) => setEmploymentStatus(selected)}
+              placeholder="취업 상태"
+              className={styles.dropdown}
+            />
+            <div className={styles.ageWrapper}>
+              <TextField
+                value={ageValue}
+                onChange={handleChangeAge}
+                placeholder="ex. 1997"
+                type="number"
+              />
+              <p>년생</p>
+            </div>
           </div>
-          <div className={styles.categoryWrapper}>
-            <p className={styles.categoryTitle}>취업상태</p>
-            <DropDown options={EMPLOYMENT_STATUS} selected={selectedEmployment} onSelect={handleSelectEmployment} />
-          </div>
-          <div className={styles.categoryWrapper}>
-            <p className={styles.categoryTitle}>학력</p>
-            <DropDown options={ACADEMIC_ABILITY} selected={selectedAcademy} onSelect={handleSelectAcademy} />
-          </div>
-          <div className={styles.categoryWrapper}>
-            <p className={styles.categoryTitle}>출생연도</p>
-            <TextField value={keyword} onChange={handleChange} />
-            <span>년생</span>
-          </div>
-        </div>
+        )}
       </section>
       <div className={styles.buttonWrapper}>
-        <Button text={'선택 초기화'} type="outline" onClick={() => console.log('클릭')} disabled={false} />
-        <Button text={'검색'} type="outline" onClick={() => console.log('클릭')} disabled={false} />
+        <Button
+          text={'선택 초기화'}
+          design="outline"
+          onClick={() => setKey((prevKey) => prevKey + 1)}
+        />
+        <Button text={'검색'} design="filled" onClick={() => console.log('클릭')} />
       </div>
     </>
   );

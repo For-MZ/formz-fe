@@ -8,11 +8,27 @@ import SearchResultHead from '@/app/(hasNotMap)/youth-place/_components/SearchRe
 
 export default function FilterablePlaces() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedOption, setSelectedOption] = useState('moreView');
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
+  const options = [
+    {
+      value: 'moreView',
+      labelText: '조회순',
+    },
+    { value: 'recommended', labelText: '추천순' },
+    { value: 'alphabetical', labelText: '가나다순' },
+  ];
+  const onChangeSortOption = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSelectedOption(e.target.value);
+
   return (
     <>
-      <SearchResultHead />
-      <PlaceGrid />
+      <SearchResultHead
+        options={options}
+        selectedOption={selectedOption}
+        onChangeSortOption={onChangeSortOption}
+      />
+      <PlaceGrid selectedOption={selectedOption} />
       <Pagination totalPages={10} currentPage={currentPage} onChangePage={handlePageChange} />
     </>
   );

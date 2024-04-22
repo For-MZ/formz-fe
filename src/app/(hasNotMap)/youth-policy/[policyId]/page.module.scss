@@ -1,49 +1,73 @@
 .pageWrapper {
-  margin: 30px 0;
+  margin: 60px 0 118px;
   display: flex;
   flex-direction: column;
-}
-
-// 조회/추천 수
-.topIconWrapper {
-  display: flex;
-  justify-content: end;
-  gap: 20px;
-}
-.countWrapper {
-  display: flex;
-  gap: 5px;
+  gap: 64px;
 }
 
 // 핵심 정보
 .keyInfo {
-  margin: 40px auto 0;
-  width: 50%;
+  margin: 0 auto;
   text-align: center;
 }
+
 .categories {
-  margin-top: 10px;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
+  gap: 16px;
+
+  // 정책 분야
+  .field {
+    @include body-sm-regular;
+    border: 1px solid $border-interactive-primary-color;
+    color: $text-interactive-primary-color;
+    // TODO round 의미
+    border-radius: 20px;
+    padding: 8px 12px;
+  }
+
+  // 진행 상태
+  .progress {
+    @include body-sm-regular;
+    // TODO
+    // background-color: #21ca7b;
+    // opacity: 10%;
+    background-color: rgba(33, 202, 123, 0.1);
+    color: $text-interactive-primary-color;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
 }
-.progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 30px;
-  background-color: rgb(184, 248, 232);
-  border-radius: 30px;
+
+// 정책 이름
+.title {
+  @include heading-h3;
+  margin: 16px 0 8px;
 }
-.field {
-  background-color: beige;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-}
+
+// 정책 간단 설명
 .description {
-  margin-top: 10px;
-  color: #2e2e2e;
+  color: $text-secondary-color;
+  margin-bottom: 24px;
+}
+
+// TODO
+// 조회/추천 수
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+
+  gap: 8px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    svg {
+      color: $icon-secondary-color;
+    }
+    span {
+      color: $text-secondary-color;
+    }
+  }
 }

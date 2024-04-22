@@ -1,7 +1,9 @@
-import ActionButtons from './_components/ActionButtons';
 import ActionToolbars from './_components/ActionToolbars';
+import BottomButtons from './_components/BottomButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
+import EyeIcon from '/public/icons/eye.svg';
+import ThumbsUpIcon from '/public/icons/thumbs-up.svg';
 
 type Props = {
   params: { policyId: string };
@@ -24,28 +26,28 @@ export default function PolicyDetailPage({ params }: Props) {
     <section className={styles.pageWrapper}>
       <ActionToolbars />
       <div className={styles.keyInfo}>
-        <div className={styles.topIconWrapper}>
-          <div className={styles.countWrapper}>
-            <p>조회수</p>
-            <span>{viewCount}</span>
-          </div>
-          <div className={styles.countWrapper}>
-            <p>추천수</p>
-            <span>{recommendCount}</span>
-          </div>
-        </div>
         <div className={styles.categories}>
           <p className={styles.field}>{policyField}</p>
           <p className={styles.progress}>{progress}</p>
         </div>
-        <h2>{title}</h2>
+        <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
+        <div className={styles.iconWrapper}>
+          <div className={styles.icon}>
+            <EyeIcon />
+            <span>{viewCount}</span>
+          </div>
+          <div className={styles.icon}>
+            <ThumbsUpIcon />
+            <span>{recommendCount}</span>
+          </div>
+        </div>
       </div>
       <DetailInfo title="한 눈에 보는 정책 요약" />
       <DetailInfo title="신청 자격" />
       <DetailInfo title="신청 방법" />
       <DetailInfo title="기타" />
-      <ActionButtons />
+      <BottomButtons />
     </section>
   );
 }

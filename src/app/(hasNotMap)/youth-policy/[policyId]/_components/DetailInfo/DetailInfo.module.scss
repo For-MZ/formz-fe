@@ -1,24 +1,26 @@
-.tableTitle {
-  margin: 65px 0 20px;
+h5.tableTitle {
+  @include heading-h5;
+  margin-bottom: 36px;
+  padding: 16px 0;
+  border-bottom: 1px solid $border-disabled-color;
 }
+
 .table {
-  border-top: 2px solid;
-  border-bottom: 2px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+
 .list {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #bdbdbd;
-  &:last-child {
-    border-bottom: none;
+  gap: 36px;
+
+  .listTitle {
+    min-width: 164px;
   }
-}
-.listTitle {
-  min-width: 240px;
-  padding: 12px 0 12px 65px;
-  font-size: 18px;
-  font-weight: 600;
-}
-.listContent {
-  padding: 14px 17px;
+
+  .listContent {
+    @include body-md-regular;
+  }
 }

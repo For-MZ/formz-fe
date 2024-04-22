@@ -6,7 +6,7 @@ import Map from '@/components/Map';
 export default function MapToggleContainer() {
   return (
     <>
-      <SearchResultHead />
+      {/* <SearchResultHead /> */}
       <section className={styles.wrapper}>
         <div className={styles.scrollablePlaces}>
           <ScrollablePlaces />

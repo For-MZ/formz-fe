@@ -2,18 +2,33 @@
 
 import { useState } from 'react';
 import styles from './ActionToolbars.module.scss';
-import Image from 'next/image';
+import Button from '@/components/UI/Button';
+import BookmarkIcon from '/public/icons/bookmark.svg';
+import ThumbsUpIcon from '/public/icons/thumbs-up.svg';
+import ShareIcon from '/public/icons/share-2.svg';
+import PrinterIcon from '/public/icons/printer.svg';
 
 export default function ActionToolbars() {
-  const [visible, setVisible] = useState(false);
   return (
     <div className={styles.container}>
-      <p className={styles.button} onClick={() => setVisible((prev) => !prev)}>
-        <Image src="/icons/share-2.svg" alt="공유 아이콘" width={30} height={30} />
-      </p>
-      <p className={styles.button}>
-        <Image src="/icons/printer.svg" alt="인쇄 아이콘" width={30} height={30} />
-      </p>
+      <Button
+        design="outline"
+        text="북마크"
+        LeftIcon={BookmarkIcon}
+        onClick={() => console.log('북마크')}
+      />
+      <Button
+        design="outline"
+        text="추천"
+        LeftIcon={ThumbsUpIcon}
+        onClick={() => console.log('추천')}
+      />
+      <button className={styles.apiButton}>
+        <ShareIcon width="20" height="20" />
+      </button>
+      <button className={styles.apiButton}>
+        <PrinterIcon width="20" height="20" />
+      </button>
     </div>
   );
 }

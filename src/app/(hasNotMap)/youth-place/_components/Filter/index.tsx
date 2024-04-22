@@ -5,7 +5,7 @@ import styles from './Filter.module.scss';
 import Button from '@/components/UI/Button';
 import DropDown from '@/components/UI/DropDown';
 import DistrictDropDowns from '@/app/(hasNotMap)/youth-place/_components/DistrictDropDowns';
-import Menu from './../../../../../../public/icons/menu.svg';
+import Menu from '/public/icons/menu.svg';
 import SearchIcon from '/public/icons/search.svg';
 import TextField from '@/components/UI/TextField';
 import useInput from '@/hooks/useInput';
@@ -47,7 +47,7 @@ export default function Filter() {
             LeftIcon={SearchIcon}
             type="search"
             placeholder="청년공간 이름을 입력하세요."
-            className={styles.icon}
+            className={styles.textfield}
           />
           <Button
             design="outline"

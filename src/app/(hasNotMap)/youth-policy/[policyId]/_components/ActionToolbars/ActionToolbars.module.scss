@@ -1,14 +1,15 @@
 .container {
   display: flex;
   justify-content: end;
-  gap: 5px;
+  gap: 16px;
 }
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(127, 178, 255);
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
+
+.apiButton {
+  padding: 0;
+  &:hover {
+    svg {
+      fill: $icon-success-color;
+      color: $icon-success-color;
+    }
+  }
 }
