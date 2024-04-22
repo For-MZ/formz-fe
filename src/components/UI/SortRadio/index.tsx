@@ -9,6 +9,8 @@ type Props = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // (e)=>setSelectedOption(e.target.value)
 };
 
+// TODO zustand 상태관리
+
 export default function SortRadio({ options, selectedOption, name, onChange }: Props) {
   return (
     <form className={styles.radioWrapper}>
