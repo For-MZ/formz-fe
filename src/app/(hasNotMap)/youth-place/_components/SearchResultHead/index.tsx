@@ -1,25 +1,26 @@
-import styles from './SearchResultHead.module.scss';
+'use client';
 
-export default function SearchResultHead() {
+import styles from './SearchResultHead.module.scss';
+import SortRadio from '@/components/UI/SortRadio';
+
+type Props = {
+  options: { value: string; labelText: string }[];
+  selectedOption: string;
+  onChangeSortOption: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function SearchResultHead({ options, selectedOption, onChangeSortOption }: Props) {
   return (
-    <div className={styles.header}>
+    <div className={styles.container}>
       <h5>
         검색 결과 <span>nnn</span>건
       </h5>
-      <div className={styles.radioWrapper}>
-        <label>
-          <input type="radio" name="sort_place" value="조회순" defaultChecked />
-          <button>조회순</button>
-        </label>
-        <label>
-          <input type="radio" name="sort_place" value="추천순" />
-          <button>추천순</button>
-        </label>
-        <label>
-          <input type="radio" name="sort_place" value="가나다순" />
-          <button>가나다순</button>
-        </label>
-      </div>
+      <SortRadio
+        options={options}
+        selectedOption={selectedOption}
+        name="placeSortOrder"
+        onChange={onChangeSortOption}
+      />
     </div>
   );
 }
