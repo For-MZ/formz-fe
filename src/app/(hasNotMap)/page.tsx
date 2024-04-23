@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <>
       <LandingPage />
-      <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
+      {/* <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
       <TextField labelText="본문" placeholder="본문을 입력해주세요." />
       <TextField labelText="에러 테스트" hasError helpMessage="헬프 에러 미시지" />
       <Checkbox isNotValid onChange={() => {}} />
@@ -83,7 +83,7 @@ export default function HomePage() {
         LeftIcon={Printer}
         RightIcon={Star}
       />
-      <Avatar imageUrl="/image/user.png" />
+      <Avatar imageUrl="/image/user.png" /> */}
     </>
   );
 }

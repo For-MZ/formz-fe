@@ -1,0 +1,39 @@
+.container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  height: 180px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 180px;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  transition: transform 0.5s ease; /* 이미지가 슬라이드될 때 트랜지션 효과 추가 */
+}
+
+.control {
+  position: absolute;
+  top: 50%;
+  border: none;
+  background: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.control.left {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.control.right {
+  right: 0;
+  transform: translateY(-50%);
+}
