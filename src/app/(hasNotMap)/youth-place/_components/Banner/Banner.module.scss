@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f3fdff;
+  padding: 0 60px;
+}
+
+.leftArea {
+  padding: 40px 0 29px 0;
+  h2.title {
+    margin-bottom: 16px;
+    color: #454545;
+    font-size: 32px;
+  }
+  p {
+    color: $text-disabled-color;
+    font-size: 16px;
+  }
+}

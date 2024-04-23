@@ -1,61 +1,93 @@
 .container {
+  @include shadow3;
   position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  padding: 15px;
-  border-radius: 30px;
-  background-color: rgb(248, 248, 248);
+  width: 288px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: $background-primary-color;
 }
-.topButtons {
+
+// TODO
+// 조회/추천 아이콘 및 숫자
+.iconWrapper {
   display: flex;
-  gap: 20px;
-  justify-content: end;
+  gap: 8px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    svg {
+      width: 12px;
+      height: 12px;
+      path {
+        fill: $icon-secondary-color;
+      }
+    }
+    span {
+      font-size: 12px;
+      color: $icon-secondary-color;
+    }
+  }
 }
-.countWrapper {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+
+// 공유 버튼
+.shareButton {
+  padding: 0;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  .icon:hover {
+    path {
+      fill: $icon-interactive-primary-color;
+    }
+  }
 }
-.shareIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(127, 178, 255);
-  border-radius: 50%;
-  padding: 5px;
-}
+
 .contents {
-  margin: 30px 0 60px;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // 피그마와 차이
+
+  .title {
+    @include body-md-semibold;
+    color: $text-primary-color;
+  }
+
+  .description {
+    // 피그마와 차이
+    @include body-sm-regular;
+    color: $text-primary-color;
+  }
+
+  .organization {
+    @include body-sm-regular;
+    color: $text-secondary-color;
+  }
 }
-.title {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 600;
-}
-.description {
-  color: gray;
-}
-.organization {
-  color: rgba(128, 128, 128, 0.613);
-}
-.bottomCategories {
-  margin-top: 10px;
+
+.bottomArea {
   display: flex;
   justify-content: space-between;
-}
-.progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 30px;
-  background-color: rgb(184, 248, 232);
-  border-radius: 30px;
-}
-.field {
-  background-color: beige;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
+
+  .progress {
+    @include body-sm-regular;
+    // TODO
+    // background-color: #21ca7b;
+    // opacity: 10%;
+    background-color: rgba(33, 202, 123, 0.1);
+    color: $text-interactive-primary-color;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
+  .field {
+    @include body-sm-regular;
+    border: 1px solid $border-interactive-primary-color;
+    color: $text-interactive-primary-color;
+    // TODO round 의미
+    border-radius: 20px;
+    padding: 8px 12px;
+  }
 }

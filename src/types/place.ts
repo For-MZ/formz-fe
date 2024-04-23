@@ -9,3 +9,20 @@ export type SimplePlace = {
   viewCount: number;
   recommendCount: number;
 };
+
+export type FullPlace = {
+  spcId: string;
+  spcName: string;
+  operOrgan: string;
+  spcTime: string;
+  address: string;
+  telNo: string;
+  spcCost: string;
+  foodYn: string;
+  reservationMethod: string;
+  homepage: string;
+  counseling: string;
+  image: string;
+};
+
+export type DetailPlace = { spcType: string; description: string; capacity: string }[];

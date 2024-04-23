@@ -1,6 +1,5 @@
 'use client';
 
-import Button from '@/components/UI/Button';
 import styles from './ToggleButton.module.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -25,16 +24,18 @@ export default function ToggleButton({ defaultView }: Props) {
   };
   return (
     <div className={styles.wrapper}>
-      <Button
-        design={viewFormat === 'card' ? 'filled' : 'transparent'}
+      <button
+        className={viewFormat === 'card' ? styles.selected : styles.unseleceted}
         onClick={() => handleToggleButton('card')}
-        text="카드"
-      />
-      <Button
-        design={viewFormat === 'map' ? 'filled' : 'transparent'}
+      >
+        카드
+      </button>
+      <button
+        className={viewFormat === 'map' ? styles.selected : styles.unseleceted}
         onClick={() => handleToggleButton('map')}
-        text="지도"
-      />
+      >
+        지도
+      </button>
     </div>
   );
 }

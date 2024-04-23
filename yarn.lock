@@ -4508,6 +4508,7 @@ __metadata:
     react: "npm:^18"
     react-dom: "npm:^18"
     react-loading-skeleton: "npm:^3.4.0"
+    react-multi-carousel: "npm:^2.8.5"
     react-quill: "npm:^2.0.0"
     react-spinners: "npm:^0.13.8"
     sass: "npm:^1.71.1"
@@ -6683,6 +6684,13 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
   checksum: 10c0/dca2c60d38abd57e658ff5abb02cf62c08b51e09e4c83e107a1fec3ad58d6f0068846b4149ee452d472e35c831b31a00e8cdbdb066dd35c8b47b803fbad1f834
+  languageName: node
+  linkType: hard
+
+"react-multi-carousel@npm:^2.8.5":
+  version: 2.8.5
+  resolution: "react-multi-carousel@npm:2.8.5"
+  checksum: 10c0/6c5bf167f6aba91a6457d3992f53ecd12eca7f45d022d61b380f5303f18bca35e2edb28ff1a726fb7eee72cbd520264b4821de14b0c0a4fd778174fb1fdded0e
   languageName: node
   linkType: hard
 

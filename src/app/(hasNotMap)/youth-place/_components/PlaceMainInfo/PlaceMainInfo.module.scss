@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  gap: 64px;
+}
+
+.infoWrapper {
+  flex: 1;
+  h5 {
+    @include heading-h5;
+    margin-bottom: 24px;
+  }
+  div {
+    display: flex;
+    margin-bottom: 8px;
+    p:first-child {
+      width: 128px;
+      @include body-md-semibold;
+    }
+    p:last-child {
+      flex: 1;
+      @include body-md-regular;
+    }
+  }
+}
