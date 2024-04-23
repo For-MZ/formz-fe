@@ -21,7 +21,7 @@ export default function LandingPage() {
           <h2>청년 커뮤니티를 통해</h2>
           <h2>다양한 정보를 얻고 소통해보세요!</h2>
           <div className={styles.button}>
-            <Link href={'/community/posts/new'}>
+            <Link href={'/community/'}>
               <Button design="filled" text="글 쓰러가기" />
             </Link>
           </div>
