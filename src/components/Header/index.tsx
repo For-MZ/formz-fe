@@ -6,6 +6,7 @@ import { usePathname, useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
 import defaultProfileImage from '/public/default-profile-image.png';
+import Logo from './../../../public/icons/Logo_ForMZ.svg';
 
 const navMenuList = [
   {
@@ -41,7 +42,7 @@ export default function Header() {
       <nav className={styles.navigation}>
         <ul className={styles.menuList}>
           <Link href="/" className={styles.link}>
-            로고
+            <Logo className={styles.logo} />
           </Link>
           {navMenuList.map(({ href, name, segment }) => (
             <li key={href} className={styles.menu}>

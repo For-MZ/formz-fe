@@ -14,6 +14,7 @@ import DropDown from '@/components/UI/DropDown';
 import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';
 import Avatar from '@/components/UI/Avatar';
+import LandingPage from '@/components/LandingPage/page';
 
 export default function HomePage() {
   const [loading] = useState(true);
@@ -21,6 +22,7 @@ export default function HomePage() {
 
   return (
     <>
+      <LandingPage />
       <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
       <TextField labelText="본문" placeholder="본문을 입력해주세요." />
       <TextField labelText="에러 테스트" hasError helpMessage="헬프 에러 미시지" />
