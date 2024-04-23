@@ -13,6 +13,7 @@
 }
 
 .withdraw {
+  margin-top: 40px;
   color: $text-danger-color;
 }
 
@@ -43,4 +44,16 @@
 
 .sttingsinput {
   width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.subtitle {
+  margin-top: 36px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cancelbutton {
 }
