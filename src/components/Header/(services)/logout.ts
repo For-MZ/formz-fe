@@ -1,4 +1,4 @@
-export const logout = async () => {
+export async function logout() {
   try {
     const response = await fetch('/api/logout', {
       method: 'POST', // 로그아웃 요청은 POST 메서드로 보냅니다.
@@ -16,4 +16,4 @@ export const logout = async () => {
     console.error('로그아웃 오류:', error);
     return false; // 로그아웃에 실패했음을 알리는 값 반환
   }
-};
+}
