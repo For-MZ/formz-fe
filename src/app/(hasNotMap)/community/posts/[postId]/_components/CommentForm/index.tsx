@@ -4,7 +4,7 @@ import styles from './CommentForm.module.scss';
 import { useEffect, useState } from 'react';
 import TextField from '@/components/UI/TextField';
 import Button from '@/components/UI/Button';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { createComment } from '../../_services/createComment';
 import useInput from '@/hooks/useInput';
@@ -14,11 +14,16 @@ export default function CommentForm() {
   const { postId }: { postId: string } = useParams();
   const [commentValue, handleChangeCommentValue, initValue] = useInput('');
   const [isVisibleMutationButtons, setIsVisibleMutationButtons] = useState(false);
+  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: () => createComment({ userId: '1', postId, content: commentValue }),
+    onMutate: async () => {},
     onSuccess: (data) => {
       alert('댓글 작성 성공');
-      // TODO getComments invalidate
+      queryClient.invalidateQueries({
+        queryKey: ['community', 'posts', postId, 'comments'],
+      });
+      initValue();
     },
     onError: () => {
       alert('댓글 작성 실패');
