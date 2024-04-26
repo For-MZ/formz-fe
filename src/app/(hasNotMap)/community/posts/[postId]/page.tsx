@@ -4,6 +4,7 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 import { getPostDetail } from './_services/getPostDetail';
 import { getComments } from './_services/getComments';
 import CommentSection from './_components/CommentSection';
+import { Comment } from '@/types/Comment';
 
 type Props = {
   params: { postId: string };
@@ -15,9 +16,11 @@ export default async function PostDetailPage({ params: { postId } }: Props) {
     queryKey: ['community', 'posts', postId],
     queryFn: getPostDetail,
   });
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: ['community', 'posts', postId, 'comments'],
     queryFn: getComments,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: Comment[]) => parseInt(lastPage.at(-1)?.commentId as string),
   });
   const dehydratedState = dehydrate(queryClient);
 

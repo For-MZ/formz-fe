@@ -6,6 +6,9 @@ import { usePathname, useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
 import defaultProfileImage from '/public/default-profile-image.png';
+import Logo from './../../../public/icons/Logo_ForMZ.svg';
+import { useRouter } from 'next/navigation';
+import { logout } from './(services)/logout';
 
 const navMenuList = [
   {
@@ -33,15 +36,25 @@ const navMenuList = [
 export default function Header() {
   const pathName = usePathname();
   const currentSegment = useSelectedLayoutSegment();
+  const router = useRouter();
 
   const [isLogin, setIsLogin] = useState<boolean>(true);
+
+  const handleLogout = async () => {
+    const logoutSuccess = await logout();
+
+    if (logoutSuccess) {
+      setIsLogin(false);
+      router.push('/login'); // 로그인 페이지로 이동
+    }
+  };
 
   return (
     <header className={styles.header}>
       <nav className={styles.navigation}>
         <ul className={styles.menuList}>
           <Link href="/" className={styles.link}>
-            로고
+            <Logo className={styles.logo} />
           </Link>
           {navMenuList.map(({ href, name, segment }) => (
             <li key={href} className={styles.menu}>
@@ -73,6 +86,7 @@ export default function Header() {
               <Link href="/mypage">
                 <Image src={defaultProfileImage} alt="기본 프로필 이미지" />
               </Link>
+              <button onClick={handleLogout}>로그아웃</button>
             </>
           ) : (
             <>

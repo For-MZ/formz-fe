@@ -25,6 +25,7 @@ export default function FindPassword() {
         emailVerified: true,
       }));
     }
+    return handleBlurField('email', formState.email, formValidatorUtils.validateEmail);
   };
 
   const handleTest = () => {

@@ -5,7 +5,6 @@ import styles from './settings.module.scss';
 import TextField from '@/components/UI/TextField';
 import Link from 'next/link';
 import Button from '@/components/UI/Button';
-import Confirm from '@/components/UI/Confirm';
 import eye from '/public/icons/eye.svg';
 import Toast from '@/components/UI/Toast';
 import { Settings } from '@/types/User';
@@ -57,9 +56,24 @@ export default function Settings() {
   };
 
   const handleSubmit = async (): Promise<void> => {
+    setFormState((prevState) => ({
+      ...prevState,
+      changeFail: false,
+    }));
+
     if (!submitRequirements) {
       handleBlurField('password', formState.password, formValidatorUtils.validatePassword);
-      handleBlurField('newPassword', formState.newPassword, formValidatorUtils.validateNewPassword);
+      handleBlurField('newPassword', formState.newPassword, (newPassword) =>
+        formValidatorUtils.validateNewPassword(formState.password, newPassword),
+      );
+      handleBlurField('confirmNewPassword', formState.confirmNewPassword, (confirmNewPassword) =>
+        formValidatorUtils.validateConfirmNewPassword(
+          formState.password,
+          formState.newPassword,
+          confirmNewPassword,
+        ),
+      );
+
       return;
     }
     try {
@@ -90,52 +104,19 @@ export default function Settings() {
         ...prevState,
         changeFail: true,
       }));
+      console.log('Fail', formState.changeFail);
     }
-  };
-
-  const handleCancel = () => {
-    setFormState(initialFormState); // 폼 초기화
-  };
-
-  const handleChangeButton = () => {
-    setFormState((prevState) => ({
-      ...prevState,
-      showConfirm: true,
-    }));
   };
 
   return (
     <div className={styles.container}>
       <h2>계정 설정</h2>
+      <div className={styles.subtitle}>비밀번호 변경</div>
       <div className={styles.inputcontainer}>
         <div className={styles.inputdetail}>
           <div className={styles.sttingsinput}>
-            <TextField className={styles.input} type="password" disabled labelText="비밀번호" />
-          </div>
-          <div>
-            <Button
-              className={styles.button}
-              onClick={handleChangeButton}
-              text="변경"
-              design="outline"
-              disabled={false}
-            />
-          </div>
-        </div>
-      </div>
-      <Link href="/mypage/withdraw">
-        <div className={styles.withdraw}>회원 탈퇴</div>
-      </Link>
-      <div>
-        {/* Confirm 모달 */}
-        {formState.showConfirm && (
-          <Confirm
-            onClickRightButton={handleSubmit} // 확인 버튼을 클릭할 때 실행되는 함수
-            onClickCancelButton={handleCancel} // 취소 버튼을 클릭할 때 실행되는 함수
-            heading="비밀번호 변경" // 모달의 제목
-            rightButtonText="변경" // 확인 버튼의 텍스트
-          >
             <TextField
+              className={styles.input}
               type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
               RightIconOnClick={toggleShowPassword}
               RightIcon={eye}
@@ -151,60 +132,65 @@ export default function Settings() {
                 handleBlurField('password', formState.password, formValidatorUtils.validatePassword)
               }
             />
-            <div className={styles.password}>
-              <TextField
-                RightIcon={eye}
-                type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
-                RightIconOnClick={toggleShowPassword}
-                placeholder="새 비밀번호를 입력해주세요."
-                labelText="새 비밀번호"
-                value={formState.newPassword}
-                onChange={(e) =>
-                  setFormState((prevState) => ({ ...prevState, newPassword: e.target.value }))
-                }
-                hasError={!!formState.newPasswordError}
-                helpMessage={formState.newPasswordError}
-                onBlur={() =>
-                  handleBlurField(
-                    'newPassword',
-                    formState.newPassword,
-                    formValidatorUtils.validateNewPassword,
-                  )
-                }
-              />
-            </div>
-            <div>
-              <TextField
-                type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
-                RightIconOnClick={toggleShowPassword}
-                RightIcon={eye}
-                placeholder="새 비밀번호를 한 번 더 입력해주세요."
-                labelText="새 비밀번호 확인"
-                value={formState.confirmNewPassword}
-                onChange={(e) =>
-                  setFormState((prevState) => ({
-                    ...prevState,
-                    confirmNewPassword: e.target.value,
-                  }))
-                }
-                hasError={!!formState.confirmNewPasswordError}
-                helpMessage={formState.confirmNewPasswordError}
-                onBlur={() =>
-                  handleBlurField(
-                    'confirmNewPassword',
-                    formState.confirmNewPassword,
-                    (confirmNewPassword) =>
-                      formValidatorUtils.validateConfirmPassword(
-                        formState.newPassword,
-                        confirmNewPassword,
-                      ),
-                  )
-                }
-              />
-            </div>
-          </Confirm>
-        )}
+            <TextField
+              className={styles.input}
+              RightIcon={eye}
+              type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
+              RightIconOnClick={toggleShowPassword}
+              placeholder="새 비밀번호를 입력해주세요."
+              labelText="새 비밀번호"
+              value={formState.newPassword}
+              onChange={(e) =>
+                setFormState((prevState) => ({ ...prevState, newPassword: e.target.value }))
+              }
+              hasError={!!formState.newPasswordError}
+              helpMessage={formState.newPasswordError}
+              onBlur={() =>
+                handleBlurField('newPassword', formState.newPassword, (newPassword) =>
+                  formValidatorUtils.validateNewPassword(formState.password, newPassword),
+                )
+              }
+            />
+            <TextField
+              className={styles.input}
+              type={formState.showPassword ? 'text' : 'password'} // 비밀번호 보기 여부에 따라 type 변경
+              RightIconOnClick={toggleShowPassword}
+              RightIcon={eye}
+              placeholder="새 비밀번호를 한 번 더 입력해주세요."
+              labelText="새 비밀번호 확인"
+              value={formState.confirmNewPassword}
+              onChange={(e) =>
+                setFormState((prevState) => ({
+                  ...prevState,
+                  confirmNewPassword: e.target.value,
+                }))
+              }
+              hasError={!!formState.confirmNewPasswordError}
+              helpMessage={formState.confirmNewPasswordError}
+              onBlur={() =>
+                handleBlurField(
+                  'confirmNewPassword',
+                  formState.confirmNewPassword,
+                  (confirmNewPassword) =>
+                    formValidatorUtils.validateConfirmNewPassword(
+                      formState.password,
+                      formState.newPassword,
+                      confirmNewPassword,
+                    ),
+                )
+              }
+            />
+          </div>
+        </div>
       </div>
+
+      <div className={styles.cancelbutton}>
+        <Button design="filled" text="변경" onClick={handleSubmit} />
+      </div>
+      <Link href="/mypage/withdraw">
+        <div className={styles.withdraw}>회원 탈퇴</div>
+      </Link>
+
       {formState.changeFail && <Toast type="error" text="비밀번호 변경에 실패하였습니다." />}
       {formState.changeSuccess && <Toast text="비밀번호 변경에 성공하였습니다." />}
     </div>

@@ -8,12 +8,13 @@ import Alert from '@/components/UI/Alert';
 import Confirm from '@/components/UI/Confirm';
 import TextField from '@/components/UI/TextField';
 import Loading from '@/components/UI/Loading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/UI/Button';
 import DropDown from '@/components/UI/DropDown';
 import Star from '/public/icons/star.svg';
 import Printer from '/public/icons/printer.svg';
-import Skeleton from 'react-loading-skeleton';
+import Avatar from '@/components/UI/Avatar';
+import LandingPage from '@/components/LandingPage/page';
 
 export default function HomePage() {
   const [loading] = useState(true);
@@ -21,7 +22,8 @@ export default function HomePage() {
 
   return (
     <>
-      <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
+      <LandingPage />
+      {/* <TextField labelText="제목" id="title" name="title" placeholder="제목을 입력해주세요." />
       <TextField labelText="본문" placeholder="본문을 입력해주세요." />
       <TextField labelText="에러 테스트" hasError helpMessage="헬프 에러 미시지" />
       <Checkbox isNotValid onChange={() => {}} />
@@ -81,9 +83,7 @@ export default function HomePage() {
         LeftIcon={Printer}
         RightIcon={Star}
       />
-      <div style={{ backgroundColor: '#eee', borderRadius: '4px', width: '200px', height: '30px' }}>
-        <Skeleton height={30} width={200} />
-      </div>
+      <Avatar imageUrl="/image/user.png" /> */}
     </>
   );
 }

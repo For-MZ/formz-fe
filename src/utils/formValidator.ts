@@ -1,7 +1,7 @@
 const formValidator = {
   emailRegEx: /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/,
   nicknameRegEx: /^[a-zA-Z0-9가-힣]{2,10}$/,
-  passwordRegEx: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+  passwordRegEx: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
   verificationCodeRegEx: /^[0-9]*$/,
 
   validateEmail: (email: string): string => {
@@ -22,11 +22,13 @@ const formValidator = {
     return '';
   },
 
-  validateNewPassword: (newPassword: string): string => {
+  validateNewPassword: (password: string, newPassword: string): string => {
     if (newPassword.length < 1) {
       return '비밀번호를 입력해주세요.';
     } else if (!formValidator.passwordRegEx.test(newPassword)) {
       return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
+    } else if (newPassword === password) {
+      return '현재 비밀번호와 새 비밀번호가 같습니다.';
     }
     return '';
   },
@@ -50,13 +52,19 @@ const formValidator = {
     }
     return '';
   },
-  validateConfirmNewPassword: (newPassword: string, confirmPassword: string): string => {
+  validateConfirmNewPassword: (
+    password: string,
+    newPassword: string,
+    confirmPassword: string,
+  ): string => {
     if (confirmPassword.length < 1) {
       return '비밀번호를 입력해주세요.';
     } else if (!formValidator.passwordRegEx.test(confirmPassword)) {
       return '영문 대소문자, 숫자, 특수 문자 포함 8자 이상 입력해주세요.';
     } else if (newPassword !== confirmPassword) {
       return '비밀번호가 일치하지 않습니다.';
+    } else if (password === newPassword) {
+      return '현재 비밀번호와 새 비밀번호가 같습니다.';
     }
     return '';
   },

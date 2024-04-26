@@ -189,7 +189,7 @@ export default function mypage() {
               onChange={(e) =>
                 setFormState((prevState) => ({ ...prevState, nickname: e.target.value }))
               }
-              value={formState.nickname}
+              value={userInfo.nickname || formState.nickname}
               hasError={!!formState.nicknameError}
               helpMessage={formState.nicknameError}
               onBlur={() =>
@@ -208,7 +208,7 @@ export default function mypage() {
           </div>
         </div>
         <div>
-          <TextField className={styles.input} labelText="이메일" disabled />
+          <TextField className={styles.input} labelText="이메일" value={userInfo.email} disabled />
         </div>
         <div className={styles.savebuttondetail}>
           <Button

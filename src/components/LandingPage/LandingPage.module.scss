@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  margin: 60px auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  @media (max-width: 768px) {
+  }
+}
+
+.write {
+  margin-top: 40px;
+  width: 100%;
+  background-color: #f3fff9;
+  height: 300px;
+}
+
+.writecontent {
+  margin: 40px;
+}
+
+.h2 {
+  margin-top: 60px;
+  margin-bottom: 24px;
+}
+
+.image {
+  margin-top: 24px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 60px auto;
+}
