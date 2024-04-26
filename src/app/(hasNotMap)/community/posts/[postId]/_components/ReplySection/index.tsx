@@ -22,7 +22,7 @@ export default function ReplySection({ commentId, cmtChildCnt }: Props) {
     queryKey: ['community', 'posts', 'comments', commentId, 'replies'],
     queryFn: getReplies,
     staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
+    gcTime: 60 * 1000,
   });
 
   const toggleReplyForm = () => {
@@ -43,7 +43,9 @@ export default function ReplySection({ commentId, cmtChildCnt }: Props) {
         className={styles.replyFormOpenButton}
         onClick={toggleReplyForm}
       />
-      {isVisibleReplyForm && <ReplyForm commentId={commentId} />}
+      {isVisibleReplyForm && (
+        <ReplyForm commentId={commentId} setIsVisibleReplyList={setIsVisibleReplyList} />
+      )}
       {cmtChildCnt ? (
         <Button
           type="button"
