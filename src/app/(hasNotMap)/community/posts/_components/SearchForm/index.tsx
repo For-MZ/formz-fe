@@ -13,7 +13,7 @@ export default function SearchForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push(`/community/posts/search?word=${value}`);
+    router.push(`/community/posts?word=${value}`);
   };
 
   return (

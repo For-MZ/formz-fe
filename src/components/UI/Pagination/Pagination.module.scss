@@ -1,5 +1,4 @@
 .container {
-  margin-top: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +21,12 @@
   }
 
   button:disabled {
-    color: $icon-disabled-color;
+    background-color: $background-disabled-color;
+
+    &:hover {
+      color: none;
+      cursor: not-allowed;
+    }
   }
 }
 

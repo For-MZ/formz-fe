@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import styles from './CategoryTab.module.scss';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useCurrentPageStore from '../../_store/currentPage';
 
 const CATEGORY_TABS = [
   {
@@ -38,14 +36,10 @@ const CATEGORY_TABS = [
 
 export default function CategoryTab() {
   const searchParams = useSearchParams();
-  const [selectedCategory, setCategory] = useState('all');
+  const categorySearchParams = searchParams.get('category') || 'all';
   const router = useRouter();
-  const initCurrentPage = useCurrentPageStore((state) => state.initCurrentPage);
 
   const handleClickCategoryTab = (categoryValue: string) => {
-    setCategory(categoryValue);
-    initCurrentPage();
-
     const newSearchParams = new URLSearchParams(searchParams);
     if (categoryValue === 'all') {
       newSearchParams.delete('page');
@@ -62,7 +56,7 @@ export default function CategoryTab() {
     <ul className={styles.container}>
       {CATEGORY_TABS.map((category) => (
         <li
-          className={`${styles.category} ${selectedCategory === category.value && styles.selected}`}
+          className={`${styles.category} ${categorySearchParams === category.value && styles.selected}`}
           key={category.value}
           onClick={() => handleClickCategoryTab(category.value)}
         >

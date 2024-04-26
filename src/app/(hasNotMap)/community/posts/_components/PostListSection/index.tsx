@@ -3,6 +3,7 @@
 import { getPosts } from '../../_services/getPosts';
 import { useQuery } from '@tanstack/react-query';
 import PostList from '../PostList';
+import PostListPagination from '../PostListPagination';
 
 type Props = {
   searchParams: { category?: string; page?: string };
@@ -17,5 +18,10 @@ export default function PostListSection({ searchParams }: Props) {
     gcTime: 60 * 1000,
   });
 
-  return <PostList posts={data} />;
+  return (
+    <>
+      <PostList posts={data?.data} />
+      <PostListPagination totalItemCount={data?.totalItemCount as number} />
+    </>
+  );
 }

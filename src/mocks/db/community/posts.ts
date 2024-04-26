@@ -4,7 +4,7 @@ export const COMMUNITY_POSTS = [
   {
     postId: '1',
     title: `정책 관련 게시글 제목`,
-    content: faker.lorem.paragraphs(30),
+    content: '<h1>안녕하세요.</h1> <h2>안녕하세요.</h2> <h3>안녕하세요.</h3>',
     writer: {
       userId: faker.string.uuid(),
       email: faker.internet.email(),
