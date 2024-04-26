@@ -33,7 +33,7 @@ export default function PostDetail({ postId }: Props) {
         <div className={styles.textMetaDataContainer}>
           <div className={styles.author}>{data?.writer.nickName}</div>
           <div className={styles.postMetaDataContainer}>
-            <time className={styles.createdAt}>{data?.createdAt}</time>
+            <time className={styles.createdAt}>{data?.createdDate}</time>
             <div className={styles.hitsBox}>
               <HitsIcon width="20" height="20" />
               <span>{data?.views.toLocaleString()}</span>
