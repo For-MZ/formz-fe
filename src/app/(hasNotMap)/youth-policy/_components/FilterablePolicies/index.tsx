@@ -30,7 +30,7 @@ export default function FilterablePolicies() {
         onChangeSortOption={onChangeSortOption}
       />
       <PolicyGrid selectedOption={selectedOption} />
-      <Pagination totalPages={10} currentPage={currentPage} onPageChange={handlePageChange} />
+      <Pagination totalItemCount={10} currentPage={currentPage} onPageChange={handlePageChange} />
     </>
   );
 }
