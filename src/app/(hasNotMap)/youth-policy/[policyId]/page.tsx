@@ -1,8 +1,12 @@
+'use client';
+
+import { useRef } from 'react';
 import IconCounter from '../../_components/IconCounter';
-import ActionToolbars from './_components/ActionToolbars';
+import ActionToolbars from '../../_components/ActionToolbars';
 import BottomButtons from './_components/BottomButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
+import DetailContents from './_components/DetailContents';
 
 type Props = {
   params: { policyId: string };
@@ -20,10 +24,11 @@ const policy = {
 };
 
 export default function PolicyDetailPage({ params }: Props) {
+  const componentRef = useRef<HTMLDivElement>(null);
   const { title, description, policyField, progress, viewCount, recommendCount } = policy;
   return (
     <section className={styles.pageWrapper}>
-      <ActionToolbars />
+      <ActionToolbars printContentRef={componentRef} />
       <div className={styles.keyInfo}>
         <div className={styles.categories}>
           <p className={styles.field}>{policyField}</p>
@@ -37,10 +42,12 @@ export default function PolicyDetailPage({ params }: Props) {
           className={styles.iconCounter}
         />
       </div>
-      <DetailInfo title="한 눈에 보는 정책 요약" />
-      <DetailInfo title="신청 자격" />
-      <DetailInfo title="신청 방법" />
-      <DetailInfo title="기타" />
+      <DetailContents ref={componentRef}>
+        <DetailInfo title="한 눈에 보는 정책 요약" />
+        <DetailInfo title="신청 자격" />
+        <DetailInfo title="신청 방법" />
+        <DetailInfo title="기타" />
+      </DetailContents>
       <BottomButtons />
     </section>
   );

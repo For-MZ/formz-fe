@@ -3,6 +3,7 @@ import { FullPlace } from '@/types/place';
 import Image from 'next/image';
 import { faker } from '@faker-js/faker';
 import IconCounter from '@/app/(hasNotMap)/_components/IconCounter';
+import { forwardRef } from 'react';
 
 const place: FullPlace = {
   spcId: '202403260001',
@@ -21,9 +22,9 @@ const place: FullPlace = {
   recommendCount: 8,
 };
 
-export default function PlaceMainInfo() {
+const PlaceMainInfo = forwardRef<HTMLDivElement>((_, ref) => {
   return (
-    <div className={styles.container}>
+    <div ref={ref} className={styles.container}>
       <Image src={place.image} alt="청년공간 대표 이미지" width={360} height={360} />
       <section className={styles.infoWrapper}>
         <IconCounter viewCount={place.viewCount} recommendCount={place.recommendCount} />
@@ -71,4 +72,8 @@ export default function PlaceMainInfo() {
       </section>
     </div>
   );
-}
+});
+
+PlaceMainInfo.displayName = 'PlaceMainInfo';
+
+export default PlaceMainInfo;
