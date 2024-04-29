@@ -5,9 +5,10 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { getComments } from '../../_services/getComments';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment } from 'react';
 import Loading from '@/components/UI/Loading';
 import { PostDetail } from '@/types/Post';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 type Props = {
   postId: string;
@@ -27,29 +28,7 @@ export default function CommentSection({ postId }: Props) {
     enabled: !!postDetailData,
   });
 
-  const observerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const callback: IntersectionObserverCallback = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          console.log('댓글 불러오기 요청');
-          fetchNextPage();
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(callback, {
-      root: null, // null이면 브라우저 뷰포트가 기본으로 설정
-      rootMargin: '0px', // 루트(뷰포트)의 여백
-      threshold: 0.1, // 관찰 타켓의 가시성 백분율을 나타내는 숫자
-    });
-    observer.observe(observerRef.current as Element);
-
-    return () => {
-      observer.unobserve(observerRef.current as Element);
-    };
-  }, []);
+  const { observerRef } = useIntersectionObserver(fetchNextPage);
 
   return (
     <section className={styles.container}>
