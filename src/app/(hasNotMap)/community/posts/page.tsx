@@ -29,7 +29,7 @@ export default async function CommunityPage({ searchParams }: Props) {
           <SearchForm />
           <div className={styles.filterContainer}>
             <CategoryTab />
-            {/* <SortingRadio /> */}
+            <SortingRadio />
           </div>
           <PostListSection searchParams={searchParams} />
         </HydrationBoundary>
