@@ -6,7 +6,7 @@ import ActionToolbars from '../../_components/ActionToolbars';
 import BottomButtons from './_components/BottomButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
-import DetailContents from './_components/DetailContents';
+import DetailContents from '../../_components/DetailContents';
 
 type Props = {
   params: { policyId: string };
