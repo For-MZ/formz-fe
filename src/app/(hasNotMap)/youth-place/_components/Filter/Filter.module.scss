@@ -2,8 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 36px;
-  margin: 36px 0;
+  gap: 20px;
 }
 
 // 키워드 검색 부분
@@ -28,7 +27,7 @@
 .DropDownWrapper {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 15px;
 }
 
 // 초기화, 검색 버튼

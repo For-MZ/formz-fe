@@ -8,10 +8,20 @@ type Props = {
 };
 
 export default function PlaceCard({ place }: Props) {
-  const { placeId, title, image, simpleLocation, fullLocation, cost, operation, viewCount, recommendCount } = place;
+  const {
+    placeId,
+    title,
+    image,
+    simpleLocation,
+    fullLocation,
+    cost,
+    operation,
+    viewCount,
+    recommendCount,
+  } = place;
 
   return (
-    <Link href={`/youth-place/${placeId}`}>
+    <Link href={`/youth-place/${placeId}`} className={styles.link}>
       <section className={styles.container}>
         <div className={styles.contentsWrapper}>
           <div className={styles.imageWrapper}>
@@ -21,7 +31,13 @@ export default function PlaceCard({ place }: Props) {
           <div className={styles.infoWrapper}>
             <p className={styles.operation}>{operation}</p>
             <button className={styles.shareIcon}>
-              <Image src="/icons/share-2.svg" alt="공유 아이콘" width={18} height={18} className={styles.icon} />
+              <Image
+                src="/icons/share-2.svg"
+                alt="공유 아이콘"
+                width={18}
+                height={18}
+                className={styles.icon}
+              />
             </button>
             <p className={styles.title}>{title}</p>
             <p className={styles.fullLocation}>{fullLocation}</p>
