@@ -18,11 +18,13 @@ type Props = {
 export default function ReplySection({ commentId, cmtChildCnt }: Props) {
   const [isVisibleReplyForm, setIsVisibleReplyForm] = useState(false);
   const [isVisibleReplyList, setIsVisibleReplyList] = useState(false);
-  const { data: replies, refetch } = useQuery({
+
+  const { data: replies } = useQuery({
     queryKey: ['community', 'posts', 'comments', commentId, 'replies'],
     queryFn: getReplies,
     staleTime: 60 * 1000,
     gcTime: 60 * 1000,
+    enabled: isVisibleReplyList, // 대댓글 리스트 보일때만 query
   });
 
   const toggleReplyForm = () => {
@@ -31,7 +33,6 @@ export default function ReplySection({ commentId, cmtChildCnt }: Props) {
 
   const toggleReplyList = () => {
     setIsVisibleReplyList((prev) => !prev);
-    refetch(); // 답글 목록 토글링 시 리페치
   };
 
   return (
