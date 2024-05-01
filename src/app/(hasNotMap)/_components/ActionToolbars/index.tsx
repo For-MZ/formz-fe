@@ -8,25 +8,54 @@ import ShareIcon from '/public/icons/share-2.svg';
 import PrinterIcon from '/public/icons/printer.svg';
 import ReactToPrint from 'react-to-print';
 import { RefObject } from 'react';
+import { usePathname } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { bookmark } from '../../youth-policy/_services/bookmark';
+import { recommend } from '../../youth-policy/_services/recommend';
 
 type Props = {
   printContentRef: RefObject<HTMLDivElement>;
 };
 
 export default function ActionToolbars({ printContentRef }: Props) {
+  const pathname = usePathname();
+  const [url, id] = pathname.split('/').slice(1);
+
+  const createMutation = (
+    mutateFn: () => Promise<void>,
+    successMessage: string,
+    errorMessage: string,
+  ) =>
+    useMutation({
+      mutationFn: mutateFn,
+      onSuccess: () => console.log(successMessage),
+      onError: () => console.log(errorMessage),
+    });
+
+  const { mutate: bookmarkMutate } = createMutation(
+    () => bookmark(url, id),
+    '북마크 성공',
+    '북마크 실패',
+  );
+  const { mutate: recommendMutate } = createMutation(
+    () => recommend(url, id),
+    '추천 성공',
+    '추천 실패',
+  );
+
   return (
     <div className={styles.container}>
       <Button
         design="outline"
         text="북마크"
         LeftIcon={BookmarkIcon}
-        onClick={() => console.log('북마크')}
+        onClick={() => bookmarkMutate()}
       />
       <Button
         design="outline"
         text="추천"
         LeftIcon={ThumbsUpIcon}
-        onClick={() => console.log('추천')}
+        onClick={() => recommendMutate()}
       />
       <button className={styles.apiButton}>
         <ShareIcon width="20" height="20" />
