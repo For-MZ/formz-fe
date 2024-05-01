@@ -9,6 +9,7 @@ import Menu from '/public/icons/menu.svg';
 import SearchIcon from '/public/icons/search.svg';
 import TextField from '@/components/UI/TextField';
 import useInput from '@/hooks/useInput';
+import { usePathname } from 'next/navigation';
 
 const COSTOFUSE = ['전체', '무료', '유료', '부분 유료'];
 const STATUS_OPERATION = ['전체', '운영중', '금일 운영 마감'];
@@ -16,6 +17,7 @@ const RESERVATION = ['전체', '전화예약', '온라인 예약'];
 const CONSULTATON_OF_EMPLOYMENT = ['전체', '가능', '불가능'];
 
 export default function Filter() {
+  const pathname = usePathname();
   const [value, handleChange, initValue] = useInput('');
   const [district, setDistrict] = useState('');
   const [subDistrict, setSubDistrict] = useState('');
@@ -38,7 +40,7 @@ export default function Filter() {
 
   return (
     <>
-      <section className={styles.filterContainer}>
+      <section className={styles.container}>
         <div className={styles.searchWrapper}>
           <TextField
             name="search"
@@ -96,8 +98,14 @@ export default function Filter() {
           text={'선택 초기화'}
           design="outline"
           onClick={() => setKey((prevKey) => prevKey + 1)}
+          className={pathname.split('/').at(-1) === 'placeMapList' ? styles.button : ''}
         />
-        <Button text={'검색'} design="filled" onClick={() => console.log('클릭')} />
+        <Button
+          text={'검색'}
+          design="filled"
+          onClick={() => console.log('클릭')}
+          className={pathname.split('/').at(-1) === 'placeMapList' ? styles.button : ''}
+        />
       </div>
     </>
   );
