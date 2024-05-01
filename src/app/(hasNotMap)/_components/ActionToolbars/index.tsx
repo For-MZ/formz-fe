@@ -10,8 +10,8 @@ import ReactToPrint from 'react-to-print';
 import { RefObject } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { bookmark } from '../../youth-policy/_services/bookmark';
-import { recommend } from '../../youth-policy/_services/recommend';
+import { bookmark } from '../../_services/bookmark';
+import { recommend } from '../../_services/recommend';
 
 type Props = {
   printContentRef: RefObject<HTMLDivElement>;
