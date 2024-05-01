@@ -1,12 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
-import IconCounter from '../../_components/IconCounter';
-import ActionToolbars from '../../_components/ActionToolbars';
+import IconCounter from '../../../../components/policy_place/IconCounter';
+import ActionToolbars from '../../../../components/policy_place/ActionToolbars';
 import BottomButtons from './_components/BottomButtons';
 import DetailInfo from './_components/DetailInfo';
 import styles from './page.module.scss';
-import DetailContents from '../../_components/DetailContents';
+import DetailContents from '../../../../components/policy_place/DetailContents';
 
 type Props = {
   params: { policyId: string };

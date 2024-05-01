@@ -1,5 +1,5 @@
 import { SimplePlace } from '@/types/place';
-import PlaceCard from '../PlaceCard';
+import PlaceCard from '../../../../(hasNotMap)/youth-place/_components/PlaceCard';
 import styles from './ScollablePlaces.module.scss';
 import { faker } from '@faker-js/faker';
 

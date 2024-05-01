@@ -2,7 +2,7 @@ import styles from './PlaceMainInfo.module.scss';
 import { FullPlace } from '@/types/place';
 import Image from 'next/image';
 import { faker } from '@faker-js/faker';
-import IconCounter from '@/app/(hasNotMap)/_components/IconCounter';
+import IconCounter from '@/components/policy_place/IconCounter';
 import { forwardRef } from 'react';
 
 const place: FullPlace = {

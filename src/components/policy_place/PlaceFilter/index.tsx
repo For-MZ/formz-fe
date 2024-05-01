@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from './Filter.module.scss';
+import styles from './PlaceFilter.module.scss';
 import Button from '@/components/UI/Button';
 import DropDown from '@/components/UI/DropDown';
 import DistrictDropDowns from '@/app/(hasNotMap)/youth-place/_components/DistrictDropDowns';
@@ -16,7 +16,7 @@ const STATUS_OPERATION = ['전체', '운영중', '금일 운영 마감'];
 const RESERVATION = ['전체', '전화예약', '온라인 예약'];
 const CONSULTATON_OF_EMPLOYMENT = ['전체', '가능', '불가능'];
 
-export default function Filter() {
+export default function PlaceFilter() {
   const pathname = usePathname();
   const [value, handleChange, initValue] = useInput('');
   const [district, setDistrict] = useState('');
