@@ -7,6 +7,10 @@
   background-color: $background-primary-color;
 }
 
+.infoWrapper {
+  position: relative;
+}
+
 // TODO
 // 조회/추천 아이콘 및 숫자
 .iconWrapper {
@@ -27,19 +31,6 @@
     span {
       font-size: 12px;
       color: $icon-secondary-color;
-    }
-  }
-}
-
-// 공유 버튼
-.shareButton {
-  padding: 0;
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  .icon:hover {
-    path {
-      fill: $icon-interactive-primary-color;
     }
   }
 }

@@ -1,19 +1,14 @@
-'use client';
-
 import styles from './PlaceCard.module.scss';
 import { useRouter } from 'next/navigation';
 import { SimplePlace } from '@/types/place';
 import Image from 'next/image';
-import { MouseEventHandler, useState } from 'react';
-import ShareSvg from '/public/icons/share-2.svg';
-import OpenGraph from '@/components/policy_place/OpenGraph';
+import SnsShare from '@/components/policy_place/SnsShare';
 
 type Props = {
   place: SimplePlace;
 };
 
 export default function PlaceCard({ place }: Props) {
-  const [isShowOG, setIsShowOG] = useState(false);
   const router = useRouter();
   const {
     placeId,
@@ -27,11 +22,6 @@ export default function PlaceCard({ place }: Props) {
     recommendCount,
   } = place;
 
-  const onOpenGraph: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.stopPropagation();
-    setIsShowOG((isShow) => !isShow);
-  };
-
   return (
     <section className={styles.container} onClick={() => router.push(`/youth-place/${placeId}`)}>
       <div className={styles.contentsWrapper}>
@@ -41,10 +31,7 @@ export default function PlaceCard({ place }: Props) {
         </div>
         <div className={styles.infoWrapper}>
           <p className={styles.operation}>{operation}</p>
-          <button className={styles.shareIcon} onClick={onOpenGraph}>
-            <ShareSvg className={styles.icon} width="16" height="16" />
-          </button>
-          {isShowOG && <OpenGraph />}
+          <SnsShare />
           <p className={styles.title}>{title}</p>
           <p className={styles.fullLocation}>{fullLocation}</p>
           <p className={styles.cost}>{cost}</p>
