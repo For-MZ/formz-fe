@@ -21,6 +21,7 @@ export default function PlaceCard({ place }: Props) {
     viewCount,
     recommendCount,
   } = place;
+  const homePage = 'https://www.naver.com'; //TODO
 
   return (
     <section className={styles.container} onClick={() => router.push(`/youth-place/${placeId}`)}>
@@ -31,7 +32,7 @@ export default function PlaceCard({ place }: Props) {
         </div>
         <div className={styles.infoWrapper}>
           <p className={styles.operation}>{operation}</p>
-          <SnsShare />
+          <SnsShare homePageUrl={homePage} />
           <p className={styles.title}>{title}</p>
           <p className={styles.fullLocation}>{fullLocation}</p>
           <p className={styles.cost}>{cost}</p>

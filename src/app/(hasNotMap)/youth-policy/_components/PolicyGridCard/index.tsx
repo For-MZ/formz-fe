@@ -22,6 +22,7 @@ export default function PolicyGridCard({ policy }: Props) {
     viewCount,
     recommendCount,
   } = policy;
+  const homePage = 'https://www.naver.com'; //TODO
 
   return (
     <section className={styles.container} onClick={() => router.push(`/youth-policy/${policyId}`)}>
@@ -36,7 +37,7 @@ export default function PolicyGridCard({ policy }: Props) {
             <span>{recommendCount}</span>
           </div>
         </div>
-        <SnsShare />
+        <SnsShare homePageUrl={homePage} />
       </div>
       <div className={styles.contents}>
         <p className={styles.title}>{title}</p>
