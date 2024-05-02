@@ -29,6 +29,7 @@
 
     .postMetaDataContainer {
       display: flex;
+      gap: 16px;
 
       .createdAt {
         @include body-lg-regular;

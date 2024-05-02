@@ -1,24 +1,32 @@
-import styles from './SortingRadio.module.scss';
+'use client';
+
+import SortRadio from '@/components/UI/SortRadio';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SortingRadio() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   return (
-    <form className={styles.container}>
-      <div>
-        <input type="radio" id="latestOrder" name="drone" value="latestOrder" checked />
-        <label htmlFor="latestOrder">최신순</label>
-      </div>
-      <div>
-        <input type="radio" id="likeOrder" name="drone" value="likeOrder" />
-        <label htmlFor="likeOrder">추천순</label>
-      </div>
-      <div>
-        <input type="radio" id="hitOrder" name="drone" value="hitOrder" />
-        <label htmlFor="hitOrder">조회순</label>
-      </div>
-      <div>
-        <input type="radio" id="commentCountOrder" name="drone" value="commentCountOrder" />
-        <label htmlFor="commentCountOrder">댓글순</label>
-      </div>
-    </form>
+    <SortRadio
+      options={[
+        { value: 'latest', labelText: '최신순' },
+        { value: 'like', labelText: '추천순' },
+        { value: 'hit', labelText: '조회순' },
+        { value: 'commentCount', labelText: '댓글순' },
+      ]}
+      selectedOption={searchParams.get('order') || 'latest'}
+      name="order"
+      onChange={(event) => {
+        const newSearchParams = new URLSearchParams(searchParams);
+        if (event.target.value === 'latest') {
+          newSearchParams.delete('order');
+          router.push(`/community/posts?${newSearchParams.toString()}`);
+          return;
+        }
+        newSearchParams.set('order', event.target.value);
+        router.push(`/community/posts?${newSearchParams.toString()}`);
+      }}
+    />
   );
 }

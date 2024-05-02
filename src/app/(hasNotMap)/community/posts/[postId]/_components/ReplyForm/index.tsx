@@ -3,25 +3,31 @@
 import styles from './ReplyForm.module.scss';
 import TextField from '@/components/UI/TextField';
 import Button from '@/components/UI/Button';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import useInput from '@/hooks/useInput';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createReply } from '../../_services/createReply';
 import Avatar from '@/components/UI/Avatar';
 
 type Props = {
   commentId: string;
   content?: string;
+  setIsVisibleReplyList: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function ReplyForm({ commentId, content }: Props) {
+export default function ReplyForm({ commentId, content, setIsVisibleReplyList }: Props) {
   const [replyValue, handleChangeReplyValue, initValue] = useInput(content || '');
   const [isVisibleMutationButtons, setIsVisibleMutationButtons] = useState<boolean>(false);
+  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: () => createReply({ commentId, content: replyValue }),
     onSuccess: (data) => {
       alert('답글 작성 성공');
-      // TODO getReplies invalidate
+      queryClient.invalidateQueries({
+        queryKey: ['community', 'posts', 'comments', commentId, 'replies'],
+      });
+      setIsVisibleReplyList(true); // 답글 리스트 열기
+      initValue();
     },
     onError: () => {
       alert('답글 작성 실패');
@@ -59,7 +65,9 @@ export default function ReplyForm({ commentId, content }: Props) {
             className={styles.cancel}
             design="outline"
             text="취소"
-            onClick={initValue}
+            onClick={() => {
+              initValue();
+            }}
           />
           <Button type="submit" className={styles.write} design="filled" text="답글 작성" />
         </div>
