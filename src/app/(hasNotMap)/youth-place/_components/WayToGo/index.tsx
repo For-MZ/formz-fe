@@ -24,6 +24,8 @@ const place: FullPlace = {
   homepage: 'https://blog.naver.com/yongsanyouthspace',
   counseling: '가능(예약)',
   image: faker.image.urlLoremFlickr(),
+  viewCount: 10,
+  recommendCount: 20,
 };
 
 export default function WayToGo() {

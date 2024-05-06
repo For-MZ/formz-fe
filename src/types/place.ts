@@ -23,6 +23,8 @@ export type FullPlace = {
   homepage: string;
   counseling: string;
   image: string;
+  viewCount: number;
+  recommendCount: number;
 };
 
 export type DetailPlace = { spcType: string; description: string; capacity: string }[];

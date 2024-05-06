@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/UI/Button';
 import styles from './ButtonWrapper.module.scss';
 import ExternalLink from '/public/icons/external-link.svg';
-import ThumbsUp from '/public/icons/thumbs-up.svg';
 import { FullPlace } from '@/types/place';
 import { faker } from '@faker-js/faker';
 
@@ -37,7 +36,6 @@ export default function ButtonWrapper() {
         onClick={handleGoToHomepage}
       />
       <Button text="이전 화면으로" design="outline" onClick={() => router.back()} />
-      <Button text="10" design="outline" LeftIcon={ThumbsUp} />
     </div>
   );
 }

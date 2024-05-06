@@ -1,5 +1,6 @@
 import { DetailPlace } from '@/types/place';
 import styles from './PlaceDetailInfo.module.scss';
+import { forwardRef } from 'react';
 
 const placeDetailType: DetailPlace = [
   {
@@ -21,9 +22,9 @@ const placeDetailType: DetailPlace = [
   },
 ];
 
-export default function PlaceDetailInfo() {
+const PlaceDetailInfo = forwardRef<HTMLDivElement>((_, ref) => {
   return (
-    <section className={styles.container}>
+    <section ref={ref} className={styles.container}>
       <h5>장소 유형별 상세 정보</h5>
       <div className={styles.detailTable}>
         <div className={styles.titleWrapper}>
@@ -45,4 +46,8 @@ export default function PlaceDetailInfo() {
       </div>
     </section>
   );
-}
+});
+
+PlaceDetailInfo.displayName = 'PlaceDetailInfo';
+
+export default PlaceDetailInfo;

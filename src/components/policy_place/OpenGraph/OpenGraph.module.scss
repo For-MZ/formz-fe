@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  position: absolute;
+  top: 10;
+  left: 0;
+  padding: 16px;
+  min-width: 336px;
+  border-radius: 12px;
+  z-index: 9999;
+  background-color: $background-primary-color;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  h6 {
+    @include heading-h6;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  &:hover {
+    svg {
+      path {
+        fill: $icon-interactive-primary-color;
+      }
+    }
+  }
+}
+
+.snsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+.snsContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  .twitter {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    @include body-sm-regular;
+    color: $text-primary-color;
+  }
+}
+
+.copyForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    padding: 15.5px 16px;
+    border-radius: 4px;
+    border: 1px solid $border-secondary-color;
+    &::placeholder {
+      @include body-md-regular;
+    }
+  }
+
+  .button {
+    @include body-md-semibold;
+  }
+}
