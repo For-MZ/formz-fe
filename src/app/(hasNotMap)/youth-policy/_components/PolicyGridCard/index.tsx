@@ -2,7 +2,7 @@
 
 import styles from './PolicyGridCard.module.scss';
 import { useRouter } from 'next/navigation';
-import { SimplePolicy } from '@/types/policy';
+import { ProgressType, SimplePolicy } from '@/types/policy';
 import Image from 'next/image';
 import SnsShare from '@/components/policy_place/SnsShare';
 
@@ -19,10 +19,10 @@ export default function PolicyGridCard({ policy }: Props) {
     policyField,
     organization,
     progress,
+    url,
     viewCount,
     recommendCount,
   } = policy;
-  const homePage = 'https://www.naver.com'; //TODO
 
   return (
     <section className={styles.container} onClick={() => router.push(`/youth-policy/${policyId}`)}>
@@ -37,7 +37,7 @@ export default function PolicyGridCard({ policy }: Props) {
             <span>{recommendCount}</span>
           </div>
         </div>
-        <SnsShare homePageUrl={homePage} />
+        <SnsShare homePageUrl={url} />
       </div>
       <div className={styles.contents}>
         <p className={styles.title}>{title}</p>
@@ -45,9 +45,24 @@ export default function PolicyGridCard({ policy }: Props) {
         <p className={styles.organization}>{organization}</p>
       </div>
       <div className={styles.bottomArea}>
-        <p className={styles.progress}>{progress}</p>
+        <p className={`${styles.progress} ${getProgressStyle(progress)}`}>{progress}</p>
         <p className={styles.field}>{policyField}</p>
       </div>
     </section>
   );
 }
+
+const getProgressStyle = (progress: ProgressType) => {
+  switch (progress) {
+    case '진행중':
+      return styles.inProgress;
+    case '진행 예정':
+      return styles.scheduled;
+    case '상시':
+      return styles.ongoing;
+    case '홈페이지 확인':
+      return styles.homepageCheck;
+    default:
+      return '';
+  }
+};

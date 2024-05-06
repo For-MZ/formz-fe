@@ -4,8 +4,10 @@ export type SimplePolicy = {
   description: string;
   policyField: string;
   organization: string;
-  // progress: '상시' | '진행 예정' | '진행중' | '신청 마감';
-  progress: string;
+  progress: ProgressType;
+  url: string;
   viewCount: number;
   recommendCount: number;
 };
+
+export type ProgressType = '상시' | '진행 예정' | '진행중' | '홈페이지 확인';

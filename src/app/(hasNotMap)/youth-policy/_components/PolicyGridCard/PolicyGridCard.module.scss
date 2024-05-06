@@ -2,9 +2,14 @@
   @include shadow3;
   position: relative;
   width: 288px;
+  min-height: 208px;
   padding: 16px;
   border-radius: 12px;
   background-color: $background-primary-color;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .infoWrapper {
@@ -50,6 +55,10 @@
     // 피그마와 차이
     @include body-sm-regular;
     color: $text-primary-color;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .organization {
@@ -67,10 +76,28 @@
     // TODO
     // background-color: #21ca7b;
     // opacity: 10%;
-    background-color: rgba(33, 202, 123, 0.1);
-    color: $text-interactive-primary-color;
     border-radius: 8px;
     padding: 8px 12px;
+  }
+
+  .inProgress {
+    background-color: rgba(33, 202, 123, 0.1);
+    color: $text-interactive-primary-color;
+  }
+
+  .scheduled {
+    background-color: $background-info-subtle-color;
+    color: $text-info-color;
+  }
+
+  .ongoing {
+    background-color: $background-disabled-color;
+    color: $text-interactive-secondary-press-color;
+  }
+
+  .homepageCheck {
+    background-color: $background-danger-subtle-color;
+    color: $text-danger-color;
   }
 
   .field {
@@ -80,5 +107,6 @@
     // TODO round 의미
     border-radius: 20px;
     padding: 8px 12px;
+    white-space: nowrap;
   }
 }
