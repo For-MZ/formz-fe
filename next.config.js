@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: `https://www.youthcenter.go.kr/opi/:path*`,
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

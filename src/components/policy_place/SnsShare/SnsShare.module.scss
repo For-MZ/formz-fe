@@ -1,0 +1,13 @@
+.shareIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  &:hover {
+    .icon {
+      path {
+        fill: $icon-interactive-primary-color;
+      }
+    }
+  }
+}

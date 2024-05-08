@@ -2,6 +2,8 @@ import styles from './PlaceMainInfo.module.scss';
 import { FullPlace } from '@/types/place';
 import Image from 'next/image';
 import { faker } from '@faker-js/faker';
+import IconCounter from '@/components/policy_place/IconCounter';
+import { forwardRef } from 'react';
 
 const place: FullPlace = {
   spcId: '202403260001',
@@ -16,13 +18,16 @@ const place: FullPlace = {
   homepage: 'https://blog.naver.com/yongsanyouthspace',
   counseling: '가능(예약)',
   image: faker.image.urlLoremFlickr(),
+  viewCount: 20,
+  recommendCount: 8,
 };
 
-export default function PlaceMainInfo() {
+const PlaceMainInfo = forwardRef<HTMLDivElement>((_, ref) => {
   return (
-    <div className={styles.container}>
+    <div ref={ref} className={styles.container}>
       <Image src={place.image} alt="청년공간 대표 이미지" width={360} height={360} />
       <section className={styles.infoWrapper}>
+        <IconCounter viewCount={place.viewCount} recommendCount={place.recommendCount} />
         <h5>{place.spcName}</h5>
         <div>
           <p>센터 번호</p>
@@ -67,4 +72,8 @@ export default function PlaceMainInfo() {
       </section>
     </div>
   );
-}
+});
+
+PlaceMainInfo.displayName = 'PlaceMainInfo';
+
+export default PlaceMainInfo;

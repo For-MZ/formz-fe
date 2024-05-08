@@ -29,7 +29,7 @@ export default function FilterablePlaces() {
         onChangeSortOption={onChangeSortOption}
       />
       <PlaceGrid selectedOption={selectedOption} />
-      <Pagination totalPages={10} currentPage={currentPage} onChangePage={handlePageChange} />
+      <Pagination totalItemCount={10} currentPage={currentPage} onChangePage={handlePageChange} />
     </>
   );
 }

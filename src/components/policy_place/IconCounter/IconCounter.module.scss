@@ -1,0 +1,17 @@
+.iconWrapper {
+  display: flex;
+  gap: 8px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    svg {
+      color: $icon-secondary-color;
+    }
+    span {
+      color: $text-secondary-color;
+    }
+  }
+}

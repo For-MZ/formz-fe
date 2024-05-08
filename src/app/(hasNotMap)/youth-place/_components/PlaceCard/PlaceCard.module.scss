@@ -1,10 +1,16 @@
 .container {
   position: relative;
   width: 288px;
+  margin: 0 auto;
   padding: 16px;
   border-radius: 12px;
   background-color: $background-primary-color;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04); // todo: 변수로 바꿔야 함
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04); // TODO : 변수로 바꿔야 함
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
 }
 
 // contentsWrapper (imageWrapper, infoWrapper)
@@ -60,16 +66,7 @@
   color: $text-secondary-color;
   font-size: 14px;
 }
-.shareIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  .icon {
-    path {
-      fill: $icon-interactive-primary-color; // todo
-    }
-  }
-}
+
 .cost {
   margin-top: 19px;
   font-size: 14px; // todo

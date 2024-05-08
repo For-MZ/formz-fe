@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   defaultView: 'card' | 'map';
+  className?: string;
 };
 
-export default function ToggleButton({ defaultView }: Props) {
+export default function ToggleButton({ defaultView, className }: Props) {
   const router = useRouter();
   const [viewFormat, setViewFormat] = useState<'card' | 'map'>(defaultView);
   const handleToggleButton = (viewFormat: 'card' | 'map') => {
@@ -23,7 +24,7 @@ export default function ToggleButton({ defaultView }: Props) {
     }
   };
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`}>
       <button
         className={viewFormat === 'card' ? styles.selected : styles.unseleceted}
         onClick={() => handleToggleButton('card')}
