@@ -1,0 +1,27 @@
+.radioWrapper {
+  display: flex;
+  gap: 16px;
+
+  label {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+    input[type='radio']:checked {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 0 1px $border-interactive-primary-color;
+      border-radius: 50%;
+      border: 3px solid white;
+      background-color: $border-interactive-primary-color;
+    }
+    input[type='radio'] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 0 1px $border-interactive-primary-color;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}

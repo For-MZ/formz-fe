@@ -1,0 +1,49 @@
+.filterContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin: 36px 0;
+}
+
+.searchWrapper {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  .textfield {
+    flex: 1;
+    path {
+      fill: $icon-interactive-primary-color;
+    }
+  }
+
+  .moreButton {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
+
+.DropDownWrapper {
+  display: flex;
+  gap: 20px;
+  div.dropdown {
+    width: 100%;
+  }
+}
+
+.ageWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  p {
+    white-space: nowrap;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 30px 0;
+}

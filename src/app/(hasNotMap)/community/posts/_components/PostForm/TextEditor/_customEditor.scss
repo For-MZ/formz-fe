@@ -1,0 +1,41 @@
+.ql-container {
+  height: 500px;
+}
+
+.ql-toolbar.ql-snow {
+  border: none;
+  border: 1px solid $border-secondary-color;
+  border-radius: 4px;
+  padding: 12px;
+  background-color: $background-interactive-secondary-color;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border: 1px solid $border-secondary-color;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.ql-container.ql-snow {
+  @include body-md-regular;
+}
+
+// 텍스트 부분 텍스트 에디터 박스 다 차지하게 상속
+.ql-editor,
+.ql-editor.ql-blank {
+  height: inherit;
+}
+
+// placeholder 스타일
+.ql-editor.ql-blank::before {
+  color: $text-interactive-secondary-color;
+  font-style: normal;
+  @include body-md-regular;
+}
+
+// 에러 상태일때 컨테이너만 스타일링
+.quill.error .ql-container.ql-snow {
+  border-color: $border-danger-color;
+}

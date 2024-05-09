@@ -1,0 +1,112 @@
+.container {
+  @include shadow3;
+  position: relative;
+  width: 288px;
+  min-height: 208px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: $background-primary-color;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.infoWrapper {
+  position: relative;
+}
+
+// TODO
+// 조회/추천 아이콘 및 숫자
+.iconWrapper {
+  display: flex;
+  gap: 8px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    svg {
+      width: 12px;
+      height: 12px;
+      path {
+        fill: $icon-secondary-color;
+      }
+    }
+    span {
+      font-size: 12px;
+      color: $icon-secondary-color;
+    }
+  }
+}
+
+.contents {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // 피그마와 차이
+
+  .title {
+    @include body-md-semibold;
+    color: $text-primary-color;
+  }
+
+  .description {
+    // 피그마와 차이
+    @include body-sm-regular;
+    color: $text-primary-color;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .organization {
+    @include body-sm-regular;
+    color: $text-secondary-color;
+  }
+}
+
+.bottomArea {
+  display: flex;
+  justify-content: space-between;
+
+  .progress {
+    @include body-sm-regular;
+    // TODO
+    // background-color: #21ca7b;
+    // opacity: 10%;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
+  .inProgress {
+    background-color: rgba(33, 202, 123, 0.1);
+    color: $text-interactive-primary-color;
+  }
+
+  .scheduled {
+    background-color: $background-info-subtle-color;
+    color: $text-info-color;
+  }
+
+  .ongoing {
+    background-color: $background-disabled-color;
+    color: $text-interactive-secondary-press-color;
+  }
+
+  .homepageCheck {
+    background-color: $background-danger-subtle-color;
+    color: $text-danger-color;
+  }
+
+  .field {
+    @include body-sm-regular;
+    border: 1px solid $border-interactive-primary-color;
+    color: $text-interactive-primary-color;
+    // TODO round 의미
+    border-radius: 20px;
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+}

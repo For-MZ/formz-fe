@@ -1,0 +1,26 @@
+h5.tableTitle {
+  @include heading-h5;
+  margin-bottom: 36px;
+  padding: 16px 0;
+  border-bottom: 1px solid $border-disabled-color;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+
+  .listTitle {
+    min-width: 164px;
+  }
+
+  .listContent {
+    @include body-md-regular;
+  }
+}

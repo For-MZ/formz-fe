@@ -3,7 +3,8 @@
   @include body-lg-medium;
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: $z-index-fixed;
+  background-color: $background-primary-color;
 
   .link {
     display: block;
@@ -24,7 +25,6 @@
   .navigation {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: $background-primary-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,6 +39,9 @@
       gap: 8px;
     }
   }
+}
+.logo {
+  height: 30px;
 }
 
 .loginUser {

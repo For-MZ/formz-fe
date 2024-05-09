@@ -1,0 +1,15 @@
+.replyFormOpenButton {
+  background-color: transparent;
+  color: $text-primary-color;
+  width: 25px;
+  padding: 8px 0;
+  @include body-md-semibold;
+  position: absolute;
+  top: -6px;
+  left: 60px;
+}
+
+.replyListToggle {
+  padding: 8px 0;
+  align-self: flex-start;
+}

@@ -1,11 +1,17 @@
-.container {
+.textField {
+  background-color: $background-primary-color;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  .label {
+    @include body-md-medium;
+    color: $text-primary-color;
+  }
 }
 
-.inputWrapper {
-  height: 48px;
+.input {
   border: 1px solid $border-secondary-color;
   border-radius: 4px;
   display: flex;
@@ -33,9 +39,9 @@
   }
 }
 
-.input {
+.realInput {
+  @include body-md-regular;
   flex-grow: 1;
-  font-size: 14px;
   border: none;
 
   &:focus {
@@ -50,10 +56,20 @@
 
   &::placeholder {
     color: $text-interactive-secondary-color;
+    @include body-md-regular;
   }
 }
 
 .icon {
   width: 20px;
   height: 20px;
+}
+
+.helpMessage {
+  color: $text-primary-color;
+  @include body-sm-regular;
+
+  &.errorHelpMessage {
+    color: $text-danger-color;
+  }
 }

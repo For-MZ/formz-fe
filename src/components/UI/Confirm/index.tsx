@@ -1,37 +1,50 @@
+'use client';
+
 import { createPortal } from 'react-dom';
 import styles from './confirm.module.scss';
+import Button from '../Button';
 
 type Props = {
-  children: React.ReactNode;
-  onConfirm: () => void;
-  onCancel: () => void;
-  heading?: string;
+  children?: React.ReactNode;
+  heading: string;
+  onClickCancelButton: () => void;
+  onClickRightButton: () => void;
   rightButtonText: string;
 };
 
-export default function Confirm({ children, onConfirm, onCancel, heading, rightButtonText }: Props) {
+export default function Confirm({
+  children,
+  heading,
+  onClickCancelButton,
+  onClickRightButton,
+  rightButtonText,
+}: Props) {
   const portalElement = document.getElementById('portal') as Element;
 
-  const handleClose: React.MouseEventHandler = (event) => {
+  const handleClose = (event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    // 이벤트 버블링 막기
     if (event.target === event.currentTarget) {
-      onCancel();
+      onClickCancelButton();
     }
   };
 
-  const handleConfirm: React.MouseEventHandler = () => {
-    onConfirm();
+  const handleClickRightButton = () => {
+    onClickRightButton?.();
   };
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleClose}>
-      <div className={styles.modalContainer}>
-        <h6>{heading}</h6>
-        <div className={styles.contentContainer}>
-          <p>{children}</p>
-          <div className={styles.buttons}>
-            <button onClick={handleClose}>취소</button>
-            <button onClick={handleConfirm}>{rightButtonText}</button>
-          </div>
+      <div className={styles.modal}>
+        <p className={styles.title}>{heading}</p>
+        <p className={styles.content}>{children}</p>
+        <div className={styles.buttons}>
+          <Button design="outline" text="취소" className={styles.button} onClick={handleClose} />
+          <Button
+            design="filled"
+            text={rightButtonText}
+            className={styles.button}
+            onClick={handleClickRightButton}
+          />
         </div>
       </div>
     </div>,

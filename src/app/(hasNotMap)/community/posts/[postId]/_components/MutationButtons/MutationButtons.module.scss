@@ -1,0 +1,15 @@
+.mutationButtons {
+  display: flex;
+  gap: 16px;
+  align-self: flex-end;
+
+  .edit {
+    @include body-md-semibold;
+    color: $text-interactive-primary-color;
+  }
+
+  .delete {
+    @include body-md-semibold;
+    color: $text-danger-color;
+  }
+}

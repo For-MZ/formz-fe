@@ -1,0 +1,60 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.firstRowContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .authorImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .textMetaDataContainer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .author {
+      @include heading-h6;
+    }
+
+    .postMetaDataContainer {
+      display: flex;
+      gap: 16px;
+
+      .createdAt {
+        @include body-lg-regular;
+        color: $text-secondary-color;
+      }
+
+      .hitsBox {
+        display: flex;
+        gap: 8px;
+        @include body-lg-semibold;
+      }
+    }
+  }
+}
+
+.secondRowContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .title {
+    @include heading-h5;
+  }
+}
+
+.content {
+  @include body-md-regular;
+}

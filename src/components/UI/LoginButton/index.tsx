@@ -1,30 +1,29 @@
-'use client';
-
+import React from 'react';
 import styles from './LoginButton.module.scss';
-import Image, { StaticImageData } from 'next/image';
-import kakaoIcon from '/public/icons/kakaotalk.svg';
-import googleIcon from '/public/icons/google.svg';
+import KakaoIcon from '/public/icons/kakaotalk.svg';
+import GoogleIcon from '/public/icons/google.svg';
+import NaverIcon from '/public/icons/naver.svg';
 
-type ButtonType = 'default' | 'kakaoTalk' | 'google';
+type ButtonType = 'default' | 'kakaoTalk' | 'google' | 'naver';
 type ButtonInfo = {
-  icon: string | StaticImageData;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | undefined;
   text: string;
+  handleLogin: () => void;
 };
 const buttonInfo: Record<ButtonType, ButtonInfo> = {
-  default: { icon: '', text: '로그인' },
-  kakaoTalk: { icon: kakaoIcon, text: '카카오로 로그인' },
-  google: { icon: googleIcon, text: '구글로 로그인' },
+  default: { Icon: undefined, text: '로그인', handleLogin: () => {} },
+  kakaoTalk: { Icon: KakaoIcon, text: '카카오로 로그인', handleLogin: () => {} },
+  naver: { Icon: NaverIcon, text: '네이버로 로그인', handleLogin: () => {} },
+  google: { Icon: GoogleIcon, text: '구글로 로그인', handleLogin: () => {} },
 };
 
-type Props = { type: ButtonType };
+type Props = { type: ButtonType; handleLogin: () => void }; // 수정
 
-export default function LoginButton({ type }: Props) {
-  const handleLogin = () => {};
-  const { icon, text } = buttonInfo[type];
-
+export default function LoginButton({ type, handleLogin }: Props) {
+  const { Icon, text } = buttonInfo[type]; // 수정
   return (
     <button className={`${styles.loginBtn} ${styles[type]}`} onClick={handleLogin}>
-      {icon && <Image src={icon} alt={`${text} 아이콘`} className={`${styles.icon} ${styles[type]}`} />}
+      {Icon && <Icon className={`${styles.icon} ${styles[type]}`} />}
       <span className={`${styles.text} ${styles[type]}`}>{text}</span>
     </button>
   );

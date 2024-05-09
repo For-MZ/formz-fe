@@ -1,15 +1,17 @@
+'use client';
+
 import { useState } from 'react';
 
-export default function useModal(): [boolean, React.MouseEventHandler<HTMLElement>, () => void] {
+export default function useModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onOpen = () => {
+  const openModal = () => {
     setIsOpen(true);
   };
 
-  const onClose = () => {
+  const closeModal = () => {
     setIsOpen(false);
   };
 
-  return [isOpen, onOpen, onClose];
+  return { isOpen, openModal, closeModal };
 }

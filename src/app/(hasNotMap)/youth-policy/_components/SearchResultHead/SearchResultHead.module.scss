@@ -1,0 +1,13 @@
+.header {
+  margin: 36px 0 24px;
+  padding: 9.5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // "검색 결과" 텍스트
+  h5 {
+    @include heading-h5;
+    color: $text-primary-color;
+  }
+}

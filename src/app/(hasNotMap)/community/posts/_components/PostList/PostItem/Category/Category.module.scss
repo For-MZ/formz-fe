@@ -1,0 +1,9 @@
+.category {
+  align-self: flex-start;
+  background-color: $background-interactive-primary-hover-subtle-color;
+  color: $text-interactive-primary-color;
+  padding: 8px 12px;
+  border-radius: 8px;
+  @include body-sm-regular;
+  text-wrap: nowrap;
+}

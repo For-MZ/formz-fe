@@ -1,19 +1,26 @@
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+.container {
   background-color: #2f3740;
-  width: 100%;
+  width: 100dvw;
   height: 180px;
-  position: relative;
-  transform: translateY(-100%);
+  padding: 52px 0;
 }
 
-.leftSection {
+.footer {
+  width: 1080px;
+  margin: 0 auto;
+}
+
+.logo {
+  margin-bottom: 16px;
+  height: 50px;
+}
+
+.bottom {
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
   .copyright {
+    @include body-md-regular;
     color: #bdbdbd;
   }
 }
@@ -23,6 +30,11 @@
   justify-content: space-between;
   gap: 2rem;
   a {
+    @include heading-h6;
     color: #bdbdbd;
+  }
+  .icon {
+    width: 20px;
+    color: $icon-disabled-color;
   }
 }

@@ -1,0 +1,60 @@
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+.pageWrapper {
+  margin: 60px 0 118px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+// 핵심 정보
+.keyInfo {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.categories {
+  display: flex;
+  gap: 16px;
+
+  // 정책 분야
+  .field {
+    @include body-sm-regular;
+    border: 1px solid $border-interactive-primary-color;
+    color: $text-interactive-primary-color;
+    // TODO round 의미
+    border-radius: 20px;
+    padding: 8px 12px;
+  }
+
+  // 진행 상태
+  .progress {
+    @include body-sm-regular;
+    // TODO
+    // background-color: #21ca7b;
+    // opacity: 10%;
+    background-color: rgba(33, 202, 123, 0.1);
+    color: $text-interactive-primary-color;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+}
+
+// 정책 이름
+.title {
+  @include heading-h3;
+  margin: 16px 0 8px;
+}
+
+// 정책 간단 설명
+.description {
+  color: $text-secondary-color;
+  margin-bottom: 24px;
+}
+
+.iconCounter {
+  justify-content: center;
+}
