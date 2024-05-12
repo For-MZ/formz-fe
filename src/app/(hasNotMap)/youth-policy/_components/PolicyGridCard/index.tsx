@@ -25,7 +25,7 @@ export default function PolicyGridCard({ policy }: Props) {
   } = policy;
 
   return (
-    <section className={styles.container} onClick={() => router.push(`/youth-policy/${policyId}`)}>
+    <section className={styles.container}>
       <div className={styles.infoWrapper}>
         <div className={styles.iconWrapper}>
           <div className={styles.icon}>
@@ -40,7 +40,9 @@ export default function PolicyGridCard({ policy }: Props) {
         <SnsShare homePageUrl={url} />
       </div>
       <div className={styles.contents}>
-        <p className={styles.title}>{title}</p>
+        <p className={styles.title} onClick={() => router.push(`/youth-policy/${policyId}`)}>
+          {title}
+        </p>
         <p className={styles.description}>{description}</p>
         <p className={styles.organization}>{organization}</p>
       </div>
